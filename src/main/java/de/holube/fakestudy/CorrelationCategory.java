@@ -6,6 +6,7 @@ public class CorrelationCategory extends NumCategory {
     private double min;
     private double max;
     private Distribution distribution;
+    private Correlator correlator;
 
     public CorrelationCategory(NumberCategory origin) {
         this.origin = origin;
@@ -16,7 +17,7 @@ public class CorrelationCategory extends NumCategory {
         results = new double[amountSubjects];
 
         for (int i = 0; i < results.length; i++) {
-            double value = correlate(
+            double value = correlator.correlate(
                     origin.getDistribution().getMin().doubleValue(),
                     origin.getDistribution().getMax().doubleValue(),
                     origin.getDoubleResults()[i],
@@ -28,14 +29,6 @@ public class CorrelationCategory extends NumCategory {
             results[i] = value;
             results[i] = Math.round(results[i] * Math.pow(10, decimalPlaces)) / Math.pow(10, decimalPlaces);
         }
-    }
-
-    private double correlate(double firstMin, double firstMax, double value, double secondMin, double secondMax) {
-        value -= firstMin;
-        double firstPercent = value / (firstMax - firstMin);
-
-        value = firstPercent * (secondMax - secondMin);
-        return value + secondMin;
     }
 
     public NumCategory getOrigin() {
@@ -64,5 +57,13 @@ public class CorrelationCategory extends NumCategory {
 
     public void setMax(double max) {
         this.max = max;
+    }
+
+    public Correlator getCorrelator() {
+        return correlator;
+    }
+
+    public void setCorrelator(Correlator correlator) {
+        this.correlator = correlator;
     }
 }

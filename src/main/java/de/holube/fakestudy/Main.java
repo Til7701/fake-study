@@ -88,6 +88,7 @@ public class Main {
         );
         e.setDistribution(eDistribution);
         e.setDecimalPlaces(0);
+        e.setCorrelator(new InvertedCorrelator());
         e.setMissingValue(-1);
         e.setMissingPercentage(new VariableNumber(DEFAULT_MISSING_PERCENTAGE_BASE, DEFAULT_MISSING_PERCENTAGE_DIFF).doubleValue());
 
