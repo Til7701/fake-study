@@ -23,6 +23,7 @@ public class Study {
         keys.sort(String::compareTo);
 
         for (String key : keys) {
+            System.out.println("calculating " + categories.get(key).getName());
             categories.get(key).calculate(amountSubjects);
         }
 
