@@ -14,6 +14,11 @@ public class StaticCategory extends Category {
     }
 
     @Override
+    public void setMissing() {
+        // nothing to do
+    }
+
+    @Override
     public String[] getStringResults() {
         return results;
     }

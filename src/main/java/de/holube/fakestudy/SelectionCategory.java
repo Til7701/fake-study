@@ -12,6 +12,7 @@ public class SelectionCategory extends Category {
     private final List<String> selection;
     private int min;
     private int max;
+    private String missingValue;
 
     private String[] results;
 
@@ -39,6 +40,15 @@ public class SelectionCategory extends Category {
     }
 
     @Override
+    public void setMissing() {
+        for (int i = 0; i < results.length; i++) {
+            if (Math.random() < missingPercentage) {
+                results[i] = missingValue;
+            }
+        }
+    }
+
+    @Override
     public String[] getStringResults() {
         return results;
     }
@@ -61,5 +71,13 @@ public class SelectionCategory extends Category {
 
     public void setMax(int max) {
         this.max = max;
+    }
+
+    public String getMissingValue() {
+        return missingValue;
+    }
+
+    public void setMissingValue(String missingValue) {
+        this.missingValue = missingValue;
     }
 }

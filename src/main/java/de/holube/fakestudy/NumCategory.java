@@ -9,8 +9,18 @@ public abstract class NumCategory extends Category {
 
     protected double[] results;
 
+    protected double missingValue;
+
     public double[] getDoubleResults() {
         return results;
+    }
+
+    @Override
+    public void setMissing() {
+        for (int i = 0; i < results.length; i++) {
+            if (Math.random() < missingPercentage)
+                results[i] = missingValue;
+        }
     }
 
     @Override
@@ -42,5 +52,13 @@ public abstract class NumCategory extends Category {
 
     public void setDecimalPlaces(int decimalPlaces) {
         this.decimalPlaces = decimalPlaces;
+    }
+
+    public double getMissingValue() {
+        return missingValue;
+    }
+
+    public void setMissingValue(double missingValue) {
+        this.missingValue = missingValue;
     }
 }

@@ -28,6 +28,12 @@ public class Study {
 
     }
 
+    public void setMissing() {
+        for (Category category : categories.values()) {
+            category.setMissing();
+        }
+    }
+
     public void add(String key, Category category) {
         categories.put(key, category);
         entryOrder.add(key);

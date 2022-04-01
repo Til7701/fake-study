@@ -19,6 +19,7 @@ public class Main {
 
         for (Study study : studies) {
             study.calculate();
+            study.setMissing();
         }
 
         for (int i = 0; i < NUMBER_OF_STUDIES; i++) {
@@ -41,6 +42,8 @@ public class Main {
         b.getSelection().add("w");
         b.setMin((NUMBER_OF_SUBJECTS / 2) - 10);
         b.setMax((NUMBER_OF_SUBJECTS / 2) + 10);
+        b.setMissingValue("u");
+        b.setMissingPercentage(new VariableNumber(0.075, 0.025).doubleValue());
 
         NumberCategory c = new NumberCategory();
         study.add("C", c);
@@ -53,6 +56,8 @@ public class Main {
         );
         c.setDistribution(cDistribution);
         c.setDecimalPlaces(0);
+        c.setMissingValue(-1);
+        c.setMissingPercentage(new VariableNumber(0.075, 0.025).doubleValue());
 
         NumberCategory d = new NumberCategory();
         study.add("D", d);
@@ -65,6 +70,8 @@ public class Main {
         );
         d.setDistribution(dDistribution);
         d.setDecimalPlaces(1);
+        d.setMissingValue(-1);
+        d.setMissingPercentage(new VariableNumber(0.075, 0.025).doubleValue());
 
         CorrelationCategory e = new CorrelationCategory(d);
         study.add("E", e);
@@ -79,6 +86,8 @@ public class Main {
         );
         e.setDistribution(eDistribution);
         e.setDecimalPlaces(0);
+        e.setMissingValue(-1);
+        e.setMissingPercentage(new VariableNumber(0.075, 0.025).doubleValue());
 
         SelectionCategory f = new SelectionCategory();
         study.add("F", f);
@@ -90,6 +99,8 @@ public class Main {
         f.getSelection().add("g");
         f.setMin(5);
         f.setMax(40);
+        f.setMissingValue("u");
+        f.setMissingPercentage(new VariableNumber(0.075, 0.025).doubleValue());
 
         SelectionCategory g = new SelectionCategory();
         study.add("G", g);
@@ -100,6 +111,8 @@ public class Main {
         g.getSelection().add("SH");
         g.setMin(5);
         g.setMax(40);
+        g.setMissingValue("u");
+        g.setMissingPercentage(new VariableNumber(0.075, 0.025).doubleValue());
 
         SelectionCategory h = new SelectionCategory();
         study.add("H", h);
@@ -113,6 +126,8 @@ public class Main {
         h.getSelection().add("A");
         h.setMin(5);
         h.setMax(40);
+        h.setMissingValue("u");
+        h.setMissingPercentage(new VariableNumber(0.075, 0.025).doubleValue());
 
         NumberCategory i = new NumberCategory();
         study.add("I", i);
@@ -125,6 +140,8 @@ public class Main {
         );
         i.setDistribution(iDistribution);
         i.setDecimalPlaces(2);
+        i.setMissingValue(-1);
+        i.setMissingPercentage(new VariableNumber(0.075, 0.025).doubleValue());
 
         NumberCategory j = new NumberCategory();
         study.add("J", j);
@@ -137,6 +154,8 @@ public class Main {
         );
         j.setDistribution(jDistribution);
         j.setDecimalPlaces(2);
+        j.setMissingValue(-1);
+        j.setMissingPercentage(new VariableNumber(0.075, 0.025).doubleValue());
 
         NumberCategory k = new NumberCategory();
         study.add("K", k);
@@ -149,6 +168,8 @@ public class Main {
         );
         k.setDistribution(kDistribution);
         k.setDecimalPlaces(2);
+        k.setMissingValue(-1);
+        k.setMissingPercentage(new VariableNumber(0.075, 0.025).doubleValue());
 
         NumberCategory l = new NumberCategory();
         study.add("L", l);
@@ -161,6 +182,8 @@ public class Main {
         );
         l.setDistribution(lDistribution);
         l.setDecimalPlaces(2);
+        l.setMissingValue(-1);
+        l.setMissingPercentage(new VariableNumber(0.075, 0.025).doubleValue());
 
         NumberCategory m = new NumberCategory();
         study.add("M", m);
@@ -173,6 +196,8 @@ public class Main {
         );
         m.setDistribution(mDistribution);
         m.setDecimalPlaces(2);
+        m.setMissingValue(-1);
+        m.setMissingPercentage(new VariableNumber(0.075, 0.025).doubleValue());
 
         NumberCategory n = new NumberCategory();
         study.add("M", n);
@@ -185,6 +210,8 @@ public class Main {
         );
         n.setDistribution(nDistribution);
         n.setDecimalPlaces(2);
+        n.setMissingValue(-1);
+        n.setMissingPercentage(new VariableNumber(0.075, 0.025).doubleValue());
 
         DiscreteNumberCategory o = new DiscreteNumberCategory();
         study.add("O", o);
@@ -197,6 +224,8 @@ public class Main {
         );
         o.setDistribution(oDistribution);
         o.setDecimalPlaces(0);
+        o.setMissingValue(-1);
+        o.setMissingPercentage(new VariableNumber(0.075, 0.025).doubleValue());
 
         DiscreteNumberCategory p = new DiscreteNumberCategory();
         study.add("P", p);
@@ -209,6 +238,8 @@ public class Main {
         );
         p.setDistribution(pDistribution);
         p.setDecimalPlaces(0);
+        p.setMissingValue(-1);
+        p.setMissingPercentage(new VariableNumber(0.075, 0.025).doubleValue());
 
         DiscreteNumberCategory q = new DiscreteNumberCategory();
         study.add("Q", q);
@@ -221,6 +252,8 @@ public class Main {
         );
         q.setDistribution(qDistribution);
         q.setDecimalPlaces(0);
+        q.setMissingValue(-1);
+        q.setMissingPercentage(new VariableNumber(0.075, 0.025).doubleValue());
 
         DiscreteNumberCategory r = new DiscreteNumberCategory();
         study.add("R", r);
@@ -233,6 +266,8 @@ public class Main {
         );
         r.setDistribution(rDistribution);
         r.setDecimalPlaces(0);
+        r.setMissingValue(-1);
+        r.setMissingPercentage(new VariableNumber(0.075, 0.025).doubleValue());
 
         DiscreteNumberCategory s = new DiscreteNumberCategory();
         study.add("S", s);
@@ -245,6 +280,8 @@ public class Main {
         );
         s.setDistribution(sDistribution);
         s.setDecimalPlaces(0);
+        s.setMissingValue(-1);
+        s.setMissingPercentage(new VariableNumber(0.075, 0.025).doubleValue());
 
         DiscreteNumberCategory t = new DiscreteNumberCategory();
         study.add("T", t);
@@ -257,6 +294,8 @@ public class Main {
         );
         t.setDistribution(tDistribution);
         t.setDecimalPlaces(0);
+        t.setMissingValue(-1);
+        t.setMissingPercentage(new VariableNumber(0.075, 0.025).doubleValue());
 
         return study;
     }
