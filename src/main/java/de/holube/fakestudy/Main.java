@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
 
         List<StudyGeneratorThread> threads = new ArrayList<>();
-        int amountOfStudiesPerThread = 5;
+        int amountOfStudiesPerThread = 1;
 
         System.out.println("generating threads");
         for (int i = 0; i < NUMBER_OF_STUDIES; i = i + amountOfStudiesPerThread) {

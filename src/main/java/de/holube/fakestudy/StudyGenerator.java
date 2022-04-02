@@ -46,10 +46,10 @@ public class StudyGenerator {
         study.add("C", c);
         c.setName("Alter");
         Distribution cDistribution = new Distribution(
-                new VariableNumber(28, 10),
-                new VariableNumber(70, 10),
+                new VariableNumber(25, 7),
+                new VariableNumber(73, 7),
                 getRandomType(),
-                new VariableNumber(10, 10)
+                new VariableNumber(10, 3)
         );
         c.setDistribution(cDistribution);
         c.setDecimalPlaces(0);
@@ -63,7 +63,7 @@ public class StudyGenerator {
                 new VariableNumber(100, 0),
                 new VariableNumber(1000, 0),
                 getOtherType(cDistribution.getType()),
-                new VariableNumber(200, 100)
+                new VariableNumber(100, 25)
         );
         d.setDistribution(dDistribution);
         d.setDecimalPlaces(1);
@@ -79,7 +79,7 @@ public class StudyGenerator {
                 new VariableNumber(-25, 5),
                 new VariableNumber(25, 5),
                 0,
-                new VariableNumber(20, 5)
+                new VariableNumber(15, 5)
         );
         e.setDistribution(eDistribution);
         e.setDecimalPlaces(0);
@@ -133,7 +133,7 @@ public class StudyGenerator {
                 new VariableNumber(60, 0),
                 new VariableNumber(300, 0),
                 getRandomType(),
-                new VariableNumber(70, 20)
+                new VariableNumber(40, 20)
         );
         i.setDistribution(iDistribution);
         i.setDecimalPlaces(1);
@@ -147,7 +147,7 @@ public class StudyGenerator {
                 new VariableNumber(60, 0),
                 new VariableNumber(300, 0),
                 getRandomType(),
-                new VariableNumber(70, 20)
+                new VariableNumber(40, 20)
         );
         j.setDistribution(jDistribution);
         j.setDecimalPlaces(1);
@@ -161,7 +161,7 @@ public class StudyGenerator {
                 new VariableNumber(60, 0),
                 new VariableNumber(300, 0),
                 getRandomType(),
-                new VariableNumber(70, 20)
+                new VariableNumber(40, 20)
         );
         k.setDistribution(kDistribution);
         k.setDecimalPlaces(1);
@@ -175,7 +175,7 @@ public class StudyGenerator {
                 new VariableNumber(1, 0),
                 new VariableNumber(100, 0),
                 getOtherType(iDistribution.getType()),
-                new VariableNumber(30, 10)
+                new VariableNumber(15, 5)
         );
         l.setDistribution(lDistribution);
         l.setDecimalPlaces(2);
@@ -189,7 +189,7 @@ public class StudyGenerator {
                 new VariableNumber(1, 0),
                 new VariableNumber(100, 0),
                 getOtherType(jDistribution.getType()),
-                new VariableNumber(30, 10)
+                new VariableNumber(15, 5)
         );
         m.setDistribution(mDistribution);
         m.setDecimalPlaces(2);
@@ -203,7 +203,7 @@ public class StudyGenerator {
                 new VariableNumber(1, 0),
                 new VariableNumber(100, 0),
                 getOtherType(kDistribution.getType()),
-                new VariableNumber(30, 10)
+                new VariableNumber(15, 5)
         );
         n.setDistribution(nDistribution);
         n.setDecimalPlaces(2);
@@ -217,7 +217,7 @@ public class StudyGenerator {
                 new VariableNumber(1, 0),
                 new VariableNumber(5, 0),
                 getRandomType(),
-                new VariableNumber(3, 1)
+                new VariableNumber(2, 0.5)
         );
         o.setDistribution(oDistribution);
         o.setDecimalPlaces(0);
@@ -231,7 +231,7 @@ public class StudyGenerator {
                 new VariableNumber(1, 0),
                 new VariableNumber(5, 0),
                 getRandomType(),
-                new VariableNumber(3, 1)
+                new VariableNumber(2, 0.5)
         );
         p.setDistribution(pDistribution);
         p.setDecimalPlaces(0);
@@ -245,7 +245,7 @@ public class StudyGenerator {
                 new VariableNumber(1, 0),
                 new VariableNumber(5, 0),
                 getRandomType(),
-                new VariableNumber(3, 1)
+                new VariableNumber(2, 0.5)
         );
         q.setDistribution(qDistribution);
         q.setDecimalPlaces(0);
@@ -259,7 +259,7 @@ public class StudyGenerator {
                 new VariableNumber(1, 0),
                 new VariableNumber(5, 0),
                 getOtherType(oDistribution.getType()),
-                new VariableNumber(3, 1)
+                new VariableNumber(2, 0.5)
         );
         r.setDistribution(rDistribution);
         r.setDecimalPlaces(0);
@@ -273,7 +273,7 @@ public class StudyGenerator {
                 new VariableNumber(1, 0),
                 new VariableNumber(5, 0),
                 getOtherType(pDistribution.getType()),
-                new VariableNumber(3, 1)
+                new VariableNumber(2, 0.5)
         );
         s.setDistribution(sDistribution);
         s.setDecimalPlaces(0);
@@ -287,7 +287,7 @@ public class StudyGenerator {
                 new VariableNumber(1, 0),
                 new VariableNumber(5, 0),
                 getOtherType(oDistribution.getType()),
-                new VariableNumber(3, 1)
+                new VariableNumber(2, 0.5)
         );
         t.setDistribution(tDistribution);
         t.setDecimalPlaces(0);
