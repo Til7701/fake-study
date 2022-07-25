@@ -197,7 +197,7 @@ public class StudyGenerator {
         m.setMissingPercentage(new VariableNumber(DEFAULT_MISSING_PERCENTAGE_BASE, DEFAULT_MISSING_PERCENTAGE_DIFF).doubleValue());
 
         NumberCategory n = new NumberCategory();
-        study.add("M", n);
+        study.add("N", n);
         n.setName("Prozentualer Spielfortschritte bei AngryBirds");
         Distribution nDistribution = new Distribution(
                 new VariableNumber(1, 0),

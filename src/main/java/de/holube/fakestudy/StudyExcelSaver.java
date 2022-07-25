@@ -42,7 +42,8 @@ public class StudyExcelSaver {
                 for (int j = 0; j < study.getEntryOrder().size(); j++) {
                     Cell cell = row.createCell(j);
                     Category category = study.getCategories().get(study.getEntryOrder().get(j));
-                    if (category instanceof NumCategory numCategory) {
+                    if (category instanceof NumCategory) {
+                        NumCategory numCategory = (NumCategory) category;
                         cell.setCellValue(numCategory.getDoubleResults()[i - 1]);
                     } else {
                         cell.setCellValue(category.getStringResults()[i - 1]);

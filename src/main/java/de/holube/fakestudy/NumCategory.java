@@ -36,11 +36,14 @@ public abstract class NumCategory extends Category {
     }
 
     protected DecimalFormat decimalFormat(int decimalPlaces) {
-        String decimalString = "#";
+        StringBuilder decimalString = new StringBuilder("#");
         if (decimalPlaces > 0) {
-            decimalString = decimalString.concat("." + "#".repeat(decimalPlaces));
+            decimalString.append(".");
+            for (int i = 0; i < decimalPlaces; i++) {
+                decimalString.append("#");
+            }
         }
-        DecimalFormat df = new DecimalFormat(decimalString);
+        DecimalFormat df = new DecimalFormat(decimalString.toString());
         df.setRoundingMode(RoundingMode.HALF_UP);
 
         return df;
