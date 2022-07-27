@@ -1,4 +1,4 @@
-package de.holube.fakestudy;
+package de.holube.fakestudy.util;
 
 import org.apache.commons.math3.distribution.NormalDistribution;
 

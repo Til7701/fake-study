@@ -1,6 +1,9 @@
-package de.holube.fakestudy;
+package de.holube.fakestudy.io;
 
 
+import de.holube.fakestudy.Study;
+import de.holube.fakestudy.category.Category;
+import de.holube.fakestudy.category.NumCategory;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 

@@ -1,4 +1,7 @@
-package de.holube.fakestudy;
+package de.holube.fakestudy.category;
+
+import de.holube.fakestudy.util.Correlator;
+import de.holube.fakestudy.util.Distribution;
 
 public class CorrelationCategory extends NumCategory {
 

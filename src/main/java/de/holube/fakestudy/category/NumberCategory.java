@@ -1,4 +1,6 @@
-package de.holube.fakestudy;
+package de.holube.fakestudy.category;
+
+import de.holube.fakestudy.util.Distribution;
 
 public class NumberCategory extends NumCategory {
 

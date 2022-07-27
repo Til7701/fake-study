@@ -1,4 +1,4 @@
-package de.holube.fakestudy;
+package de.holube.fakestudy.category;
 
 import java.util.ArrayList;
 import java.util.Arrays;

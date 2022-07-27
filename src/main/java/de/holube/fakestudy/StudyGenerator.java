@@ -1,5 +1,11 @@
 package de.holube.fakestudy;
 
+import de.holube.fakestudy.category.*;
+import de.holube.fakestudy.io.StudyExcelSaver;
+import de.holube.fakestudy.util.Distribution;
+import de.holube.fakestudy.util.InvertedCorrelator;
+import de.holube.fakestudy.util.VariableNumber;
+
 import java.util.Random;
 
 public class StudyGenerator {

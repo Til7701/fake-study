@@ -1,4 +1,4 @@
-package de.holube.fakestudy;
+package de.holube.fakestudy.util;
 
 public interface Correlator {
 

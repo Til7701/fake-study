@@ -1,4 +1,4 @@
-package de.holube.fakestudy;
+package de.holube.fakestudy.category;
 
 public class DiscreteNumberCategory extends NumberCategory {
 

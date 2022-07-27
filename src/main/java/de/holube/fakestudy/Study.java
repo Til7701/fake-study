@@ -1,5 +1,7 @@
 package de.holube.fakestudy;
 
+import de.holube.fakestudy.category.Category;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
