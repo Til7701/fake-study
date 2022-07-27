@@ -1,8 +1,11 @@
 package de.holube.fakestudy.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.math3.distribution.NormalDistribution;
 
+@Slf4j
 public class Distribution {
+
     public static final int LINKS = -1;
     public static final int NORMAL = 0;
     public static final int RECHTS = 1;
@@ -22,10 +25,16 @@ public class Distribution {
     }
 
     public double sample() {
-        double sample = 0;
+        double sample;
+        int counter = 0;
 
         do {
             sample = normalDistribution.sample();
+            counter++;
+            if (counter > 1000) {
+                LOG.error("sample counter exceeded 1000");
+                return Math.random() * (min.doubleValue() + (max.doubleValue() - min.doubleValue()));
+            }
         } while (sample < min.doubleValue() || sample > max.doubleValue());
 
         return sample;
@@ -42,4 +51,5 @@ public class Distribution {
     public double getType() {
         return type;
     }
+
 }

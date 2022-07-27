@@ -1,12 +1,14 @@
 package de.holube.fakestudy;
 
 import de.holube.fakestudy.category.Category;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class Study {
 
     private final int amountSubjects;
@@ -25,7 +27,7 @@ public class Study {
         keys.sort(String::compareTo);
 
         for (String key : keys) {
-            System.out.println("calculating " + categories.get(key).getName());
+            LOG.debug("calculating " + categories.get(key).getName());
             categories.get(key).calculate(amountSubjects);
         }
 

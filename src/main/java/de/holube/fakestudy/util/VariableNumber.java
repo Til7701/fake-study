@@ -31,4 +31,5 @@ public class VariableNumber extends Number {
     public double doubleValue() {
         return getValue();
     }
+
 }

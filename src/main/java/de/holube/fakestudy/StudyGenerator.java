@@ -5,9 +5,14 @@ import de.holube.fakestudy.io.StudyExcelSaver;
 import de.holube.fakestudy.util.Distribution;
 import de.holube.fakestudy.util.InvertedCorrelator;
 import de.holube.fakestudy.util.VariableNumber;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Random;
 
+@Slf4j
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class StudyGenerator {
 
     private static final double DEFAULT_MISSING_PERCENTAGE_BASE = 0.075;
@@ -15,16 +20,16 @@ public class StudyGenerator {
     private static final Random random = new Random();
 
     public static Study generateAndSave(int numberOfSubjects, int index) {
-        System.out.println("[{" + index + "}] generating study");
+        LOG.debug("[{}] generating study", index);
         Study study = generate(numberOfSubjects);
 
-        System.out.println("[{" + index + "}] calculating study");
+        LOG.debug("[{}] calculating study", index);
         study.calculate();
 
-        System.out.println("[{" + index + "}] set missing in studies");
+        LOG.debug("[{}] set missing in studies", index);
         study.setMissing();
 
-        System.out.println("[{" + index + "}] saving study");
+        LOG.debug("[{}] saving study", index);
         StudyExcelSaver studyExcelSaver = new StudyExcelSaver(study, "", "study" + index);
         studyExcelSaver.save();
 
