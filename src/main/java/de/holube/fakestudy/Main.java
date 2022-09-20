@@ -1,30 +1,38 @@
 package de.holube.fakestudy;
 
+import de.holube.fakestudy.config.StudyConfig;
+import de.holube.fakestudy.io.JSONFileReader;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
 
 @Slf4j
 public class Main {
 
-    private static final int NUMBER_OF_SUBJECTS = 105;
-    private static final int NUMBER_OF_STUDIES = 35;
-
     public static void main(String[] args) {
+        LOG.info("Welcome to the fake studies. :)");
 
-        List<StudyGeneratorThread> threads = new ArrayList<>();
-        int amountOfStudiesPerThread = 1;
+        File file = new File("config.json");
+        String path = file.getAbsolutePath();
+        LOG.info("Reading configuration from {}", path);
+        checkExistence(file);
 
-        LOG.debug("generating threads");
-        for (int i = 0; i < NUMBER_OF_STUDIES; i = i + amountOfStudiesPerThread) {
-            threads.add(new StudyGeneratorThread(NUMBER_OF_SUBJECTS, i, i + amountOfStudiesPerThread));
-        }
-
-        LOG.debug("generating studies");
-        for (StudyGeneratorThread thread : threads) {
-            thread.start();
-        }
+        StudyConfig config = JSONFileReader.readFile(path);
+        LOG.info("Read the following configuration: {}", config.toString());
     }
 
+    private static void checkExistence(File file) {
+        if (!file.exists()) {
+            LOG.error("File does not exist!");
+            LOG.info("Press enter to close");
+            try {
+                System.in.read();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            LOG.info("Exiting...");
+            System.exit(1);
+        }
+    }
 }

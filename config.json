@@ -1,0 +1,29 @@
+{
+  "constants": {
+    "amountOfSubjects": 105,
+    "amountOfStudies": 35,
+    "missingPercentageBase": 0.075,
+    "missingPercentageDiff": 0.025
+  },
+  "categories": {
+    "A": {
+      "type": "STATIC",
+      "name": "Name"
+    },
+    "B": {
+      "type": "SELECTION",
+      "name": "Geschlecht",
+      "options": [
+        "m",
+        "w"
+      ],
+      "min": "(amountOfSubjects / 2) - 10",
+      "max": "(amountOfSubjects / 2) + 10",
+      "missingValue": "u",
+      "missingPercentage": {
+        "base": "missingPercentageBase",
+        "diff": "missingPercentageDiff"
+      }
+    }
+  }
+}
