@@ -1,10 +1,11 @@
 package de.holube.fakestudy;
 
-import de.holube.fakestudy.category.*;
 import de.holube.fakestudy.io.StudyExcelSaver;
-import de.holube.fakestudy.util.Distribution;
-import de.holube.fakestudy.util.InvertedCorrelator;
-import de.holube.fakestudy.util.VariableNumber;
+import de.holube.fakestudy.study.Study;
+import de.holube.fakestudy.study.category.*;
+import de.holube.fakestudy.study.util.Distribution;
+import de.holube.fakestudy.study.util.VariableNumber;
+import de.holube.fakestudy.study.util.correlate.Correlators;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,12 +14,14 @@ import java.util.Random;
 
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Deprecated
 public class StudyGenerator {
 
     private static final double DEFAULT_MISSING_PERCENTAGE_BASE = 0.075;
     private static final double DEFAULT_MISSING_PERCENTAGE_DIFF = 0.025;
     private static final Random random = new Random();
 
+    @SuppressWarnings("UnusedReturnValue")
     public static Study generateAndSave(int numberOfSubjects, int index) {
         LOG.debug("[{}] generating study", index);
         Study study = generate(numberOfSubjects);
@@ -94,7 +97,7 @@ public class StudyGenerator {
         );
         e.setDistribution(eDistribution);
         e.setDecimalPlaces(0);
-        e.setCorrelator(new InvertedCorrelator());
+        e.setCorrelator(Correlators.INVERTED_CORRELATOR);
         e.setMissingValue(-1);
         e.setMissingPercentage(new VariableNumber(DEFAULT_MISSING_PERCENTAGE_BASE, DEFAULT_MISSING_PERCENTAGE_DIFF).doubleValue());
 

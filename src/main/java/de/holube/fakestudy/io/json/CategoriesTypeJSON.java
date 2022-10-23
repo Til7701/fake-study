@@ -1,9 +1,9 @@
-package de.holube.fakestudy.config;
+package de.holube.fakestudy.io.json;
 
 import lombok.ToString;
 
 @ToString
-public enum CategoriesTypeConfig {
+public enum CategoriesTypeJSON {
 
     STATIC,
     SELECTION,

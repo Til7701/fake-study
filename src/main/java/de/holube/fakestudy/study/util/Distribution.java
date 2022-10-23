@@ -1,18 +1,18 @@
-package de.holube.fakestudy.util;
+package de.holube.fakestudy.study.util;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.math3.distribution.NormalDistribution;
 
 @Slf4j
 public class Distribution {
 
-    public static final int LINKS = -1;
-    public static final int NORMAL = 0;
-    public static final int RECHTS = 1;
-
     private final NormalDistribution normalDistribution;
+    @Getter
     private final VariableNumber min;
+    @Getter
     private final VariableNumber max;
+    @Getter
     private final double type;
 
     public Distribution(VariableNumber min, VariableNumber max, double type, VariableNumber sd) {
@@ -38,18 +38,6 @@ public class Distribution {
         } while (sample < min.doubleValue() || sample > max.doubleValue());
 
         return sample;
-    }
-
-    public VariableNumber getMin() {
-        return min;
-    }
-
-    public VariableNumber getMax() {
-        return max;
-    }
-
-    public double getType() {
-        return type;
     }
 
 }

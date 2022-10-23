@@ -1,6 +1,6 @@
 package de.holube.fakestudy.factory;
 
-import de.holube.fakestudy.util.VariableNumber;
+import de.holube.fakestudy.study.util.VariableNumber;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

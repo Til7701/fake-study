@@ -1,19 +1,23 @@
-package de.holube.fakestudy.category;
+package de.holube.fakestudy.study.category;
+
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 public abstract class NumCategory extends Category {
 
+    @Getter
+    @Setter
     protected int decimalPlaces;
 
     protected double[] results;
 
+    @Getter
+    @Setter
     protected double missingValue;
 
-    public double[] getDoubleResults() {
-        return results;
-    }
 
     @Override
     public void setMissing() {
@@ -35,6 +39,10 @@ public abstract class NumCategory extends Category {
         return ret;
     }
 
+    public double[] getDoubleResults() {
+        return results;
+    }
+
     protected DecimalFormat decimalFormat(int decimalPlaces) {
         StringBuilder decimalString = new StringBuilder("#");
         if (decimalPlaces > 0) {
@@ -49,19 +57,4 @@ public abstract class NumCategory extends Category {
         return df;
     }
 
-    public int getDecimalPlaces() {
-        return decimalPlaces;
-    }
-
-    public void setDecimalPlaces(int decimalPlaces) {
-        this.decimalPlaces = decimalPlaces;
-    }
-
-    public double getMissingValue() {
-        return missingValue;
-    }
-
-    public void setMissingValue(double missingValue) {
-        this.missingValue = missingValue;
-    }
 }

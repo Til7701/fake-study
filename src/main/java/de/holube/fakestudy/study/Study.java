@@ -1,6 +1,7 @@
-package de.holube.fakestudy;
+package de.holube.fakestudy.study;
 
-import de.holube.fakestudy.category.Category;
+import de.holube.fakestudy.study.category.Category;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
+@Getter
 public class Study {
 
     private final int amountSubjects;
@@ -22,7 +24,6 @@ public class Study {
     }
 
     public void calculate() {
-
         List<String> keys = new ArrayList<>(categories.keySet());
         keys.sort(String::compareTo);
 
@@ -30,7 +31,6 @@ public class Study {
             LOG.debug("calculating " + categories.get(key).getName());
             categories.get(key).calculate(amountSubjects);
         }
-
     }
 
     public void setMissing() {
@@ -44,15 +44,4 @@ public class Study {
         entryOrder.add(key);
     }
 
-    public List<String> getEntryOrder() {
-        return entryOrder;
-    }
-
-    public Map<String, Category> getCategories() {
-        return categories;
-    }
-
-    public int getAmountSubjects() {
-        return amountSubjects;
-    }
 }

@@ -1,4 +1,4 @@
-package de.holube.fakestudy.category;
+package de.holube.fakestudy.study.category;
 
 public class StaticCategory extends Category {
 

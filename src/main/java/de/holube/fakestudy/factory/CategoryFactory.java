@@ -1,15 +1,15 @@
 package de.holube.fakestudy.factory;
 
-import de.holube.fakestudy.Study;
-import de.holube.fakestudy.category.Category;
+import de.holube.fakestudy.study.Study;
+import de.holube.fakestudy.study.category.Category;
 
 public interface CategoryFactory {
 
     Category create(Study study);
 
-    void setKey(String key);
-
     String getKey();
+
+    void setKey(String key);
 
     void setMissingPercentage(VariableNumberFactory missingPercentage);
 

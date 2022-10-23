@@ -1,26 +1,27 @@
 package de.holube.fakestudy.io;
 
-
-import de.holube.fakestudy.Study;
-import de.holube.fakestudy.category.Category;
-import de.holube.fakestudy.category.NumCategory;
+import de.holube.fakestudy.study.Study;
+import de.holube.fakestudy.study.category.Category;
+import de.holube.fakestudy.study.category.NumCategory;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
 import java.io.FileOutputStream;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@Slf4j
 public class StudyExcelSaver {
 
     private Study study;
     private String folderName;
     private String fileName;
-
-    public StudyExcelSaver(Study study, String folderName, String fileName) {
-        this.study = study;
-        this.folderName = folderName;
-        this.fileName = fileName;
-    }
 
     public void save() {
         try (Workbook workbook = new XSSFWorkbook()) {
@@ -51,7 +52,6 @@ public class StudyExcelSaver {
                     } else {
                         cell.setCellValue(category.getStringResults()[i - 1]);
                     }
-                    //cell.setCellValue(study.getCategories().get(study.getEntryOrder().get(j)).getStringResults()[i - 1]);
                     cell.setCellStyle(style);
                 }
             }
@@ -63,31 +63,8 @@ public class StudyExcelSaver {
             outputStream = new FileOutputStream(file.getPath());
             workbook.write(outputStream);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Error while saving Study to Excel File.", e);
         }
     }
 
-    public Study getStudy() {
-        return study;
-    }
-
-    public void setStudy(Study study) {
-        this.study = study;
-    }
-
-    public String getFolderName() {
-        return folderName;
-    }
-
-    public void setFolderName(String folderName) {
-        this.folderName = folderName;
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
 }

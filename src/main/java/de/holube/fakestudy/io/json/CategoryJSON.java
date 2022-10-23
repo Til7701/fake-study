@@ -1,20 +1,19 @@
-package de.holube.fakestudy.config;
+package de.holube.fakestudy.io.json;
 
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
+@SuppressWarnings("unused")
 @Getter
-@Setter
 @ToString
-public class CategoryConfig {
+public class CategoryJSON {
 
-    private CategoriesTypeConfig type;
+    private CategoriesTypeJSON type;
     private String name;
 
     // missing
     private String missingValue;
-    private VarNumConfig missingPercentage;
+    private VariableNumberJOSN missingPercentage;
 
     // used by more than one
     private int min;
@@ -24,11 +23,11 @@ public class CategoryConfig {
     private String[] options;
 
     // NUMBER & CORRELATION
-    private DistributionConfig distribution;
+    private DistributionJSON distribution;
     private int decimalPlaces;
 
     // CORRELATION
-    private CorrelationType correlate;
+    private CorrelationTypeJSON correlate;
     private String origin;
 
 }

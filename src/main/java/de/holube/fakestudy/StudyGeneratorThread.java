@@ -1,5 +1,6 @@
 package de.holube.fakestudy;
 
+@Deprecated
 public class StudyGeneratorThread extends Thread {
 
     private final int amountOfSubjects;

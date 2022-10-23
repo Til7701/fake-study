@@ -1,9 +1,9 @@
 package de.holube.fakestudy.factory;
 
-import de.holube.fakestudy.Study;
-import de.holube.fakestudy.category.Category;
-import de.holube.fakestudy.category.NumberCategory;
-import de.holube.fakestudy.util.Distribution;
+import de.holube.fakestudy.study.Study;
+import de.holube.fakestudy.study.category.Category;
+import de.holube.fakestudy.study.category.NumberCategory;
+import de.holube.fakestudy.study.util.Distribution;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;

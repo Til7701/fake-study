@@ -1,7 +1,7 @@
 package de.holube.fakestudy.factory;
 
-import de.holube.fakestudy.Study;
-import de.holube.fakestudy.category.Category;
+import de.holube.fakestudy.study.Study;
+import de.holube.fakestudy.study.category.Category;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;

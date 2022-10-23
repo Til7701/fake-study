@@ -1,9 +1,9 @@
 package de.holube.fakestudy.factory;
 
-import de.holube.fakestudy.config.CategoryConfig;
-import de.holube.fakestudy.config.DistributionConfig;
-import de.holube.fakestudy.config.StudyConfig;
-import de.holube.fakestudy.config.VarNumConfig;
+import de.holube.fakestudy.io.json.CategoryJSON;
+import de.holube.fakestudy.io.json.DistributionJSON;
+import de.holube.fakestudy.io.json.StudyJSON;
+import de.holube.fakestudy.io.json.VariableNumberJOSN;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,15 +17,15 @@ import java.util.Map;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class StudyFactoryFactory {
 
-    public static StudyFactory create(StudyConfig studyConfig) {
-        StudyFactoryImpl studyFactory = new StudyFactoryImpl();
+    public static StudyFactory create(StudyJSON studyJSON) {
+        StudyFactory studyFactory = new StudyFactoryImpl();
 
-        studyFactory.setAmountSubjects(studyConfig.getConstants().getAmountOfSubjects());
+        studyFactory.setAmountSubjects(studyJSON.getConstants().getAmountOfSubjects());
 
-        List<CategoryFactory> categoryFactories = new ArrayList<>(studyConfig.getCategories().size());
+        List<CategoryFactory> categoryFactories = new ArrayList<>(studyJSON.getCategories().size());
         studyFactory.setCategoryFactories(categoryFactories);
 
-        for (Map.Entry<String, CategoryConfig> categoryEntry : studyConfig.getCategories().entrySet()) {
+        for (Map.Entry<String, CategoryJSON> categoryEntry : studyJSON.getCategories().entrySet()) {
             LOG.debug("Creating CategoryFactory: {}", categoryEntry.getValue().getName());
             categoryFactories.add(createCategoryFactory(categoryEntry.getKey(), categoryEntry.getValue()));
         }
@@ -33,24 +33,24 @@ public class StudyFactoryFactory {
         return studyFactory;
     }
 
-    private static CategoryFactory createCategoryFactory(String key, CategoryConfig categoryConfig) {
+    private static CategoryFactory createCategoryFactory(String key, CategoryJSON categoryJSON) {
         CategoryFactory categoryFactory = null;
 
-        switch (categoryConfig.getType()) {
+        switch (categoryJSON.getType()) {
             case STATIC:
                 categoryFactory = new StaticCategoryFactory();
                 break;
             case SELECTION:
-                categoryFactory = createSelectionCategoryFactory(categoryConfig);
+                categoryFactory = createSelectionCategoryFactory(categoryJSON);
                 break;
             case NUMBER:
-                categoryFactory = createNumberCategoryFactory(categoryConfig);
+                categoryFactory = createNumberCategoryFactory(categoryJSON);
                 break;
             case CORRELATION:
-                categoryFactory = createCorrelationCategoryFactory(categoryConfig);
+                categoryFactory = createCorrelationCategoryFactory(categoryJSON);
                 break;
             case DISCRETE_NUMBER:
-                categoryFactory = createDiscreteNumberCategoryFactory(categoryConfig);
+                categoryFactory = createDiscreteNumberCategoryFactory(categoryJSON);
                 break;
         }
 
@@ -58,61 +58,61 @@ public class StudyFactoryFactory {
             LOG.error("categoryFactory is null");
         }
         categoryFactory.setKey(key);
-        categoryFactory.setName(categoryConfig.getName());
-        if (categoryConfig.getMissingPercentage() != null)
-            categoryFactory.setMissingPercentage(createVariableNumberFactory(categoryConfig.getMissingPercentage()));
+        categoryFactory.setName(categoryJSON.getName());
+        if (categoryJSON.getMissingPercentage() != null)
+            categoryFactory.setMissingPercentage(createVariableNumberFactory(categoryJSON.getMissingPercentage()));
 
         return categoryFactory;
     }
 
-    private static VariableNumberFactory createVariableNumberFactory(VarNumConfig varNumConfig) {
+    private static VariableNumberFactory createVariableNumberFactory(VariableNumberJOSN variableNumberJOSN) {
         VariableNumberFactory variableNumberFactory = new VariableNumberFactory();
-        variableNumberFactory.setBase(varNumConfig.getBase());
-        variableNumberFactory.setDiff(varNumConfig.getDiff());
+        variableNumberFactory.setBase(variableNumberJOSN.getBase());
+        variableNumberFactory.setDiff(variableNumberJOSN.getDiff());
         return variableNumberFactory;
     }
 
-    private static SelectionCategoryFactory createSelectionCategoryFactory(CategoryConfig categoryConfig) {
+    private static SelectionCategoryFactory createSelectionCategoryFactory(CategoryJSON categoryJSON) {
         SelectionCategoryFactory categoryFactory = new SelectionCategoryFactory();
 
-        categoryFactory.setSelection(Arrays.asList(categoryConfig.getOptions()));
-        categoryFactory.setMin(categoryConfig.getMin());
-        categoryFactory.setMax(categoryConfig.getMax());
-        categoryFactory.setMissingValue(categoryConfig.getMissingValue());
+        categoryFactory.setSelection(Arrays.asList(categoryJSON.getOptions()));
+        categoryFactory.setMin(categoryJSON.getMin());
+        categoryFactory.setMax(categoryJSON.getMax());
+        categoryFactory.setMissingValue(categoryJSON.getMissingValue());
 
         return categoryFactory;
     }
 
-    private static NumberCategoryFactory createNumberCategoryFactory(CategoryConfig categoryConfig) {
+    private static NumberCategoryFactory createNumberCategoryFactory(CategoryJSON categoryJSON) {
         NumberCategoryFactory categoryFactory = new NumberCategoryFactory();
 
-        categoryFactory.setDistributionFactory(createDistributionFactory(categoryConfig.getDistribution()));
-        categoryFactory.setDecimalPlaces(categoryConfig.getDecimalPlaces());
-        categoryFactory.setMissingValue(Integer.parseInt(categoryConfig.getMissingValue()));
+        categoryFactory.setDistributionFactory(createDistributionFactory(categoryJSON.getDistribution()));
+        categoryFactory.setDecimalPlaces(categoryJSON.getDecimalPlaces());
+        categoryFactory.setMissingValue(Integer.parseInt(categoryJSON.getMissingValue()));
 
         return categoryFactory;
     }
 
-    private static DiscreteNumberCategoryFactory createDiscreteNumberCategoryFactory(CategoryConfig categoryConfig) {
+    private static DiscreteNumberCategoryFactory createDiscreteNumberCategoryFactory(CategoryJSON categoryJSON) {
         DiscreteNumberCategoryFactory categoryFactory = new DiscreteNumberCategoryFactory();
 
-        categoryFactory.setDistributionFactory(createDistributionFactory(categoryConfig.getDistribution()));
-        categoryFactory.setDecimalPlaces(categoryConfig.getDecimalPlaces());
-        categoryFactory.setMissingValue(Integer.parseInt(categoryConfig.getMissingValue()));
+        categoryFactory.setDistributionFactory(createDistributionFactory(categoryJSON.getDistribution()));
+        categoryFactory.setDecimalPlaces(categoryJSON.getDecimalPlaces());
+        categoryFactory.setMissingValue(Integer.parseInt(categoryJSON.getMissingValue()));
 
         return categoryFactory;
     }
 
-    private static CorrelationCategoryFactory createCorrelationCategoryFactory(CategoryConfig categoryConfig) {
+    private static CorrelationCategoryFactory createCorrelationCategoryFactory(CategoryJSON categoryJSON) {
         CorrelationCategoryFactory categoryFactory = new CorrelationCategoryFactory();
 
-        categoryFactory.setDistributionFactory(createDistributionFactory(categoryConfig.getDistribution()));
-        categoryFactory.setDecimalPlaces(categoryConfig.getDecimalPlaces());
-        categoryFactory.setMissingValue(Integer.parseInt(categoryConfig.getMissingValue()));
-        categoryFactory.setMin(categoryConfig.getMin());
-        categoryFactory.setMax(categoryConfig.getMax());
-        categoryFactory.setOrigin(categoryConfig.getOrigin());
-        switch (categoryConfig.getCorrelate()) {
+        categoryFactory.setDistributionFactory(createDistributionFactory(categoryJSON.getDistribution()));
+        categoryFactory.setDecimalPlaces(categoryJSON.getDecimalPlaces());
+        categoryFactory.setMissingValue(Integer.parseInt(categoryJSON.getMissingValue()));
+        categoryFactory.setMin(categoryJSON.getMin());
+        categoryFactory.setMax(categoryJSON.getMax());
+        categoryFactory.setOrigin(categoryJSON.getOrigin());
+        switch (categoryJSON.getCorrelate()) {
             case NORMAL:
                 categoryFactory.setDirectionNormal();
                 break;
@@ -124,7 +124,7 @@ public class StudyFactoryFactory {
         return categoryFactory;
     }
 
-    private static DistributionFactory createDistributionFactory(DistributionConfig config) {
+    private static DistributionFactory createDistributionFactory(DistributionJSON config) {
         DistributionFactory distributionFactory = new DistributionFactory();
 
         distributionFactory.setMin(createVariableNumberFactory(config.getMin()));

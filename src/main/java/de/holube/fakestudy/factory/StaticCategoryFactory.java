@@ -1,8 +1,8 @@
 package de.holube.fakestudy.factory;
 
-import de.holube.fakestudy.Study;
-import de.holube.fakestudy.category.Category;
-import de.holube.fakestudy.category.StaticCategory;
+import de.holube.fakestudy.study.Study;
+import de.holube.fakestudy.study.category.Category;
+import de.holube.fakestudy.study.category.StaticCategory;
 
 public class StaticCategoryFactory extends AbstractCategoryFactory {
 

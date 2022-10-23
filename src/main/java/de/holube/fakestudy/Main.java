@@ -1,10 +1,11 @@
 package de.holube.fakestudy;
 
-import de.holube.fakestudy.config.StudyConfig;
 import de.holube.fakestudy.factory.StudyFactory;
 import de.holube.fakestudy.factory.StudyFactoryFactory;
 import de.holube.fakestudy.io.JSONFileReader;
 import de.holube.fakestudy.io.StudyExcelSaver;
+import de.holube.fakestudy.io.json.StudyJSON;
+import de.holube.fakestudy.study.Study;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
@@ -21,7 +22,7 @@ public class Main {
         LOG.info("Reading configuration from {}", path);
         checkExistence(file);
 
-        StudyConfig config = JSONFileReader.readFile(path);
+        StudyJSON config = JSONFileReader.readFile(path);
         LOG.info("Read the following configuration: {}", config.toString());
 
         StudyFactory studyFactory = StudyFactoryFactory.create(config);
@@ -43,6 +44,7 @@ public class Main {
             LOG.error("File does not exist!");
             LOG.info("Press enter to close");
             try {
+                //noinspection ResultOfMethodCallIgnored
                 System.in.read();
             } catch (IOException e) {
                 throw new RuntimeException(e);

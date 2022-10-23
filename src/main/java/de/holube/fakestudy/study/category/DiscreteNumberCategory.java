@@ -1,4 +1,4 @@
-package de.holube.fakestudy.category;
+package de.holube.fakestudy.study.category;
 
 public class DiscreteNumberCategory extends NumberCategory {
 
@@ -10,4 +10,5 @@ public class DiscreteNumberCategory extends NumberCategory {
             results[i] = Math.round(results[i]);
         }
     }
+
 }

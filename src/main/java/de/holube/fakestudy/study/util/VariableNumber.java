@@ -1,4 +1,4 @@
-package de.holube.fakestudy.util;
+package de.holube.fakestudy.study.util;
 
 public class VariableNumber extends Number {
 
@@ -8,28 +8,24 @@ public class VariableNumber extends Number {
         value = (((Math.random() * 2) - 1) < 0) ? base + Math.random() * maxDiff : base - Math.random() * maxDiff;
     }
 
-    private double getValue() {
-        return value;
-    }
-
     @Override
     public int intValue() {
-        return (int) getValue();
+        return (int) value;
     }
 
     @Override
     public long longValue() {
-        return (long) getValue();
+        return (long) value;
     }
 
     @Override
     public float floatValue() {
-        return (float) getValue();
+        return (float) value;
     }
 
     @Override
     public double doubleValue() {
-        return getValue();
+        return value;
     }
 
 }

@@ -1,4 +1,7 @@
-package de.holube.fakestudy.category;
+package de.holube.fakestudy.study.category;
+
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,16 +12,19 @@ public class SelectionCategory extends Category {
 
     private static final Random random = new Random();
 
-    private final List<String> selection;
+    @Getter
+    private final List<String> selection = new ArrayList<>();
+    @Getter
+    @Setter
     private int min;
+    @Getter
+    @Setter
     private int max;
+    @Getter
+    @Setter
     private String missingValue;
 
     private String[] results;
-
-    public SelectionCategory() {
-        selection = new ArrayList<>();
-    }
 
     @Override
     public void calculate(int amountSubjects) {
@@ -53,31 +59,4 @@ public class SelectionCategory extends Category {
         return results;
     }
 
-    public List<String> getSelection() {
-        return selection;
-    }
-
-    public int getMin() {
-        return min;
-    }
-
-    public void setMin(int min) {
-        this.min = min;
-    }
-
-    public int getMax() {
-        return max;
-    }
-
-    public void setMax(int max) {
-        this.max = max;
-    }
-
-    public String getMissingValue() {
-        return missingValue;
-    }
-
-    public void setMissingValue(String missingValue) {
-        this.missingValue = missingValue;
-    }
 }

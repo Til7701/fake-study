@@ -1,13 +1,12 @@
-package de.holube.fakestudy.config;
+package de.holube.fakestudy.io.json;
 
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
+@SuppressWarnings("unused")
 @Getter
-@Setter
 @ToString
-public class VarNumConfig {
+public class VariableNumberJOSN {
 
     private double base;
     private double diff;
