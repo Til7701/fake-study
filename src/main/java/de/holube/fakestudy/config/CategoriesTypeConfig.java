@@ -6,6 +6,8 @@ import lombok.ToString;
 public enum CategoriesTypeConfig {
 
     STATIC,
-    SELECTION
+    SELECTION,
+    NUMBER,
+    CORRELATION
 
 }

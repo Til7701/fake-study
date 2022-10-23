@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class VarNumConfig {
 
-    private String base;
-    private String diff;
+    private double base;
+    private double diff;
 
 }

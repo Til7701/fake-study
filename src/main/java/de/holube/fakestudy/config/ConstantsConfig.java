@@ -10,7 +10,5 @@ import lombok.ToString;
 public class ConstantsConfig {
 
     private int amountOfSubjects;
-    private double missingPercentageBase;
-    private double missingPercentageDiff;
 
 }

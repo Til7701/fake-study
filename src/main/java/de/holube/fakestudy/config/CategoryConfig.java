@@ -16,9 +16,18 @@ public class CategoryConfig {
     private String missingValue;
     private VarNumConfig missingPercentage;
 
+    // used by more than one
+    private double min;
+    private double max;
+
     // SELECTION
     private String[] options;
-    private String min;
-    private String max;
+
+    // NUMBER & CORRELATION
+    private DistributionConfig distribution;
+    private int decimalPlaces;
+
+    // CORRELATION
+    private CorrelationType correlate;
 
 }

@@ -1,9 +1,6 @@
 {
   "constants": {
-    "amountOfSubjects": 105,
-    "amountOfStudies": 35,
-    "missingPercentageBase": 0.075,
-    "missingPercentageDiff": 0.025
+    "amountOfSubjects": 105
   },
   "categories": {
     "A": {
@@ -17,12 +14,98 @@
         "m",
         "w"
       ],
-      "min": "(amountOfSubjects / 2) - 10",
-      "max": "(amountOfSubjects / 2) + 10",
+      "min": 40,
+      "max": 60,
       "missingValue": "u",
       "missingPercentage": {
-        "base": "missingPercentageBase",
-        "diff": "missingPercentageDiff"
+        "base": 0.075,
+        "diff": 0.025
+      }
+    },
+    "C": {
+      "type": "NUMBER",
+      "name": "Alter",
+      "distribution": {
+        "min": {
+          "base": 25,
+          "diff": 7
+        },
+        "max": {
+          "base": 73,
+          "diff": 7
+        },
+        "type": {
+          "descriptor": "RANDOM"
+        },
+        "standardDeviation": {
+          "base": 10,
+          "diff": 3
+        }
+      },
+      "decimalPlaces": 0,
+      "missingValue": -1,
+      "missingPercentage": {
+        "base": 0.075,
+        "diff": 0.025
+      }
+    },
+    "D": {
+      "type": "NUMBER",
+      "name": "Reaktionsfähigkeit",
+      "distribution": {
+        "min": {
+          "base": 100,
+          "diff": 0
+        },
+        "max": {
+          "base": 1000,
+          "diff": 0
+        },
+        "type": {
+          "descriptor": "OTHER",
+          "other": "C"
+        },
+        "standardDeviation": {
+          "base": 100,
+          "diff": 25
+        }
+      },
+      "decimalPlaces": 1,
+      "missingValue": -1,
+      "missingPercentage": {
+        "base": 0.075,
+        "diff": 0.025
+      }
+    },
+    "E": {
+      "type": "CORRELATION",
+      "name": "IQ",
+      "correlate": "INVERTED",
+      "min": 70,
+      "max": 130,
+      "distribution": {
+        "min": {
+          "base": -25,
+          "diff": 5
+        },
+        "max": {
+          "base": 25,
+          "diff": 5
+        },
+        "type": {
+          "descriptor": "FIXED",
+          "value": 0
+        },
+        "standardDeviation": {
+          "base": 15,
+          "diff": 5
+        }
+      },
+      "decimalPlaces": 0,
+      "missingValue": -1,
+      "missingPercentage": {
+        "base": 0.075,
+        "diff": 0.025
       }
     }
   }
