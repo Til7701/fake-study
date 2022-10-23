@@ -13,10 +13,10 @@
         </File>
     </Appenders>
     <Loggers>
-        <Logger name="de.holube.fakestudy" level="debug"> <!-- level="${sys:logging.level:-info}" -->
+        <Logger name="de.holube.fakestudy" level="info"> <!-- level="${sys:logging.level:-info}" -->
             <AppenderRef ref="LogToFile"/>
         </Logger>
-        <Root level="debug">
+        <Root level="info">
             <AppenderRef ref="Console"/>
         </Root>
     </Loggers>

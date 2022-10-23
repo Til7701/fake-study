@@ -3,6 +3,9 @@ package de.holube.fakestudy.study.util.correlate;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+/**
+ * This class provides instances for normal and inverted correlators.
+ */
 @SuppressWarnings("SpellCheckingInspection")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Correlators {
