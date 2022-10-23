@@ -8,6 +8,7 @@ public enum CategoriesTypeConfig {
     STATIC,
     SELECTION,
     NUMBER,
-    CORRELATION
+    CORRELATION,
+    DISCRETE_NUMBER
 
 }

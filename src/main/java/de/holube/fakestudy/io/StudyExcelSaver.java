@@ -57,7 +57,7 @@ public class StudyExcelSaver {
             }
 
 
-            File file = new File("C:\\Users\\Tilman\\Desktop\\tmp\\fakeStudyExport\\" + fileName + ".xlsx");
+            File file = new File(folderName + fileName + ".xlsx");
 
             FileOutputStream outputStream;
             outputStream = new FileOutputStream(file.getPath());

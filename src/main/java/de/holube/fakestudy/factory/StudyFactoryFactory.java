@@ -49,6 +49,9 @@ public class StudyFactoryFactory {
             case CORRELATION:
                 categoryFactory = createCorrelationCategoryFactory(categoryConfig);
                 break;
+            case DISCRETE_NUMBER:
+                categoryFactory = createDiscreteNumberCategoryFactory(categoryConfig);
+                break;
         }
 
         if (categoryFactory == null) {
@@ -82,6 +85,16 @@ public class StudyFactoryFactory {
 
     private static NumberCategoryFactory createNumberCategoryFactory(CategoryConfig categoryConfig) {
         NumberCategoryFactory categoryFactory = new NumberCategoryFactory();
+
+        categoryFactory.setDistributionFactory(createDistributionFactory(categoryConfig.getDistribution()));
+        categoryFactory.setDecimalPlaces(categoryConfig.getDecimalPlaces());
+        categoryFactory.setMissingValue(Integer.parseInt(categoryConfig.getMissingValue()));
+
+        return categoryFactory;
+    }
+
+    private static DiscreteNumberCategoryFactory createDiscreteNumberCategoryFactory(CategoryConfig categoryConfig) {
+        DiscreteNumberCategoryFactory categoryFactory = new DiscreteNumberCategoryFactory();
 
         categoryFactory.setDistributionFactory(createDistributionFactory(categoryConfig.getDistribution()));
         categoryFactory.setDecimalPlaces(categoryConfig.getDecimalPlaces());

@@ -109,6 +109,390 @@
         "base": 0.075,
         "diff": 0.025
       }
+    },
+    "F": {
+      "type": "SELECTION",
+      "name": "Farbe des Smartphones",
+      "options": [
+        "w",
+        "s",
+        "b",
+        "r",
+        "g"
+      ],
+      "min": 5,
+      "max": 40,
+      "missingValue": "u",
+      "missingPercentage": {
+        "base": 0.075,
+        "diff": 0.025
+      }
+    },
+    "G": {
+      "type": "SELECTION",
+      "name": "Nationalität",
+      "options": [
+        "DE",
+        "FR",
+        "GB",
+        "IT",
+        "NL",
+        "NO"
+      ],
+      "min": 5,
+      "max": 40,
+      "missingValue": "u",
+      "missingPercentage": {
+        "base": 0.075,
+        "diff": 0.025
+      }
+    },
+    "H": {
+      "type": "SELECTION",
+      "name": "Betriebssystem",
+      "options": [
+        "A",
+        "I",
+        "W",
+        "U"
+      ],
+      "min": 5,
+      "max": 40,
+      "missingValue": "u",
+      "missingPercentage": {
+        "base": 0.075,
+        "diff": 0.025
+      }
+    },
+    "I": {
+      "type": "NUMBER",
+      "name": "Spieldauer bei CandyCrush",
+      "distribution": {
+        "min": {
+          "base": 60,
+          "diff": 0
+        },
+        "max": {
+          "base": 300,
+          "diff": 0
+        },
+        "type": {
+          "descriptor": "RANDOM"
+        },
+        "standardDeviation": {
+          "base": 40,
+          "diff": 20
+        }
+      },
+      "decimalPlaces": 1,
+      "missingValue": -1,
+      "missingPercentage": {
+        "base": 0.075,
+        "diff": 0.025
+      }
+    },
+    "J": {
+      "type": "NUMBER",
+      "name": "Spieldauer bei Tetris",
+      "distribution": {
+        "min": {
+          "base": 60,
+          "diff": 0
+        },
+        "max": {
+          "base": 300,
+          "diff": 0
+        },
+        "type": {
+          "descriptor": "RANDOM"
+        },
+        "standardDeviation": {
+          "base": 40,
+          "diff": 20
+        }
+      },
+      "decimalPlaces": 1,
+      "missingValue": -1,
+      "missingPercentage": {
+        "base": 0.075,
+        "diff": 0.025
+      }
+    },
+    "K": {
+      "type": "NUMBER",
+      "name": "Spieldauer bei AngryBirds",
+      "distribution": {
+        "min": {
+          "base": 60,
+          "diff": 0
+        },
+        "max": {
+          "base": 300,
+          "diff": 0
+        },
+        "type": {
+          "descriptor": "RANDOM"
+        },
+        "standardDeviation": {
+          "base": 40,
+          "diff": 20
+        }
+      },
+      "decimalPlaces": 1,
+      "missingValue": -1,
+      "missingPercentage": {
+        "base": 0.075,
+        "diff": 0.025
+      }
+    },
+    "L": {
+      "type": "NUMBER",
+      "name": "Prozentualer Spielfortschritt bei CandyCrush",
+      "distribution": {
+        "min": {
+          "base": 1,
+          "diff": 0
+        },
+        "max": {
+          "base": 100,
+          "diff": 0
+        },
+        "type": {
+          "descriptor": "OTHER",
+          "other": "I"
+        },
+        "standardDeviation": {
+          "base": 15,
+          "diff": 5
+        }
+      },
+      "decimalPlaces": 2,
+      "missingValue": -1,
+      "missingPercentage": {
+        "base": 0.075,
+        "diff": 0.025
+      }
+    },
+    "M": {
+      "type": "NUMBER",
+      "name": "Prozentualer Spielfortschritt bei Tetris",
+      "distribution": {
+        "min": {
+          "base": 1,
+          "diff": 0
+        },
+        "max": {
+          "base": 100,
+          "diff": 0
+        },
+        "type": {
+          "descriptor": "OTHER",
+          "other": "J"
+        },
+        "standardDeviation": {
+          "base": 15,
+          "diff": 5
+        }
+      },
+      "decimalPlaces": 2,
+      "missingValue": -1,
+      "missingPercentage": {
+        "base": 0.075,
+        "diff": 0.025
+      }
+    },
+    "N": {
+      "type": "NUMBER",
+      "name": "Prozentualer Spielfortschritt bei AngryBirds",
+      "distribution": {
+        "min": {
+          "base": 1,
+          "diff": 0
+        },
+        "max": {
+          "base": 100,
+          "diff": 0
+        },
+        "type": {
+          "descriptor": "OTHER",
+          "other": "K"
+        },
+        "standardDeviation": {
+          "base": 15,
+          "diff": 5
+        }
+      },
+      "decimalPlaces": 2,
+      "missingValue": -1,
+      "missingPercentage": {
+        "base": 0.075,
+        "diff": 0.025
+      }
+    },
+    "O": {
+      "type": "DISCRETE_NUMBER",
+      "name": "Bewertung des Spielvergnügens für CandyCrush",
+      "distribution": {
+        "min": {
+          "base": 1,
+          "diff": 0
+        },
+        "max": {
+          "base": 5,
+          "diff": 0
+        },
+        "type": {
+          "descriptor": "RANDOM"
+        },
+        "standardDeviation": {
+          "base": 2,
+          "diff": 0.5
+        }
+      },
+      "decimalPlaces": 0,
+      "missingValue": -1,
+      "missingPercentage": {
+        "base": 0.075,
+        "diff": 0.025
+      }
+    },
+    "P": {
+      "type": "DISCRETE_NUMBER",
+      "name": "Bewertung des Spielvergnügens für Tetris",
+      "distribution": {
+        "min": {
+          "base": 1,
+          "diff": 0
+        },
+        "max": {
+          "base": 5,
+          "diff": 0
+        },
+        "type": {
+          "descriptor": "RANDOM"
+        },
+        "standardDeviation": {
+          "base": 2,
+          "diff": 0.5
+        }
+      },
+      "decimalPlaces": 0,
+      "missingValue": -1,
+      "missingPercentage": {
+        "base": 0.075,
+        "diff": 0.025
+      }
+    },
+    "Q": {
+      "type": "DISCRETE_NUMBER",
+      "name": "Bewertung des Spielvergnügens für AngryBirds",
+      "distribution": {
+        "min": {
+          "base": 1,
+          "diff": 0
+        },
+        "max": {
+          "base": 5,
+          "diff": 0
+        },
+        "type": {
+          "descriptor": "RANDOM"
+        },
+        "standardDeviation": {
+          "base": 2,
+          "diff": 0.5
+        }
+      },
+      "decimalPlaces": 0,
+      "missingValue": -1,
+      "missingPercentage": {
+        "base": 0.075,
+        "diff": 0.025
+      }
+    },
+    "R": {
+      "type": "DISCRETE_NUMBER",
+      "name": "Bewertung von Grafik und Sound für CandyCrush",
+      "distribution": {
+        "min": {
+          "base": 1,
+          "diff": 0
+        },
+        "max": {
+          "base": 5,
+          "diff": 0
+        },
+        "type": {
+          "descriptor": "OTHER",
+          "other": "O"
+        },
+        "standardDeviation": {
+          "base": 2,
+          "diff": 0.5
+        }
+      },
+      "decimalPlaces": 0,
+      "missingValue": -1,
+      "missingPercentage": {
+        "base": 0.075,
+        "diff": 0.025
+      }
+    },
+    "S": {
+      "type": "DISCRETE_NUMBER",
+      "name": "Bewertung von Grafik und Sound für Tetris",
+      "distribution": {
+        "min": {
+          "base": 1,
+          "diff": 0
+        },
+        "max": {
+          "base": 5,
+          "diff": 0
+        },
+        "type": {
+          "descriptor": "OTHER",
+          "other": "P"
+        },
+        "standardDeviation": {
+          "base": 2,
+          "diff": 0.5
+        }
+      },
+      "decimalPlaces": 0,
+      "missingValue": -1,
+      "missingPercentage": {
+        "base": 0.075,
+        "diff": 0.025
+      }
+    },
+    "T": {
+      "type": "DISCRETE_NUMBER",
+      "name": "Bewertung von Grafik und Sound für AngryBirds",
+      "distribution": {
+        "min": {
+          "base": 1,
+          "diff": 0
+        },
+        "max": {
+          "base": 5,
+          "diff": 0
+        },
+        "type": {
+          "descriptor": "OTHER",
+          "other": "Q"
+        },
+        "standardDeviation": {
+          "base": 2,
+          "diff": 0.5
+        }
+      },
+      "decimalPlaces": 0,
+      "missingValue": -1,
+      "missingPercentage": {
+        "base": 0.075,
+        "diff": 0.025
+      }
     }
   }
 }
