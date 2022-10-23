@@ -4,7 +4,6 @@ import de.holube.fakestudy.study.Study;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Comparator;
 import java.util.List;
 
 @Getter
@@ -18,8 +17,6 @@ public class StudyFactoryImpl implements StudyFactory {
     @Override
     public Study create() {
         Study study = new Study(amountSubjects);
-
-        categoryFactories.sort(Comparator.comparing(CategoryFactory::getKey));
 
         for (CategoryFactory categoryFactory : categoryFactories) {
             study.add(categoryFactory.getKey(), categoryFactory.create(study));

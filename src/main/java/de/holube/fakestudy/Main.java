@@ -41,12 +41,16 @@ public class Main {
             String finalPath = path;
             int finalI = i;
             tasks.add(() -> {
+                LOG.debug("Creating Study");
                 Study study = studyFactory.create();
+                LOG.debug("calculating results");
                 study.calculate();
                 study.setMissing();
 
+                LOG.debug("Saving Study");
                 StudyExcelSaver excelSaver = new StudyExcelSaver(study, finalPath, "study" + finalI);
                 excelSaver.save();
+                LOG.debug("Study Created");
                 return null;
             });
         }
