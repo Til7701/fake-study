@@ -1,5 +1,6 @@
 package de.holube.fakestudy.factory;
 
+import de.holube.fakestudy.Study;
 import de.holube.fakestudy.category.Category;
 import de.holube.fakestudy.category.SelectionCategory;
 import lombok.Getter;
@@ -16,8 +17,7 @@ public class SelectionCategoryFactory extends AbstractCategoryFactory {
     private int max;
     private String missingValue;
 
-    @Override
-    public Category create() {
+    protected Category createCategory(Study study) {
         SelectionCategory selectionCategory = new SelectionCategory();
         selectionCategory.getSelection().addAll(selection);
         selectionCategory.setMin(min);
