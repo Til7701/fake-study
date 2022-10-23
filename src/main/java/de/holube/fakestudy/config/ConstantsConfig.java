@@ -10,5 +10,6 @@ import lombok.ToString;
 public class ConstantsConfig {
 
     private int amountOfSubjects;
+    private int amountOfStudies;
 
 }

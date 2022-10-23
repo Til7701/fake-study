@@ -17,8 +17,8 @@ public class CategoryConfig {
     private VarNumConfig missingPercentage;
 
     // used by more than one
-    private double min;
-    private double max;
+    private int min;
+    private int max;
 
     // SELECTION
     private String[] options;
@@ -29,5 +29,6 @@ public class CategoryConfig {
 
     // CORRELATION
     private CorrelationType correlate;
+    private String origin;
 
 }

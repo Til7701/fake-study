@@ -1,6 +1,7 @@
 {
   "constants": {
-    "amountOfSubjects": 105
+    "amountOfSubjects": 105,
+    "amountOfStudies": 5
   },
   "categories": {
     "A": {
@@ -81,6 +82,7 @@
       "type": "CORRELATION",
       "name": "IQ",
       "correlate": "INVERTED",
+      "origin": "D",
       "min": 70,
       "max": 130,
       "distribution": {

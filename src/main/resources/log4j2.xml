@@ -8,7 +8,7 @@
             <!-- warning %l needs many resources, remove in case of problems -->
             <PatternLayout pattern="${appenderPatternLayout}"/>
         </Console>
-        <File name="LogToFile" fileName="logs/latest.log" immediateFlush="true" append="true">
+        <File name="LogToFile" fileName="logs/latest.log" immediateFlush="true" append="false">
             <PatternLayout pattern="${appenderPatternLayout}"/>
         </File>
     </Appenders>
