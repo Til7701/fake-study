@@ -10,11 +10,16 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Slf4j
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         LOG.info("Welcome to the fake studies. :)");
 
         File file = new File("config.json");
@@ -29,14 +34,29 @@ public class Main {
         LOG.debug("Factory created");
 
         path = path.substring(0, path.length() - 11) + "export/";
-        for (int i = 0; i < config.getConstants().getAmountOfStudies(); i++) {
-            Study study = studyFactory.create();
-            study.calculate();
-            study.setMissing();
 
-            StudyExcelSaver excelSaver = new StudyExcelSaver(study, path, "study" + i);
-            excelSaver.save();
+        LOG.info("Creating Tasks");
+        List<Callable<Void>> tasks = new ArrayList<>(config.getConstants().getAmountOfStudies());
+        for (int i = 0; i < config.getConstants().getAmountOfStudies(); i++) {
+            String finalPath = path;
+            int finalI = i;
+            tasks.add(() -> {
+                Study study = studyFactory.create();
+                study.calculate();
+                study.setMissing();
+
+                StudyExcelSaver excelSaver = new StudyExcelSaver(study, finalPath, "study" + finalI);
+                excelSaver.save();
+                return null;
+            });
         }
+        LOG.info("Starting Threads");
+        ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        LOG.info("Invoking Tasks...");
+        executorService.invokeAll(tasks);
+        LOG.info("Tasks Completed. Shutting down...");
+        executorService.shutdown();
+        LOG.info("done");
     }
 
     private static void checkExistence(File file) {

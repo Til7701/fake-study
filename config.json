@@ -1,7 +1,7 @@
 {
   "constants": {
     "amountOfSubjects": 105,
-    "amountOfStudies": 5
+    "amountOfStudies": 40
   },
   "categories": {
     "A": {

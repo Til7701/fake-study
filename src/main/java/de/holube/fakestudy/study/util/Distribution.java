@@ -3,6 +3,9 @@ package de.holube.fakestudy.study.util;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.math3.distribution.NormalDistribution;
+import org.apache.commons.math3.random.RandomGenerator;
+import org.apache.commons.math3.random.SynchronizedRandomGenerator;
+import org.apache.commons.math3.random.Well19937c;
 
 /**
  * This class represents a Distribution.
@@ -38,9 +41,9 @@ public class Distribution {
         this.type = type;
         double mean = ((max.doubleValue() - min.doubleValue()) / 2.0);
         mean += ((mean - min.doubleValue()) / 2.0) * type;
-        //RandomGenerator randomGenerator = new SynchronizedRandomGenerator(new Well19937c());
-        //normalDistribution = new NormalDistribution(randomGenerator, mean, sd.doubleValue());
-        normalDistribution = new NormalDistribution(mean, sd.doubleValue());
+        RandomGenerator randomGenerator = new SynchronizedRandomGenerator(new Well19937c());
+        normalDistribution = new NormalDistribution(randomGenerator, mean, sd.doubleValue());
+        //normalDistribution = new NormalDistribution(mean, sd.doubleValue());
     }
 
     /**

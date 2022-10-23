@@ -6,11 +6,9 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class SelectionCategory extends Category {
-
-    private static final Random random = new Random();
 
     @Getter
     private final List<String> selection = new ArrayList<>();
@@ -36,7 +34,7 @@ public class SelectionCategory extends Category {
             for (int i = 0; i < results.length; i++) {
                 int index;
                 do {
-                    index = random.nextInt(selection.size());
+                    index = ThreadLocalRandom.current().nextInt(selection.size());
                 } while (counter[index] >= max);
                 results[i] = selection.get(index);
                 counter[index] = counter[index] + 1;
