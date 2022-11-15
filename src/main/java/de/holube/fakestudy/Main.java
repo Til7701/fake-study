@@ -21,10 +21,11 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         LOG.info("Welcome to the fake studies. :)");
 
-        File file = new File("config.json");
+        File file = new File("study-config.json");
         String path = file.getAbsolutePath();
         LOG.info("Reading configuration from {}", path);
-        checkExistence(file);
+        DefaultFilesCreator dfc = new DefaultFilesCreator();
+        dfc.createDefaultFilesIfNotExisting(file);
 
         StudyJSON config = JSONFileReader.readFile(path);
         LOG.info("Read the following configuration: {}", config.toString());
@@ -62,11 +63,4 @@ public class Main {
         LOG.info("done");
     }
 
-    private static void checkExistence(File file) {
-        if (!file.exists()) {
-            LOG.error("File does not exist!");
-            LOG.info("Exiting...");
-            System.exit(1);
-        }
-    }
 }
