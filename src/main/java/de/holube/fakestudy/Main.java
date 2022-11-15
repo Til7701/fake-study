@@ -9,7 +9,6 @@ import de.holube.fakestudy.study.Study;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -66,13 +65,6 @@ public class Main {
     private static void checkExistence(File file) {
         if (!file.exists()) {
             LOG.error("File does not exist!");
-            LOG.info("Press enter to close");
-            try {
-                //noinspection ResultOfMethodCallIgnored
-                System.in.read();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
             LOG.info("Exiting...");
             System.exit(1);
         }
