@@ -9,7 +9,6 @@ import de.holube.fakestudy.study.Study;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -41,12 +40,16 @@ public class Main {
             String finalPath = path;
             int finalI = i;
             tasks.add(() -> {
+                LOG.debug("Creating Study");
                 Study study = studyFactory.create();
+                LOG.debug("calculating results");
                 study.calculate();
                 study.setMissing();
 
+                LOG.debug("Saving Study");
                 StudyExcelSaver excelSaver = new StudyExcelSaver(study, finalPath, "study" + finalI);
                 excelSaver.save();
+                LOG.debug("Study Created");
                 return null;
             });
         }
@@ -62,13 +65,6 @@ public class Main {
     private static void checkExistence(File file) {
         if (!file.exists()) {
             LOG.error("File does not exist!");
-            LOG.info("Press enter to close");
-            try {
-                //noinspection ResultOfMethodCallIgnored
-                System.in.read();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
             LOG.info("Exiting...");
             System.exit(1);
         }
