@@ -5,3 +5,5 @@ target/
 *.iml
 *.log
 *.xlsx
+study-config.json
+study-export/
