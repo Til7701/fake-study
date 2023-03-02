@@ -4,6 +4,7 @@ import de.holube.fakestudy.factory.StudyFactory;
 import de.holube.fakestudy.factory.StudyFactoryFactory;
 import de.holube.fakestudy.io.JSONFileReader;
 import de.holube.fakestudy.io.StudyExcelSaver;
+import de.holube.fakestudy.io.StudyPlotSaver;
 import de.holube.fakestudy.io.json.StudyJSON;
 import de.holube.fakestudy.study.Study;
 import de.holube.fakestudy.ui.Window;
@@ -55,6 +56,9 @@ public class Main {
                 LOG.debug("Saving Study");
                 StudyExcelSaver excelSaver = new StudyExcelSaver(study, finalPath, "study" + finalI);
                 excelSaver.save();
+                LOG.debug("Creating plots");
+                StudyPlotSaver plotSaver = new StudyPlotSaver(study, finalPath, finalI);
+                plotSaver.save();
                 LOG.debug("Study Created");
                 window.studyComplete();
                 return null;
