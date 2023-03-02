@@ -20,10 +20,12 @@ public class NumberCategory extends NumCategory {
         }
     }
 
+    @Override
     public double getMin() {
         return distribution.getMin().doubleValue();
     }
 
+    @Override
     public double getMax() {
         return distribution.getMax().doubleValue();
     }

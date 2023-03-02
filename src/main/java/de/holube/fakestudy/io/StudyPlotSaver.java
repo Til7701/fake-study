@@ -3,12 +3,15 @@ package de.holube.fakestudy.io;
 import de.holube.fakestudy.study.Study;
 import de.holube.fakestudy.study.category.Category;
 import de.holube.fakestudy.study.category.CorrelationCategory;
-import de.holube.fakestudy.study.category.NumberCategory;
+import de.holube.fakestudy.study.category.NumCategory;
+import de.holube.fakestudy.study.category.SelectionCategory;
 import lombok.extern.slf4j.Slf4j;
 import org.knowm.xchart.*;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +19,9 @@ import java.util.Map;
 
 @Slf4j
 public class StudyPlotSaver {
+
+    private static final int plotWidth = 400;
+    private static final int plotHeight = 300;
 
     private final Study study;
     private final String exportPath;
@@ -33,77 +39,81 @@ public class StudyPlotSaver {
     public void save() {
         try {
             for (Map.Entry<String, Category> entry : study.getCategories().entrySet()) {
-                if (entry.getValue() instanceof NumberCategory) {
-                    CategoryChart chart = createPlot((NumberCategory) entry.getValue());
+                if (entry.getValue() instanceof NumCategory) {
+                    CategoryChart chart = createPlot((NumCategory) entry.getValue());
                     categoryCharts.add(chart);
                 }
                 if (entry.getValue() instanceof CorrelationCategory) {
                     XYChart chart = createPlot((CorrelationCategory) entry.getValue());
                     xyCharts.add(chart);
                 }
+                if (entry.getValue() instanceof SelectionCategory) {
+                    CategoryChart chart = createPlot((SelectionCategory) entry.getValue());
+                    categoryCharts.add(chart);
+                }
             }
         } catch (Exception e) {
             LOG.error("Could not create Plot!", e);
         }
 
-        final int rowLength = (int) Math.sqrt(categoryCharts.size());
-
-        for (int i = 0; i < categoryCharts.size(); i++) {
-            try {
-                BitmapEncoder.saveBitmap(categoryCharts.get(i), exportPath + "study" + studyNumber + "_plot" + i, BitmapEncoder.BitmapFormat.PNG);
-               /* File outputfile = new File(exportPath + "study" + studyNumber + "_plot" + i + ".png");
-                BufferedImage image = createImage(plotImageList.get(i));
-                ImageIO.write(image, "png", outputfile);*/
-            } catch (IOException e) {
-                LOG.error("Could not save image", e);
-            }
+        final List<BufferedImage> images = new ArrayList<>();
+        for (CategoryChart categoryChart : categoryCharts) {
+            images.add(BitmapEncoder.getBufferedImage(categoryChart));
         }
-        for (int i = 0; i < xyCharts.size(); i++) {
-            try {
-                BitmapEncoder.saveBitmap(xyCharts.get(i), exportPath + "study" + studyNumber + "_plot" + (i + categoryCharts.size()), BitmapEncoder.BitmapFormat.PNG);
-               /* File outputfile = new File(exportPath + "study" + studyNumber + "_plot" + i + ".png");
-                BufferedImage image = createImage(plotImageList.get(i));
-                ImageIO.write(image, "png", outputfile);*/
-            } catch (IOException e) {
-                LOG.error("Could not save image", e);
-            }
+        for (XYChart xyChart : xyCharts) {
+            images.add(BitmapEncoder.getBufferedImage(xyChart));
+        }
+
+        final BufferedImage img = createImage(images);
+
+        try {
+            File outputfile = new File(exportPath + "plot" + studyNumber + ".png");
+            ImageIO.write(img, "png", outputfile);
+        } catch (IOException e) {
+            // handle exception
         }
     }
 
-    private BufferedImage createImage(Image img) {
-        BufferedImage bufferedImage = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+    private BufferedImage createImage(List<BufferedImage> images) {
+        final int rowLength = (int) Math.sqrt(images.size());
+        final int columnLength = images.size() / rowLength;
+        final BufferedImage img = new BufferedImage(
+                plotWidth * rowLength, columnLength * plotHeight,
+                BufferedImage.TYPE_INT_ARGB);
+        final Graphics2D g2d = img.createGraphics();
 
-        Graphics2D bGr = bufferedImage.createGraphics();
-        bGr.drawImage(img, 0, 0, null);
-        bGr.dispose();
+        for (int i = 0; i < images.size(); i++) {
+            int xPos = i % rowLength;
+            int yPos = i / rowLength;
+            g2d.drawImage(images.get(i), xPos * plotWidth, yPos * plotHeight, null);
+        }
 
-        return bufferedImage;
+        return img;
     }
 
-    private CategoryChart createPlot(NumberCategory cat) {
+    private CategoryChart createPlot(NumCategory cat) {
         List<Double> data = new ArrayList<>(cat.getDoubleResults().length);
         for (int i = 0; i < cat.getDoubleResults().length; i++) {
             data.add(cat.getDoubleResults()[i]);
         }
 
         CategoryChart chart = new CategoryChartBuilder()
-                .width(800).height(400)
+                .width(plotWidth).height(plotHeight)
                 .title(cat.getName())
                 .build();
         chart.getStyler().setLegendVisible(false);
+        chart.getStyler().setAvailableSpaceFill(1);
         chart.getStyler().setChartBackgroundColor(Color.WHITE);
-        Histogram histogram = new Histogram(data, 5, cat.getMin(), cat.getMax());
+        //chart.getStyler().setSeriesColors(new Color[]{Color.BLUE});
+        int bins = getBins(cat);
+        Histogram histogram = new Histogram(data, bins, cat.getMin(), cat.getMax());
         chart.addSeries("data", roundList(histogram.getxAxisData()), histogram.getyAxisData());
 
         return chart;
     }
 
-    private List<Double> roundList(List<Double> list) {
-        List<Double> newList = new ArrayList<>(list.size());
-        for (Double aDouble : list) {
-            newList.add((double) Math.round(aDouble));
-        }
-        return newList;
+    private int getBins(NumCategory cat) {
+        return 5; //TODO
     }
 
     private XYChart createPlot(CorrelationCategory cat) {
@@ -122,8 +132,8 @@ public class StudyPlotSaver {
         }
 
         XYChart chart = new XYChartBuilder()
-                .width(800).height(400)
-                .title(cat.getName())
+                .width(plotWidth).height(plotHeight)
+                .title(cat.getName() + "-" + cat.getOrigin().getName() + "-Correlation")
                 .build();
         chart.getStyler().setDefaultSeriesRenderStyle(XYSeries.XYSeriesRenderStyle.Scatter);
         chart.getStyler().setLegendVisible(false);
@@ -131,6 +141,43 @@ public class StudyPlotSaver {
         chart.addSeries("data", dataX, dataY);
 
         return chart;
+    }
+
+    private CategoryChart createPlot(SelectionCategory cat) {
+        List<String> data = new ArrayList<>(cat.getStringResults().length);
+        for (int i = 0; i < cat.getStringResults().length; i++) {
+            data.add(cat.getStringResults()[i]);
+        }
+
+        CategoryChart chart = new CategoryChartBuilder()
+                .width(plotWidth).height(plotHeight)
+                .title(cat.getName())
+                .build();
+        chart.getStyler().setLegendVisible(false);
+        chart.getStyler().setAvailableSpaceFill(1);
+        chart.getStyler().setChartBackgroundColor(Color.WHITE);
+        //chart.getStyler().setSeriesColors(new Color[]{Color.BLUE});
+
+        List<String> values = new ArrayList<>(cat.getSelection());
+        values.add(cat.getMissingValue());
+        List<Integer> yData = new ArrayList<>();
+        for (int i = 0; i < values.size(); i++) {
+            yData.add(0);
+        }
+        for (String s : cat.getStringResults()) {
+            yData.set(values.indexOf(s), yData.get(values.indexOf(s)) + 1);
+        }
+        chart.addSeries("data", values, yData);
+
+        return chart;
+    }
+
+    private List<Double> roundList(List<Double> list) {
+        List<Double> newList = new ArrayList<>(list.size());
+        for (Double aDouble : list) {
+            newList.add((double) Math.round(aDouble));
+        }
+        return newList;
     }
 
 }
