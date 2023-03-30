@@ -39,7 +39,7 @@ public class Distribution {
         this.min = min;
         this.max = max;
         this.type = type;
-        double mean = ((max.doubleValue() - min.doubleValue()) / 2.0);
+        double mean = min.doubleValue() + ((max.doubleValue() - min.doubleValue()) / 2.0);
         mean += ((mean - min.doubleValue()) / 2.0) * type;
         RandomGenerator randomGenerator = new SynchronizedRandomGenerator(new Well19937c());
         normalDistribution = new NormalDistribution(randomGenerator, mean, sd.doubleValue());
