@@ -57,4 +57,8 @@ public abstract class NumCategory extends Category {
         return df;
     }
 
+    public abstract double getMin();
+
+    public abstract double getMax();
+
 }
