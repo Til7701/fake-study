@@ -1,13 +1,9 @@
 package de.holube.fakestudy;
 
-import de.holube.fakestudy.factory.StudyFactory;
-import de.holube.fakestudy.factory.StudyFactoryFactory;
-import de.holube.fakestudy.io.JSONFileReader;
+import de.holube.fakestudy.configs.StudyFactory2023;
 import de.holube.fakestudy.io.StudyExcelSaver;
 import de.holube.fakestudy.io.StudyPlotSaver;
-import de.holube.fakestudy.io.json.StudyJSON;
 import de.holube.fakestudy.study.Study;
-import de.holube.fakestudy.ui.Window;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
@@ -20,32 +16,36 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class Main {
 
+    private static final int AMOUNT = 30;
+    private static final String EXPORT_FOLDER = "./study-export/";
+
     public static void main(String[] args) throws InterruptedException {
         LOG.info("Welcome to the fake studies. :)");
 
-        LOG.debug("Opening Window...");
-        final Window window = new Window();
+        LOG.info("Creating export folder...");
+        File file = new File(EXPORT_FOLDER);
+        LOG.debug(String.valueOf(file.mkdir()));
 
-        File file = new File("study-config.json");
-        String path = file.getAbsolutePath();
-        LOG.info("Reading configuration from {}", path);
-        final DefaultFilesCreator dfc = new DefaultFilesCreator();
-        dfc.createDefaultFilesIfNotExisting(file);
-
-        final StudyJSON config = JSONFileReader.readFile(path);
-        LOG.info("Read the following configuration: {}", config.toString());
-
-        final StudyFactory studyFactory = StudyFactoryFactory.create(config);
-        LOG.debug("Factory created");
-
-        path = path.substring(0, path.length() - 11) + "export/";
-        window.setAmountOfStudies(config.getConstants().getAmountOfStudies());
+        final StudyFactory studyFactory = new StudyFactory2023();
 
         LOG.info("Creating Tasks");
-        List<Callable<Void>> tasks = new ArrayList<>(config.getConstants().getAmountOfStudies());
-        for (int i = 0; i < config.getConstants().getAmountOfStudies(); i++) {
-            String finalPath = path;
-            int finalI = i;
+        final List<Callable<Void>> tasks = getTasks(studyFactory, EXPORT_FOLDER);
+        LOG.info("Starting Threads");
+        ExecutorService executorService = Executors.newFixedThreadPool((int) (Runtime.getRuntime().availableProcessors() * 0.75));
+        try {
+            LOG.info("Invoking Tasks...");
+            executorService.invokeAll(tasks);
+            LOG.info("Tasks Completed. Shutting down...");
+        } finally {
+            executorService.shutdown();
+        }
+        LOG.info("done");
+    }
+
+    private static List<Callable<Void>> getTasks(StudyFactory studyFactory, String finalPath) {
+        final List<Callable<Void>> tasks = new ArrayList<>(AMOUNT);
+        for (int i = 0; i < AMOUNT; i++) {
+            final int finalI = i;
             tasks.add(() -> {
                 LOG.debug("Creating Study");
                 Study study = studyFactory.create();
@@ -60,18 +60,10 @@ public class Main {
                 StudyPlotSaver plotSaver = new StudyPlotSaver(study, finalPath, finalI);
                 plotSaver.save();
                 LOG.debug("Study Created");
-                window.studyComplete();
                 return null;
             });
         }
-        LOG.info("Starting Threads");
-        final ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-        LOG.info("Invoking Tasks...");
-        executorService.invokeAll(tasks);
-        LOG.info("Tasks Completed. Shutting down...");
-        executorService.shutdown();
-        window.close();
-        LOG.info("done");
+        return tasks;
     }
 
 }
