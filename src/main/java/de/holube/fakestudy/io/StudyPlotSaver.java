@@ -14,14 +14,15 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 @Slf4j
 public class StudyPlotSaver {
 
-    private static final int plotWidth = 400;
-    private static final int plotHeight = 300;
+    private static final int PLOT_WIDTH = 400;
+    private static final int PLOT_HEIGHT = 300;
 
     private final Study study;
     private final String exportPath;
@@ -38,17 +39,17 @@ public class StudyPlotSaver {
 
     public void save() {
         try {
-            for (Map.Entry<String, Category> entry : study.getCategories().entrySet()) {
-                if (entry.getValue() instanceof NumCategory) {
-                    CategoryChart chart = createPlot((NumCategory) entry.getValue());
+            for (Map.Entry<String, Category<?>> entry : study.getCategories().entrySet()) {
+                if (entry.getValue() instanceof NumCategory c) {
+                    CategoryChart chart = createPlot(c);
                     categoryCharts.add(chart);
                 }
-                if (entry.getValue() instanceof CorrelationCategory) {
-                    XYChart chart = createPlot((CorrelationCategory) entry.getValue());
+                if (entry.getValue() instanceof CorrelationCategory c) {
+                    XYChart chart = createPlot(c);
                     xyCharts.add(chart);
                 }
-                if (entry.getValue() instanceof SelectionCategory) {
-                    CategoryChart chart = createPlot((SelectionCategory) entry.getValue());
+                if (entry.getValue() instanceof SelectionCategory c) {
+                    CategoryChart chart = createPlot(c);
                     categoryCharts.add(chart);
                 }
             }
@@ -78,33 +79,30 @@ public class StudyPlotSaver {
         final int rowLength = (int) Math.sqrt(images.size());
         final int columnLength = images.size() / rowLength;
         final BufferedImage img = new BufferedImage(
-                plotWidth * rowLength, columnLength * plotHeight,
+                PLOT_WIDTH * rowLength, columnLength * PLOT_HEIGHT,
                 BufferedImage.TYPE_INT_ARGB);
         final Graphics2D g2d = img.createGraphics();
 
         for (int i = 0; i < images.size(); i++) {
             int xPos = i % rowLength;
             int yPos = i / rowLength;
-            g2d.drawImage(images.get(i), xPos * plotWidth, yPos * plotHeight, null);
+            g2d.drawImage(images.get(i), xPos * PLOT_WIDTH, yPos * PLOT_HEIGHT, null);
         }
 
         return img;
     }
 
     private CategoryChart createPlot(NumCategory cat) {
-        List<Double> data = new ArrayList<>(cat.getDoubleResults().length);
-        for (int i = 0; i < cat.getDoubleResults().length; i++) {
-            data.add(cat.getDoubleResults()[i]);
-        }
+        List<Double> data = new ArrayList<>(cat.getResults().length);
+        Collections.addAll(data, cat.getResults());
 
         CategoryChart chart = new CategoryChartBuilder()
-                .width(plotWidth).height(plotHeight)
+                .width(PLOT_WIDTH).height(PLOT_HEIGHT)
                 .title(cat.getName())
                 .build();
         chart.getStyler().setLegendVisible(false);
         chart.getStyler().setAvailableSpaceFill(1);
         chart.getStyler().setChartBackgroundColor(Color.WHITE);
-        //chart.getStyler().setSeriesColors(new Color[]{Color.BLUE});
         int bins = getBins(cat);
         Histogram histogram = new Histogram(data, bins, cat.getMin(), cat.getMax());
         chart.addSeries("data", roundList(histogram.getxAxisData()), histogram.getyAxisData());
@@ -117,22 +115,21 @@ public class StudyPlotSaver {
     }
 
     private XYChart createPlot(CorrelationCategory cat) {
-        if (cat.getDoubleResults().length != cat.getOrigin().getDoubleResults().length)
+        if (cat.getResults().length != cat.getOrigin().getResults().length)
             throw new IllegalArgumentException("Category sizes have to be equal.");
 
         List<Double> dataY = new ArrayList<>();
         List<Double> dataX = new ArrayList<>();
-        for (int i = 0; i < cat.getDoubleResults().length; i++) {
-            if (cat.getDoubleResults()[i] != cat.getMissingValue()) {
-                if (cat.getOrigin().getDoubleResults()[i] != cat.getOrigin().getMissingValue()) {
-                    dataY.add(cat.getOrigin().getDoubleResults()[i]);
-                    dataX.add(cat.getDoubleResults()[i]);
-                }
+        for (int i = 0; i < cat.getResults().length; i++) {
+            if ((cat.getResults()[i] != cat.getMissingValue()) &&
+                    (cat.getOrigin().getResults()[i] != cat.getOrigin().getMissingValue())) {
+                dataY.add(cat.getOrigin().getResults()[i]);
+                dataX.add(cat.getResults()[i]);
             }
         }
 
         XYChart chart = new XYChartBuilder()
-                .width(plotWidth).height(plotHeight)
+                .width(PLOT_WIDTH).height(PLOT_HEIGHT)
                 .title(cat.getName() + "-" + cat.getOrigin().getName() + "-Correlation")
                 .build();
         chart.getStyler().setDefaultSeriesRenderStyle(XYSeries.XYSeriesRenderStyle.Scatter);
@@ -144,19 +141,13 @@ public class StudyPlotSaver {
     }
 
     private CategoryChart createPlot(SelectionCategory cat) {
-        List<String> data = new ArrayList<>(cat.getStringResults().length);
-        for (int i = 0; i < cat.getStringResults().length; i++) {
-            data.add(cat.getStringResults()[i]);
-        }
-
         CategoryChart chart = new CategoryChartBuilder()
-                .width(plotWidth).height(plotHeight)
+                .width(PLOT_WIDTH).height(PLOT_HEIGHT)
                 .title(cat.getName())
                 .build();
         chart.getStyler().setLegendVisible(false);
         chart.getStyler().setAvailableSpaceFill(1);
         chart.getStyler().setChartBackgroundColor(Color.WHITE);
-        //chart.getStyler().setSeriesColors(new Color[]{Color.BLUE});
 
         List<String> values = new ArrayList<>(cat.getSelection());
         values.add(cat.getMissingValue());

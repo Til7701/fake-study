@@ -16,6 +16,8 @@ import org.apache.commons.math3.random.Well19937c;
 @Slf4j
 public class Distribution {
 
+    private static final int MAX_SAMPLE_TRIES = 10_000;
+
     private final NormalDistribution normalDistribution;
     @Getter
     private final VariableNumber min;
@@ -43,7 +45,6 @@ public class Distribution {
         mean += ((mean - min.doubleValue()) / 2.0) * type;
         RandomGenerator randomGenerator = new SynchronizedRandomGenerator(new Well19937c());
         normalDistribution = new NormalDistribution(randomGenerator, mean, sd.doubleValue());
-        //normalDistribution = new NormalDistribution(mean, sd.doubleValue());
     }
 
     /**
@@ -59,8 +60,8 @@ public class Distribution {
         do {
             sample = normalDistribution.sample();
             counter++;
-            if (counter > 1000) {
-                LOG.error("sample counter exceeded 1000");
+            if (counter > MAX_SAMPLE_TRIES) {
+                LOG.error("sample counter exceeded " + MAX_SAMPLE_TRIES);
                 return min.doubleValue() + (Math.random() * (max.doubleValue() - min.doubleValue()));
             }
         } while (sample < min.doubleValue() || sample > max.doubleValue());

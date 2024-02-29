@@ -1,6 +1,9 @@
 package de.holube.fakestudy.study.category;
 
-public class StaticCategory extends Category {
+import lombok.Getter;
+
+@Getter
+public class StaticCategory extends Category<String> {
 
     private String[] results;
 

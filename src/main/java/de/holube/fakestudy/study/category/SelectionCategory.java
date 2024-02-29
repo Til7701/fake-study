@@ -10,18 +10,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+@Getter
 @Slf4j
-public class SelectionCategory extends Category {
+public class SelectionCategory extends Category<String> {
 
-    @Getter
     private final List<String> selection = new ArrayList<>();
-    @Getter
     @Setter
     private int min;
-    @Getter
     @Setter
     private int max;
-    @Getter
     @Setter
     private String missingValue;
 

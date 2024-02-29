@@ -12,7 +12,7 @@ public class NumberCategory extends NumCategory {
 
     @Override
     public void calculate(int amountSubjects) {
-        results = new double[amountSubjects];
+        results = new Double[amountSubjects];
 
         for (int i = 0; i < results.length; i++) {
             results[i] = distribution.sample();

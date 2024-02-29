@@ -20,8 +20,6 @@ public class Main {
     private static final String EXPORT_FOLDER = "./study-export/";
 
     public static void main(String[] args) throws InterruptedException {
-        LOG.info("Welcome to the fake studies. :)");
-
         LOG.info("Creating export folder...");
         File file = new File(EXPORT_FOLDER);
         LOG.debug(String.valueOf(file.mkdir()));
@@ -29,20 +27,18 @@ public class Main {
         final StudyFactory studyFactory = new StudyFactory2023();
 
         LOG.info("Creating Tasks");
-        final List<Callable<Void>> tasks = getTasks(studyFactory, EXPORT_FOLDER);
+        final List<Callable<Void>> tasks = createTasks(studyFactory);
         LOG.info("Starting Threads");
-        ExecutorService executorService = Executors.newFixedThreadPool((int) (Runtime.getRuntime().availableProcessors() * 0.75));
-        try {
+
+        try (ExecutorService executorService = Executors.newVirtualThreadPerTaskExecutor()) {
             LOG.info("Invoking Tasks...");
             executorService.invokeAll(tasks);
             LOG.info("Tasks Completed. Shutting down...");
-        } finally {
-            executorService.shutdown();
         }
         LOG.info("done");
     }
 
-    private static List<Callable<Void>> getTasks(StudyFactory studyFactory, String finalPath) {
+    private static List<Callable<Void>> createTasks(StudyFactory studyFactory) {
         final List<Callable<Void>> tasks = new ArrayList<>(AMOUNT);
         for (int i = 0; i < AMOUNT; i++) {
             final int finalI = i;
@@ -54,10 +50,10 @@ public class Main {
                 study.setMissing();
 
                 LOG.debug("Saving Study");
-                StudyExcelSaver excelSaver = new StudyExcelSaver(study, finalPath, "study" + finalI);
+                StudyExcelSaver excelSaver = new StudyExcelSaver(study, EXPORT_FOLDER, "study" + finalI);
                 excelSaver.save();
                 LOG.debug("Creating plots");
-                StudyPlotSaver plotSaver = new StudyPlotSaver(study, finalPath, finalI);
+                StudyPlotSaver plotSaver = new StudyPlotSaver(study, EXPORT_FOLDER, finalI);
                 plotSaver.save();
                 LOG.debug("Study Created");
                 return null;

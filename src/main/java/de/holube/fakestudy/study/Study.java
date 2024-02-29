@@ -19,7 +19,7 @@ import java.util.Map;
 public class Study {
 
     private final int amountSubjects;
-    private final Map<String, Category> categories;
+    private final Map<String, Category<?>> categories;
 
     public Study(int amountSubjects) {
         this.amountSubjects = amountSubjects;
@@ -45,7 +45,7 @@ public class Study {
      * Repeated execution of this method will result in more than the desired amount of values to be set missing.
      */
     public void setMissing() {
-        for (Category category : categories.values()) {
+        for (Category<?> category : categories.values()) {
             category.setMissing();
         }
     }
@@ -56,7 +56,7 @@ public class Study {
      * @param key      the key for the category
      * @param category the category to add
      */
-    public void add(String key, Category category) {
+    public void add(String key, Category<?> category) {
         categories.put(key, category);
     }
 

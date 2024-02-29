@@ -6,15 +6,14 @@ import lombok.Setter;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
-public abstract class NumCategory extends Category {
+@Getter
+public abstract class NumCategory extends Category<Double> {
 
-    @Getter
     @Setter
     protected int decimalPlaces;
 
-    protected double[] results;
+    protected Double[] results;
 
-    @Getter
     @Setter
     protected double missingValue;
 
@@ -39,17 +38,11 @@ public abstract class NumCategory extends Category {
         return ret;
     }
 
-    public double[] getDoubleResults() {
-        return results;
-    }
-
     protected DecimalFormat decimalFormat(int decimalPlaces) {
         StringBuilder decimalString = new StringBuilder("#");
         if (decimalPlaces > 0) {
             decimalString.append(".");
-            for (int i = 0; i < decimalPlaces; i++) {
-                decimalString.append("#");
-            }
+            decimalString.append("#".repeat(decimalPlaces));
         }
         DecimalFormat df = new DecimalFormat(decimalString.toString());
         df.setRoundingMode(RoundingMode.HALF_UP);

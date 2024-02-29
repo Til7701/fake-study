@@ -23,13 +23,13 @@ public class CorrelationCategory extends NumCategory {
 
     @Override
     public void calculate(int amountSubjects) {
-        results = new double[amountSubjects];
+        results = new Double[amountSubjects];
 
         for (int i = 0; i < results.length; i++) {
             double value = correlator.correlate(
                     origin.getDistribution().getMin().doubleValue(),
                     origin.getDistribution().getMax().doubleValue(),
-                    origin.getDoubleResults()[i],
+                    origin.getResults()[i],
                     min,
                     max
             );

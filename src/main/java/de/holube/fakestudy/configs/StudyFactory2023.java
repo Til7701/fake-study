@@ -2,7 +2,6 @@ package de.holube.fakestudy.configs;
 
 import de.holube.fakestudy.StudyFactory;
 import de.holube.fakestudy.study.Study;
-import de.holube.fakestudy.study.category.Category;
 import de.holube.fakestudy.study.category.DiscreteNumberCategory;
 import de.holube.fakestudy.study.category.SelectionCategory;
 import de.holube.fakestudy.study.category.StaticCategory;
@@ -19,7 +18,7 @@ public class StudyFactory2023 extends StudyFactory {
         final double defaultMissingBase = 0.075;
         final double defaultMissingDiff = 0.075;
 
-        final Category aCategory = new StaticCategory();
+        final StaticCategory aCategory = new StaticCategory();
         aCategory.setName("Name");
         study.add("A", aCategory);
 
