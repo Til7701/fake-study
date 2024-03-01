@@ -5,7 +5,11 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class represents a Study.
@@ -13,15 +17,15 @@ import java.util.*;
  * This class is not thread-safe.
  */
 @Slf4j
+@Getter
 public class Study {
 
-    @Getter
     private final int amountSubjects;
     private final Map<String, Category<?>> categories;
 
     public Study(int amountSubjects) {
         this.amountSubjects = amountSubjects;
-        categories = new HashMap<>();
+        categories = new ConcurrentHashMap<>();
     }
 
     /**
@@ -56,11 +60,7 @@ public class Study {
      * @param category the category to add
      */
     public void add(@NonNull String key, @NonNull Category<?> category) {
-        Objects.requireNonNull(key);
         categories.put(key, category);
     }
 
-    public Map<String, Category<?>> getCategories() {
-        return categories;
-    }
 }

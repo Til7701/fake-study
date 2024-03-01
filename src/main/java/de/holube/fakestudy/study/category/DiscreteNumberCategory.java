@@ -1,8 +1,10 @@
 package de.holube.fakestudy.study.category;
 
+import lombok.NonNull;
+
 public class DiscreteNumberCategory extends NumberCategory {
 
-    public DiscreteNumberCategory(String name) {
+    public DiscreteNumberCategory(@NonNull String name) {
         super(name);
     }
 

@@ -1,6 +1,7 @@
 package de.holube.fakestudy.study.category;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -13,11 +14,11 @@ import java.util.concurrent.ThreadLocalRandom;
 @Slf4j
 public class SelectionCategory extends Category<String> {
 
-    private final List<String> selection = new ArrayList<>();
+    private final List<String> selection = Collections.synchronizedList(new ArrayList<>());
     private int min;
     private int max;
 
-    public SelectionCategory(String name) {
+    public SelectionCategory(@NonNull String name) {
         super(name);
     }
 
@@ -57,7 +58,7 @@ public class SelectionCategory extends Category<String> {
         return results;
     }
 
-    public SelectionCategory addOptions(String... strings) {
+    public SelectionCategory addOptions(@NonNull String... strings) {
         Collections.addAll(selection, strings);
         return this;
     }

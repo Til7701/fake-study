@@ -1,6 +1,7 @@
 package de.holube.fakestudy.study.category;
 
 import lombok.Getter;
+import lombok.NonNull;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -10,7 +11,7 @@ public abstract class NumCategory extends Category<Double> {
 
     protected int decimalPlaces;
 
-    protected NumCategory(String name) {
+    protected NumCategory(@NonNull String name) {
         super(name);
     }
 

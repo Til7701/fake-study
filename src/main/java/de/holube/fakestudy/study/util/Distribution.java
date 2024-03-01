@@ -1,6 +1,7 @@
 package de.holube.fakestudy.study.util;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.random.RandomGenerator;
@@ -37,7 +38,7 @@ public class Distribution {
      *             1 -> third quarter
      * @param sd   the standard deviation
      */
-    public Distribution(VariableNumber min, VariableNumber max, double type, VariableNumber sd) {
+    public Distribution(@NonNull Number min, @NonNull Number max, double type, @NonNull Number sd) {
         this.min = min;
         this.max = max;
         this.type = type;

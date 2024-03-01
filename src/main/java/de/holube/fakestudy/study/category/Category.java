@@ -1,6 +1,7 @@
 package de.holube.fakestudy.study.category;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -33,7 +34,7 @@ public abstract class Category<T> {
         return this;
     }
 
-    public Category<T> setMissingValue(T missingValue) {
+    public Category<T> setMissingValue(@NonNull T missingValue) {
         this.missingValue = missingValue;
         return this;
     }

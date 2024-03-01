@@ -4,6 +4,7 @@ import de.holube.fakestudy.configs.StudyFactory2023;
 import de.holube.fakestudy.io.StudyExcelSaver;
 import de.holube.fakestudy.io.StudyPlotSaver;
 import de.holube.fakestudy.study.Study;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
@@ -46,7 +47,7 @@ public class Main {
         LOG.info("done");
     }
 
-    private static List<Callable<Void>> createTasks(StudyFactory studyFactory) {
+    private static List<Callable<Void>> createTasks(@NonNull StudyFactory studyFactory) {
         final List<Callable<Void>> tasks = new ArrayList<>(AMOUNT);
         for (int i = 0; i < AMOUNT; i++) {
             final int finalI = i;

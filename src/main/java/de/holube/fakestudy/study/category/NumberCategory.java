@@ -2,6 +2,7 @@ package de.holube.fakestudy.study.category;
 
 import de.holube.fakestudy.study.util.Distribution;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -10,7 +11,7 @@ public class NumberCategory extends NumCategory {
 
     protected Distribution distribution;
 
-    public NumberCategory(String name) {
+    public NumberCategory(@NonNull String name) {
         super(name);
     }
 
@@ -38,7 +39,7 @@ public class NumberCategory extends NumCategory {
         return distribution.getMax().doubleValue();
     }
 
-    public NumberCategory setDistribution(Distribution distribution) {
+    public NumberCategory setDistribution(@NonNull Distribution distribution) {
         this.distribution = distribution;
         return this;
     }

@@ -1,11 +1,12 @@
 package de.holube.fakestudy.study.category;
 
 import lombok.Getter;
+import lombok.NonNull;
 
 @Getter
 public class StaticCategory extends Category<String> {
 
-    public StaticCategory(String name) {
+    public StaticCategory(@NonNull String name) {
         super(name);
     }
 

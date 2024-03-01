@@ -5,6 +5,7 @@ import de.holube.fakestudy.study.category.Category;
 import de.holube.fakestudy.study.category.CorrelationCategory;
 import de.holube.fakestudy.study.category.NumCategory;
 import de.holube.fakestudy.study.category.SelectionCategory;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.knowm.xchart.*;
 
@@ -31,7 +32,7 @@ public class StudyPlotSaver {
     private final List<CategoryChart> categoryCharts = new ArrayList<>();
     private final List<XYChart> xyCharts = new ArrayList<>();
 
-    public StudyPlotSaver(Study study, String exportPath, int studyNumber) {
+    public StudyPlotSaver(@NonNull Study study, @NonNull String exportPath, int studyNumber) {
         this.study = study;
         this.exportPath = exportPath;
         this.studyNumber = studyNumber;
