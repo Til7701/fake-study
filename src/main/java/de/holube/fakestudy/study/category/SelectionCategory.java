@@ -1,7 +1,6 @@
 package de.holube.fakestudy.study.category;
 
 import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -15,14 +14,12 @@ import java.util.concurrent.ThreadLocalRandom;
 public class SelectionCategory extends Category<String> {
 
     private final List<String> selection = new ArrayList<>();
-    @Setter
     private int min;
-    @Setter
     private int max;
-    @Setter
-    private String missingValue;
 
-    private String[] results;
+    public SelectionCategory(String name) {
+        super(name);
+    }
 
     @Override
     public void calculate(int amountSubjects) {
@@ -56,21 +53,23 @@ public class SelectionCategory extends Category<String> {
     }
 
     @Override
-    public void setMissing() {
-        for (int i = 0; i < results.length; i++) {
-            if (Math.random() < missingPercentage) {
-                results[i] = missingValue;
-            }
-        }
-    }
-
-    @Override
     public String[] getStringResults() {
         return results;
     }
 
-    public void addOptions(String... strings) {
+    public SelectionCategory addOptions(String... strings) {
         Collections.addAll(selection, strings);
+        return this;
+    }
+
+    public SelectionCategory setMin(int min) {
+        this.min = min;
+        return this;
+    }
+
+    public SelectionCategory setMax(int max) {
+        this.max = max;
+        return this;
     }
 
 }

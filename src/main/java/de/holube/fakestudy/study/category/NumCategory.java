@@ -1,7 +1,6 @@
 package de.holube.fakestudy.study.category;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -9,21 +8,10 @@ import java.text.DecimalFormat;
 @Getter
 public abstract class NumCategory extends Category<Double> {
 
-    @Setter
     protected int decimalPlaces;
 
-    protected Double[] results;
-
-    @Setter
-    protected double missingValue;
-
-
-    @Override
-    public void setMissing() {
-        for (int i = 0; i < results.length; i++) {
-            if (Math.random() < missingPercentage)
-                results[i] = missingValue;
-        }
+    protected NumCategory(String name) {
+        super(name);
     }
 
     @Override
@@ -36,6 +24,11 @@ public abstract class NumCategory extends Category<Double> {
         }
 
         return ret;
+    }
+
+    public NumCategory setDecimalPlaces(int decimalPlaces) {
+        this.decimalPlaces = decimalPlaces;
+        return this;
     }
 
     protected DecimalFormat decimalFormat(int decimalPlaces) {

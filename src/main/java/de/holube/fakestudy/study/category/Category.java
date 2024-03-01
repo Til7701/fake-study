@@ -1,32 +1,40 @@
 package de.holube.fakestudy.study.category;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /**
  * This is the base class for all categories.
  * A category represents one data point. E.g. one question the subjects were asked.
  */
 @Getter
+@RequiredArgsConstructor
 public abstract class Category<T> {
 
+    private final String name;
+
     protected double missingPercentage;
-    private String name;
+    protected T missingValue;
+    protected T[] results;
 
     public abstract void calculate(int amountSubjects);
 
-    public abstract void setMissing();
-
-    public abstract T[] getResults();
-
     public abstract String[] getStringResults();
 
-    public Category<T> setName(String name) {
-        this.name = name;
-        return this;
+    public void setMissing() {
+        for (int i = 0; i < results.length; i++) {
+            if (Math.random() < missingPercentage)
+                results[i] = missingValue;
+        }
     }
 
     public Category<T> setMissingPercentage(double missingPercentage) {
         this.missingPercentage = missingPercentage;
+        return this;
+    }
+
+    public Category<T> setMissingValue(T missingValue) {
+        this.missingValue = missingValue;
         return this;
     }
 

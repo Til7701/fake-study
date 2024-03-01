@@ -2,6 +2,10 @@ package de.holube.fakestudy.study.category;
 
 public class DiscreteNumberCategory extends NumberCategory {
 
+    public DiscreteNumberCategory(String name) {
+        super(name);
+    }
+
     @Override
     public void calculate(int amountSubjects) {
         super.calculate(amountSubjects);

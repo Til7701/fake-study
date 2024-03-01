@@ -3,11 +3,9 @@ package de.holube.fakestudy.study.category;
 import de.holube.fakestudy.study.util.Distribution;
 import de.holube.fakestudy.study.util.correlate.Correlator;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 @Getter
-@Setter
 @Slf4j
 public class CorrelationCategory extends NumCategory {
 
@@ -17,7 +15,8 @@ public class CorrelationCategory extends NumCategory {
     private Distribution distribution;
     private Correlator correlator;
 
-    public CorrelationCategory(NumberCategory origin) {
+    public CorrelationCategory(String name, NumberCategory origin) {
+        super(name);
         this.origin = origin;
     }
 
@@ -48,4 +47,23 @@ public class CorrelationCategory extends NumCategory {
         }
     }
 
+    public CorrelationCategory setMin(double min) {
+        this.min = min;
+        return this;
+    }
+
+    public CorrelationCategory setMax(double max) {
+        this.max = max;
+        return this;
+    }
+
+    public CorrelationCategory setDistribution(Distribution distribution) {
+        this.distribution = distribution;
+        return this;
+    }
+
+    public CorrelationCategory setCorrelator(Correlator correlator) {
+        this.correlator = correlator;
+        return this;
+    }
 }

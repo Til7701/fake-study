@@ -2,13 +2,15 @@ package de.holube.fakestudy.study.category;
 
 import de.holube.fakestudy.study.util.Distribution;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class NumberCategory extends NumCategory {
 
-    private Distribution distribution;
+    protected Distribution distribution;
+
+    public NumberCategory(String name) {
+        super(name);
+    }
 
     @Override
     public void calculate(int amountSubjects) {
@@ -28,6 +30,11 @@ public class NumberCategory extends NumCategory {
     @Override
     public double getMax() {
         return distribution.getMax().doubleValue();
+    }
+
+    public NumberCategory setDistribution(Distribution distribution) {
+        this.distribution = distribution;
+        return this;
     }
 
 }

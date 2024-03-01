@@ -9,9 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutionException;
 
 @Slf4j
 public class Main {
@@ -19,7 +17,7 @@ public class Main {
     private static final int AMOUNT = 30;
     private static final String EXPORT_FOLDER = "./study-export/";
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
         LOG.info("Creating export folder...");
         File file = new File(EXPORT_FOLDER);
         LOG.debug(String.valueOf(file.mkdir()));
@@ -27,19 +25,22 @@ public class Main {
         final StudyFactory studyFactory = new StudyFactory2023();
 
         LOG.info("Creating Tasks");
-        final List<Callable<Void>> tasks = createTasks(studyFactory);
-        LOG.info("Starting Threads");
+        final List<Runnable> tasks = createTasks(studyFactory);
 
-        try (ExecutorService executorService = Executors.newVirtualThreadPerTaskExecutor()) {
-            LOG.info("Invoking Tasks...");
-            executorService.invokeAll(tasks);
-            LOG.info("Tasks Completed. Shutting down...");
+        LOG.info("Starting Threads");
+        for (Runnable task : tasks) {
+            try {
+                task.run();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
         LOG.info("done");
     }
 
-    private static List<Callable<Void>> createTasks(StudyFactory studyFactory) {
-        final List<Callable<Void>> tasks = new ArrayList<>(AMOUNT);
+    private static List<Runnable> createTasks(StudyFactory studyFactory) {
+        final List<Runnable> tasks = new ArrayList<>(AMOUNT);
         for (int i = 0; i < AMOUNT; i++) {
             final int finalI = i;
             tasks.add(() -> {
@@ -56,7 +57,6 @@ public class Main {
                 StudyPlotSaver plotSaver = new StudyPlotSaver(study, EXPORT_FOLDER, finalI);
                 plotSaver.save();
                 LOG.debug("Study Created");
-                return null;
             });
         }
         return tasks;

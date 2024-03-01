@@ -5,7 +5,9 @@ import lombok.Getter;
 @Getter
 public class StaticCategory extends Category<String> {
 
-    private String[] results;
+    public StaticCategory(String name) {
+        super(name);
+    }
 
     @Override
     public void calculate(int amountSubjects) {
