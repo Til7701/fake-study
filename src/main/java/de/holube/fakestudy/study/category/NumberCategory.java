@@ -2,7 +2,9 @@ package de.holube.fakestudy.study.category;
 
 import de.holube.fakestudy.study.util.Distribution;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Getter
 public class NumberCategory extends NumCategory {
 
@@ -18,7 +20,11 @@ public class NumberCategory extends NumCategory {
 
         for (int i = 0; i < results.length; i++) {
             results[i] = distribution.sample();
-            results[i] = Math.round(results[i] * Math.pow(10, decimalPlaces)) / Math.pow(10, decimalPlaces);
+            double tmp = results[i];
+            if (results[i] == null) {
+                LOG.error("result entry is null: " + results[i] + " tmp: " + tmp);
+            }
+            results[i] = Math.round(tmp * Math.pow(10, decimalPlaces)) / Math.pow(10, decimalPlaces);
         }
     }
 

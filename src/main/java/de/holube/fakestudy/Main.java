@@ -9,7 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class Main {
@@ -25,22 +26,28 @@ public class Main {
         final StudyFactory studyFactory = new StudyFactory2023();
 
         LOG.info("Creating Tasks");
-        final List<Runnable> tasks = createTasks(studyFactory);
+        final List<Callable<Void>> tasks = createTasks(studyFactory);
 
-        LOG.info("Starting Threads");
-        for (Runnable task : tasks) {
-            try {
-                task.run();
-            } catch (Exception e) {
-                e.printStackTrace();
+        final AtomicInteger atomicInteger = new AtomicInteger(0);
+        LOG.info("Starting Tasks");
+        try (ExecutorService executor = Executors.newThreadPerTaskExecutor(r -> Thread.ofPlatform()
+                .name(String.valueOf(atomicInteger.getAndIncrement()))
+                .unstarted(r))) {
+            List<Future<Void>> futures = executor.invokeAll(tasks);
+            for (var f : futures) {
+                try {
+                    f.get();
+                } catch (ExecutionException e) {
+                    LOG.error("Error while execution: ", e);
+                }
             }
         }
 
         LOG.info("done");
     }
 
-    private static List<Runnable> createTasks(StudyFactory studyFactory) {
-        final List<Runnable> tasks = new ArrayList<>(AMOUNT);
+    private static List<Callable<Void>> createTasks(StudyFactory studyFactory) {
+        final List<Callable<Void>> tasks = new ArrayList<>(AMOUNT);
         for (int i = 0; i < AMOUNT; i++) {
             final int finalI = i;
             tasks.add(() -> {
@@ -57,6 +64,7 @@ public class Main {
                 StudyPlotSaver plotSaver = new StudyPlotSaver(study, EXPORT_FOLDER, finalI);
                 plotSaver.save();
                 LOG.debug("Study Created");
+                return null;
             });
         }
         return tasks;

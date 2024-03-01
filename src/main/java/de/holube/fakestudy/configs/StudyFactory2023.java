@@ -2,6 +2,7 @@ package de.holube.fakestudy.configs;
 
 import de.holube.fakestudy.StudyFactory;
 import de.holube.fakestudy.study.Study;
+import de.holube.fakestudy.study.category.NumberCategory;
 import de.holube.fakestudy.study.util.correlate.Correlators;
 
 public class StudyFactory2023 extends StudyFactory {
@@ -34,7 +35,7 @@ public class StudyFactory2023 extends StudyFactory {
                 ))
                 .setDecimalPlaces(0);
 
-        numberCat("D", "Fitness")
+        NumberCategory dCategory = numberCat("D", "Fitness")
                 .setMissingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .setMissingValue(-1d)
                 .setDistribution(distribution("D",
@@ -42,10 +43,10 @@ public class StudyFactory2023 extends StudyFactory {
                         fromDiff(3000, 600),
                         otherDistributionType("C"),
                         fromDiff(1000, 200)
-                ))
-                .setDecimalPlaces(1);
+                ));
+        dCategory.setDecimalPlaces(1);
 
-        correlationCat("E", "Lesegeschwindigkeit", "D")
+        correlationCat("E", "Lesegeschwindigkeit", dCategory)
                 .setMissingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .setMissingValue(-1d)
                 .setCorrelator(Correlators.NORMAL_CORRELATOR)

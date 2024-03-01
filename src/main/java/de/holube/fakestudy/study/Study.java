@@ -2,12 +2,10 @@ package de.holube.fakestudy.study;
 
 import de.holube.fakestudy.study.category.Category;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This class represents a Study.
@@ -15,9 +13,9 @@ import java.util.Map;
  * This class is not thread-safe.
  */
 @Slf4j
-@Getter
 public class Study {
 
+    @Getter
     private final int amountSubjects;
     private final Map<String, Category<?>> categories;
 
@@ -32,6 +30,7 @@ public class Study {
      */
     public void calculate() {
         List<String> keys = new ArrayList<>(categories.keySet());
+        for (String key : keys) Objects.requireNonNull(key, "Key is null: " + key);
         keys.sort(String::compareTo);
 
         for (String key : keys) {
@@ -56,8 +55,12 @@ public class Study {
      * @param key      the key for the category
      * @param category the category to add
      */
-    public void add(String key, Category<?> category) {
+    public void add(@NonNull String key, @NonNull Category<?> category) {
+        Objects.requireNonNull(key);
         categories.put(key, category);
     }
 
+    public Map<String, Category<?>> getCategories() {
+        return categories;
+    }
 }

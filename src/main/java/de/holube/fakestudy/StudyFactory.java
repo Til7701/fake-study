@@ -81,8 +81,8 @@ public abstract class StudyFactory {
         return cat(key, new DiscreteNumberCategory(name));
     }
 
-    protected CategoryBuilder<Double, CorrelationCategory> correlationCat(String key, String name, String originKey) {
-        return cat(key, new CorrelationCategory(name, (NumberCategory) study.getCategories().get(originKey)));
+    protected CategoryBuilder<Double, CorrelationCategory> correlationCat(String key, String name, NumberCategory origin) {
+        return cat(key, new CorrelationCategory(name, origin));
     }
 
     protected CategoryBuilder<String, SelectionCategory> selectionCat(String key, String name) {

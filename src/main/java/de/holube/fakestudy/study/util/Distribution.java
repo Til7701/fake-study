@@ -16,13 +16,13 @@ import org.apache.commons.math3.random.Well19937c;
 @Slf4j
 public class Distribution {
 
-    private static final int MAX_SAMPLE_TRIES = 10_000;
+    private static final int MAX_SAMPLE_TRIES = 1_000_000;
 
     private final NormalDistribution normalDistribution;
     @Getter
-    private final VariableNumber min;
+    private final Number min;
     @Getter
-    private final VariableNumber max;
+    private final Number max;
     @Getter
     private final double type;
 
