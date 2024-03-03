@@ -26,6 +26,8 @@ public class Distribution {
     private final Number max;
     @Getter
     private final double type;
+    private final Number sd;
+    private final double mean;
 
     /**
      * Creates a Distribution with the given behaviour.
@@ -42,8 +44,22 @@ public class Distribution {
         this.min = min;
         this.max = max;
         this.type = type;
-        double mean = min.doubleValue() + ((max.doubleValue() - min.doubleValue()) / 2.0);
-        mean += ((mean - min.doubleValue()) / 2.0) * type;
+        this.sd = sd;
+        if (min.doubleValue() > max.doubleValue()) throw new IllegalArgumentException("min must be smaller than max");
+
+        double range = max.doubleValue() - min.doubleValue();
+        double halfRange = range / 2.0;
+        double middle = min.doubleValue() + halfRange;
+        if (type == 0) {
+            mean = middle;
+        } else if (type < 0) {
+            double distanceToMax = halfRange / (type - 1);
+            mean = min.doubleValue() + distanceToMax;
+        } else {
+            double distanceToMax = halfRange / (type + 1);
+            mean = max.doubleValue() - distanceToMax;
+        }
+
         RandomGenerator randomGenerator = new SynchronizedRandomGenerator(new Well19937c());
         normalDistribution = new NormalDistribution(randomGenerator, mean, sd.doubleValue());
     }
@@ -62,7 +78,7 @@ public class Distribution {
             sample = normalDistribution.sample();
             counter++;
             if (counter > MAX_SAMPLE_TRIES) {
-                LOG.error("sample counter exceeded " + MAX_SAMPLE_TRIES);
+                LOG.error("sample counter exceeded {}. Min: {}, Max: {}, SD: {}, Mean: {}", MAX_SAMPLE_TRIES, min.doubleValue(), max.doubleValue(), sd.doubleValue(), mean);
                 return min.doubleValue() + (Math.random() * (max.doubleValue() - min.doubleValue()));
             }
         } while (sample < min.doubleValue() || sample > max.doubleValue());
