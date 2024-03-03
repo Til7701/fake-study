@@ -19,15 +19,15 @@ public class Main {
     private static final int AMOUNT = 30;
     private static final String EXPORT_FOLDER = "./study-export/";
 
-    public static void main(String[] args) throws InterruptedException, ExecutionException {
+    public static void main(String[] args) throws InterruptedException {
         LOG.info("Creating export folder...");
         File file = new File(EXPORT_FOLDER);
         LOG.debug(String.valueOf(file.mkdir()));
 
-        final StudyFactory studyFactory = new StudyFactory2023();
+        final StudyFactoryFactory studyFactoryFactory = StudyFactory2023::new;
 
         LOG.info("Creating Tasks");
-        final List<Callable<Void>> tasks = createTasks(studyFactory);
+        final List<Callable<Void>> tasks = createTasks(studyFactoryFactory);
 
         final AtomicInteger atomicInteger = new AtomicInteger(0);
         LOG.info("Starting Tasks");
@@ -47,13 +47,13 @@ public class Main {
         LOG.info("done");
     }
 
-    private static List<Callable<Void>> createTasks(@NonNull StudyFactory studyFactory) {
+    private static List<Callable<Void>> createTasks(@NonNull StudyFactoryFactory studyFactoryFactory) {
         final List<Callable<Void>> tasks = new ArrayList<>(AMOUNT);
         for (int i = 0; i < AMOUNT; i++) {
             final int finalI = i;
             tasks.add(() -> {
                 LOG.debug("Creating Study");
-                Study study = studyFactory.create();
+                Study study = studyFactoryFactory.create().create();
                 LOG.debug("calculating results");
                 study.calculate();
                 study.setMissing();
@@ -69,6 +69,10 @@ public class Main {
             });
         }
         return tasks;
+    }
+
+    private interface StudyFactoryFactory {
+        StudyFactory create();
     }
 
 }
