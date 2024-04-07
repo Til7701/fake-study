@@ -64,7 +64,7 @@ public class CorrelationCategory extends NumCategory {
         private String name;
         private Double missingValue;
         private double missingPercentage;
-        private NumberCategory origin;
+        private String originKey;
         private double min;
         private double max;
         private Distribution distribution;
@@ -72,6 +72,12 @@ public class CorrelationCategory extends NumCategory {
         private int decimalPlaces;
 
         public CorrelationCategory build() {
+            Category<?> potentialOrigin = study.getCategories().get(originKey);
+            if (potentialOrigin == null)
+                throw new IllegalStateException("Origin category not found: " + originKey);
+            if (!(potentialOrigin instanceof NumberCategory origin))
+                throw new IllegalStateException("Origin category is not a NumberCategory: " + originKey);
+
             CorrelationCategory category = new CorrelationCategory(name, origin);
             category.setMissingValue(missingValue);
             category.setMissingPercentage(missingPercentage);

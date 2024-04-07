@@ -77,9 +77,9 @@ public abstract class StudyFactory {
                 .study(study);
     }
 
-    protected CorrelationCategory.Builder correlationCat(@NonNull String key, @NonNull String name, @NonNull NumberCategory origin) {
+    protected CorrelationCategory.Builder correlationCat(@NonNull String key, @NonNull String name, @NonNull String origin) {
         return CorrelationCategory.builder(key, name)
-                .origin(origin)
+                .originKey(origin)
                 .study(study);
     }
 

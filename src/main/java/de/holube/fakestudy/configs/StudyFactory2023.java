@@ -38,7 +38,7 @@ public class StudyFactory2023 extends StudyFactory {
                 .decimalPlaces(0)
                 .build();
 
-        NumberCategory dCategory = numberCat("D", "Fitness")
+        numberCat("D", "Fitness")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .missingValue(-1d)
                 .distribution(distribution("D",
@@ -50,7 +50,7 @@ public class StudyFactory2023 extends StudyFactory {
                 .decimalPlaces(1)
                 .build();
 
-        correlationCat("E", "Lesegeschwindigkeit", dCategory)
+        correlationCat("E", "Lesegeschwindigkeit", "D")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .missingValue(-1d)
                 .correlator(Correlators.NORMAL_CORRELATOR)
