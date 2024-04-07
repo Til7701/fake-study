@@ -1,9 +1,12 @@
 package de.holube.fakestudy.study.category;
 
+import de.holube.fakestudy.study.Study;
 import de.holube.fakestudy.study.util.Distribution;
 import de.holube.fakestudy.study.util.correlate.Correlator;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 
 @Getter
@@ -19,6 +22,10 @@ public class CorrelationCategory extends NumCategory {
     public CorrelationCategory(@NonNull String name, @NonNull NumberCategory origin) {
         super(name);
         this.origin = origin;
+    }
+
+    public static Builder builder(@NonNull String key, @NonNull String name) {
+        return new Builder().key(key).name(name);
     }
 
     @Override
@@ -48,23 +55,34 @@ public class CorrelationCategory extends NumCategory {
         }
     }
 
-    public CorrelationCategory setMin(double min) {
-        this.min = min;
-        return this;
+    @Getter
+    @Setter
+    @Accessors(fluent = true)
+    public static class Builder {
+        private Study study;
+        private String key;
+        private String name;
+        private Double missingValue;
+        private double missingPercentage;
+        private NumberCategory origin;
+        private double min;
+        private double max;
+        private Distribution distribution;
+        private Correlator correlator;
+        private int decimalPlaces;
+
+        public CorrelationCategory build() {
+            CorrelationCategory category = new CorrelationCategory(name, origin);
+            category.setMissingValue(missingValue);
+            category.setMissingPercentage(missingPercentage);
+            category.min = min;
+            category.max = max;
+            category.distribution = distribution;
+            category.correlator = correlator;
+
+            study.add(key, category);
+            return category;
+        }
     }
 
-    public CorrelationCategory setMax(double max) {
-        this.max = max;
-        return this;
-    }
-
-    public CorrelationCategory setDistribution(@NonNull Distribution distribution) {
-        this.distribution = distribution;
-        return this;
-    }
-
-    public CorrelationCategory setCorrelator(@NonNull Correlator correlator) {
-        this.correlator = correlator;
-        return this;
-    }
 }

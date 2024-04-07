@@ -1,7 +1,11 @@
 package de.holube.fakestudy.study.category;
 
+import de.holube.fakestudy.study.Study;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -20,6 +24,10 @@ public class SelectionCategory extends Category<String> {
 
     public SelectionCategory(@NonNull String name) {
         super(name);
+    }
+
+    public static Builder builder(String key, String name) {
+        return new Builder().key(key).name(name);
     }
 
     @Override
@@ -58,19 +66,36 @@ public class SelectionCategory extends Category<String> {
         return results;
     }
 
-    public SelectionCategory addOptions(@NonNull String... strings) {
-        Collections.addAll(selection, strings);
-        return this;
-    }
+    @Getter
+    @Setter
+    @Accessors(fluent = true)
+    public static class Builder {
+        private Study study;
+        private String key;
+        private String name;
+        private String missingValue;
+        private double missingPercentage;
+        @Setter(AccessLevel.NONE)
+        private String[] selection;
+        private int min;
+        private int max;
 
-    public SelectionCategory setMin(int min) {
-        this.min = min;
-        return this;
-    }
+        public Builder selection(@NonNull String... strings) {
+            this.selection = strings;
+            return this;
+        }
 
-    public SelectionCategory setMax(int max) {
-        this.max = max;
-        return this;
+        public SelectionCategory build() {
+            SelectionCategory category = new SelectionCategory(name);
+            category.setMissingValue(missingValue);
+            category.setMissingPercentage(missingPercentage);
+            category.getSelection().addAll(Arrays.asList(selection));
+            category.min = min;
+            category.max = max;
+
+            study.add(key, category);
+            return category;
+        }
     }
 
 }

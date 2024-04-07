@@ -15,203 +15,223 @@ public class StudyFactory2023 extends StudyFactory {
         final double defaultMissingBase = 0.075;
         final double defaultMissingDiff = 0.025;
 
-        staticCat("A", "Name");
+        staticCat("A", "Name")
+                .build();
 
         selectionCat("B", "Gechlecht")
-                .setMissingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
-                .setMissingValue("u")
-                .addOptions("m", "w")
-                .setMin(40)
-                .setMax(60);
+                .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
+                .missingValue("u")
+                .selection("m", "w")
+                .min(40)
+                .max(60)
+                .build();
 
-        discreteNumCat("C", "Alter")
-                .setMissingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
-                .setMissingValue(-1d)
-                .setDistribution(distribution("C",
+        numberCat("C", "Alter")
+                .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
+                .missingValue(-1d)
+                .distribution(distribution("C",
                         fromDiff(23, 5),
                         fromDiff(70, 7),
                         randomDistributionType(),
                         fromDiff(20, 5)
                 ))
-                .setDecimalPlaces(0);
+                .decimalPlaces(0)
+                .build();
 
         NumberCategory dCategory = numberCat("D", "Fitness")
-                .setMissingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
-                .setMissingValue(-1d)
-                .setDistribution(distribution("D",
+                .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
+                .missingValue(-1d)
+                .distribution(distribution("D",
                         fromDiff(100, 40),
                         fromDiff(3000, 600),
                         otherDistributionType("C"),
                         fromDiff(1000, 200)
-                ));
-        dCategory.setDecimalPlaces(1);
+                ))
+                .decimalPlaces(1)
+                .build();
 
         correlationCat("E", "Lesegeschwindigkeit", dCategory)
-                .setMissingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
-                .setMissingValue(-1d)
-                .setCorrelator(Correlators.NORMAL_CORRELATOR)
-                .setMin(10)
-                .setMax(1000)
-                .setDistribution(distribution("E",
+                .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
+                .missingValue(-1d)
+                .correlator(Correlators.NORMAL_CORRELATOR)
+                .min(10)
+                .max(1000)
+                .distribution(distribution("E",
                         fromDiff(-500, 100),
                         fromDiff(500, 100),
                         0,
                         fromDiff(300, 75)
                 ))
-                .setDecimalPlaces(0);
+                .decimalPlaces(0)
+                .build();
 
         selectionCat("F", "Farbe des Kleinbusses")
-                .setMissingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
-                .setMissingValue("u")
-                .addOptions("s", "b", "r", "g", "l")
-                .setMin(5)
-                .setMax(40);
+                .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
+                .missingValue("u")
+                .selection("s", "b", "r", "g", "l")
+                .min(5)
+                .max(40)
+                .build();
 
         selectionCat("G", "Nationalität")
-                .setMissingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
-                .setMissingValue("u")
-                .addOptions("DE", "FR", "IT", "LV", "ES", "PO")
-                .setMin(5)
-                .setMax(40);
+                .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
+                .missingValue("u")
+                .selection("DE", "FR", "IT", "LV", "ES", "PO")
+                .min(5)
+                .max(40)
+                .build();
 
         selectionCat("H", "Anreise")
-                .setMissingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
-                .setMissingValue("u")
-                .addOptions("F", "B", "Z", "A")
-                .setMin(5)
-                .setMax(40);
+                .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
+                .missingValue("u")
+                .selection("F", "B", "Z", "A")
+                .min(5)
+                .max(40)
+                .build();
 
         numberCat("I", "Wasserkonsum in Rom")
-                .setMissingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
-                .setMissingValue(-1d)
-                .setDistribution(distribution("I",
+                .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
+                .missingValue(-1d)
+                .distribution(distribution("I",
                         fromDiff(0, 0),
                         fromDiff(2, 0),
                         randomDistributionType(),
                         fromDiff(0.5, 0.2)
                 ))
-                .setDecimalPlaces(2);
+                .decimalPlaces(2)
+                .build();
 
         numberCat("J", "Wasserkonsum in Berlin")
-                .setMissingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
-                .setMissingValue(-1d)
-                .setDistribution(distribution("J",
+                .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
+                .missingValue(-1d)
+                .distribution(distribution("J",
                         fromDiff(0, 0),
                         fromDiff(2, 0),
                         randomDistributionType(),
                         fromDiff(0.5, 0.2)
                 ))
-                .setDecimalPlaces(2);
+                .decimalPlaces(2)
+                .build();
 
         numberCat("K", "Wasserkonsum in Paris")
-                .setMissingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
-                .setMissingValue(-1d)
-                .setDistribution(distribution("K",
+                .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
+                .missingValue(-1d)
+                .distribution(distribution("K",
                         fromDiff(0, 0),
                         fromDiff(2, 0),
                         randomDistributionType(),
                         fromDiff(0.5, 0.2)
                 ))
-                .setDecimalPlaces(2);
+                .decimalPlaces(2)
+                .build();
 
         numberCat("L", "Punktzahl bei Wissenstest für Rom")
-                .setMissingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
-                .setMissingValue(-1d)
-                .setDistribution(distribution("L",
+                .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
+                .missingValue(-1d)
+                .distribution(distribution("L",
                         fromDiff(5, 5),
                         fromDiff(49, 1),
                         otherDistributionType("I"),
                         fromDiff(12, 5)
                 ))
-                .setDecimalPlaces(0);
+                .decimalPlaces(0)
+                .build();
 
         numberCat("M", "Punktzahl bei Wissenstest für Berlin")
-                .setMissingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
-                .setMissingValue(-1d)
-                .setDistribution(distribution("M",
+                .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
+                .missingValue(-1d)
+                .distribution(distribution("M",
                         fromDiff(5, 5),
                         fromDiff(49, 1),
                         otherDistributionType("J"),
                         fromDiff(12, 5)
                 ))
-                .setDecimalPlaces(0);
+                .decimalPlaces(0)
+                .build();
 
         numberCat("N", "Punktzahl bei Wissenstest für Paris")
-                .setMissingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
-                .setMissingValue(-1d)
-                .setDistribution(distribution("N",
+                .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
+                .missingValue(-1d)
+                .distribution(distribution("N",
                         fromDiff(5, 5),
                         fromDiff(49, 1),
                         otherDistributionType("K"),
                         fromDiff(12, 5)
                 ))
-                .setDecimalPlaces(0);
+                .decimalPlaces(0)
+                .build();
 
-        discreteNumCat("O", "Bewertung Ausreichen der Zeit bei den Stationen in Rom")
-                .setMissingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
-                .setMissingValue(-1d)
-                .setDistribution(distribution("O",
+        numberCat("O", "Bewertung Ausreichen der Zeit bei den Stationen in Rom")
+                .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
+                .missingValue(-1d)
+                .distribution(distribution("O",
                         fromDiff(1, 0),
                         fromDiff(5, 0),
                         randomDistributionType(),
                         fromDiff(2, 0.5)
                 ))
-                .setDecimalPlaces(0);
+                .decimalPlaces(0)
+                .build();
 
-        discreteNumCat("P", "Bewertung Ausreichen der Zeit bei den Stationen in Berlin")
-                .setMissingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
-                .setMissingValue(-1d)
-                .setDistribution(distribution("P",
+        numberCat("P", "Bewertung Ausreichen der Zeit bei den Stationen in Berlin")
+                .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
+                .missingValue(-1d)
+                .distribution(distribution("P",
                         fromDiff(1, 0),
                         fromDiff(5, 0),
                         randomDistributionType(),
                         fromDiff(2, 0.5)
                 ))
-                .setDecimalPlaces(0);
+                .decimalPlaces(0)
+                .build();
 
-        discreteNumCat("Q", "Bewertung Ausreichen der Zeit bei den Stationen in Paris")
-                .setMissingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
-                .setMissingValue(-1d)
-                .setDistribution(distribution("Q",
+        numberCat("Q", "Bewertung Ausreichen der Zeit bei den Stationen in Paris")
+                .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
+                .missingValue(-1d)
+                .distribution(distribution("Q",
                         fromDiff(1, 0),
                         fromDiff(5, 0),
                         randomDistributionType(),
                         fromDiff(2, 0.5)
                 ))
-                .setDecimalPlaces(0);
+                .decimalPlaces(0)
+                .build();
 
-        discreteNumCat("R", "Bewertung des Essens in Rom")
-                .setMissingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
-                .setMissingValue(-1d)
-                .setDistribution(distribution("R",
+        numberCat("R", "Bewertung des Essens in Rom")
+                .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
+                .missingValue(-1d)
+                .distribution(distribution("R",
                         fromDiff(1, 0),
                         fromDiff(5, 0),
                         otherDistributionType("O"),
                         fromDiff(2, 0.5)
                 ))
-                .setDecimalPlaces(0);
+                .decimalPlaces(0)
+                .build();
 
-        discreteNumCat("S", "Bewertung des Essens in Berlin")
-                .setMissingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
-                .setMissingValue(-1d)
-                .setDistribution(distribution("S",
+        numberCat("S", "Bewertung des Essens in Berlin")
+                .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
+                .missingValue(-1d)
+                .distribution(distribution("S",
                         fromDiff(1, 0),
                         fromDiff(5, 0),
                         otherDistributionType("P"),
                         fromDiff(2, 0.5)
                 ))
-                .setDecimalPlaces(0);
+                .decimalPlaces(0)
+                .build();
 
-        discreteNumCat("T", "Bewertung des Essens in Paris")
-                .setMissingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
-                .setMissingValue(-1d)
-                .setDistribution(distribution("T",
+        numberCat("T", "Bewertung des Essens in Paris")
+                .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
+                .missingValue(-1d)
+                .distribution(distribution("T",
                         fromDiff(1, 0),
                         fromDiff(5, 0),
                         otherDistributionType("Q"),
                         fromDiff(2, 0.5)
                 ))
-                .setDecimalPlaces(0);
+                .decimalPlaces(0)
+                .build();
 
         return study;
     }

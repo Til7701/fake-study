@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
  * Provides normal correlation of values.
  */
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
-public class NormalCorrelator implements Correlator {
+public final class NormalCorrelator implements Correlator {
 
     /**
      * This method correlates the given value in the first space to a value in the second space and returns that value.

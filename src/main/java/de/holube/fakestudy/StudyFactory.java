@@ -1,7 +1,10 @@
 package de.holube.fakestudy;
 
 import de.holube.fakestudy.study.Study;
-import de.holube.fakestudy.study.category.*;
+import de.holube.fakestudy.study.category.CorrelationCategory;
+import de.holube.fakestudy.study.category.NumberCategory;
+import de.holube.fakestudy.study.category.SelectionCategory;
+import de.holube.fakestudy.study.category.StaticCategory;
 import de.holube.fakestudy.study.util.Distribution;
 import de.holube.fakestudy.study.util.VariableNumber;
 import lombok.NonNull;
@@ -64,44 +67,25 @@ public abstract class StudyFactory {
     // Category
     //######################################
 
-    private <R, T extends Category<R>> CategoryBuilder<R, T> cat(@NonNull String key, @NonNull T category) {
-        var builder = new CategoryBuilder<>(category);
-        study.add(key, category);
-        return builder;
+    protected StaticCategory.Builder staticCat(@NonNull String key, @NonNull String name) {
+        return StaticCategory.builder(key, name)
+                .study(study);
     }
 
-    protected CategoryBuilder<String, StaticCategory> staticCat(@NonNull String key, @NonNull String name) {
-        return cat(key, new StaticCategory(name));
+    protected NumberCategory.Builder numberCat(@NonNull String key, @NonNull String name) {
+        return NumberCategory.builder(key, name)
+                .study(study);
     }
 
-    protected CategoryBuilder<Double, NumberCategory> numberCat(@NonNull String key, @NonNull String name) {
-        return cat(key, new NumberCategory(name));
+    protected CorrelationCategory.Builder correlationCat(@NonNull String key, @NonNull String name, @NonNull NumberCategory origin) {
+        return CorrelationCategory.builder(key, name)
+                .origin(origin)
+                .study(study);
     }
 
-    protected CategoryBuilder<Double, DiscreteNumberCategory> discreteNumCat(@NonNull String key, @NonNull String name) {
-        return cat(key, new DiscreteNumberCategory(name));
-    }
-
-    protected CategoryBuilder<Double, CorrelationCategory> correlationCat(@NonNull String key, @NonNull String name, @NonNull NumberCategory origin) {
-        return cat(key, new CorrelationCategory(name, origin));
-    }
-
-    protected CategoryBuilder<String, SelectionCategory> selectionCat(@NonNull String key, @NonNull String name) {
-        return cat(key, new SelectionCategory(name));
-    }
-
-    public record CategoryBuilder<R, T extends Category<R>>(@NonNull T category) {
-
-        public CategoryBuilder<R, T> setMissingPercentage(double missingPercentage) {
-            category.setMissingPercentage(missingPercentage);
-            return this;
-        }
-
-        public T setMissingValue(@NonNull R missingValue) {
-            category.setMissingValue(missingValue);
-            return category;
-        }
-
+    protected SelectionCategory.Builder selectionCat(@NonNull String key, @NonNull String name) {
+        return SelectionCategory.builder(key, name)
+                .study(study);
     }
 
 }
