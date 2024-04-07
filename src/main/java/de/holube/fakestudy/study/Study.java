@@ -38,7 +38,7 @@ public class Study {
         keys.sort(String::compareTo);
 
         for (String key : keys) {
-            LOG.debug("calculating " + categories.get(key).getName());
+            LOG.debug("calculating {}", categories.get(key).getName());
             categories.get(key).calculate(amountSubjects);
         }
     }

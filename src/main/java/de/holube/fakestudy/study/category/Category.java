@@ -1,8 +1,9 @@
 package de.holube.fakestudy.study.category;
 
+import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 /**
  * This is the base class for all categories.
@@ -14,7 +15,9 @@ public abstract class Category<T> {
 
     private final String name;
 
+    @Setter(AccessLevel.PROTECTED)
     protected double missingPercentage;
+    @Setter(AccessLevel.PROTECTED)
     protected T missingValue;
     protected T[] results;
 
@@ -27,16 +30,6 @@ public abstract class Category<T> {
             if (Math.random() < missingPercentage)
                 results[i] = missingValue;
         }
-    }
-
-    public Category<T> setMissingPercentage(double missingPercentage) {
-        this.missingPercentage = missingPercentage;
-        return this;
-    }
-
-    public Category<T> setMissingValue(@NonNull T missingValue) {
-        this.missingValue = missingValue;
-        return this;
     }
 
 }

@@ -1,11 +1,14 @@
 package de.holube.fakestudy.study.category;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
+@Setter(AccessLevel.PROTECTED)
 @Getter
 public abstract class NumCategory extends Category<Double> {
 
@@ -25,11 +28,6 @@ public abstract class NumCategory extends Category<Double> {
         }
 
         return ret;
-    }
-
-    public NumCategory setDecimalPlaces(int decimalPlaces) {
-        this.decimalPlaces = decimalPlaces;
-        return this;
     }
 
     protected DecimalFormat decimalFormat(int decimalPlaces) {

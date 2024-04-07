@@ -14,10 +14,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 public class StudyPlotSaver {
@@ -122,8 +120,8 @@ public class StudyPlotSaver {
         List<Double> dataY = new ArrayList<>();
         List<Double> dataX = new ArrayList<>();
         for (int i = 0; i < cat.getResults().length; i++) {
-            if ((cat.getResults()[i] != cat.getMissingValue()) &&
-                    (cat.getOrigin().getResults()[i] != cat.getOrigin().getMissingValue())) {
+            if ((!Objects.equals(cat.getResults()[i], cat.getMissingValue())) &&
+                    (!Objects.equals(cat.getOrigin().getResults()[i], cat.getOrigin().getMissingValue()))) {
                 dataY.add(cat.getOrigin().getResults()[i]);
                 dataX.add(cat.getResults()[i]);
             }
