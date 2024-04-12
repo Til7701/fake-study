@@ -7,7 +7,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Getter
-public class StaticCategory extends Category<String> {
+public class StaticCategory extends StringCategory {
 
     public StaticCategory(@NonNull String name) {
         super(name);
@@ -29,11 +29,6 @@ public class StaticCategory extends Category<String> {
     @Override
     public void setMissing() {
         // nothing to do
-    }
-
-    @Override
-    public String[] getStringResults() {
-        return results;
     }
 
     @Getter

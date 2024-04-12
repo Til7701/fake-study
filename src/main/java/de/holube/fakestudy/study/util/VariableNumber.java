@@ -13,6 +13,10 @@ public class VariableNumber extends Number {
             value = base - (ThreadLocalRandom.current().nextDouble() * maxDiff);
     }
 
+    public static VariableNumber fromDiff(double base, double diff) {
+        return new VariableNumber(base, diff);
+    }
+
     @Override
     public int intValue() {
         return (int) value;

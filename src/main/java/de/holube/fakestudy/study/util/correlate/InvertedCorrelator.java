@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 /**
  * Provides inverted correlation of values.
  */
-@NoArgsConstructor(access = AccessLevel.PACKAGE)
-public non-sealed class InvertedCorrelator implements Correlator {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class InvertedCorrelator implements Correlator {
 
     /**
      * This method correlates the given value in the first space to a value in the second space and returns that value.

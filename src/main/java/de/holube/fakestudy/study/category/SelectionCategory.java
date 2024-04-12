@@ -16,7 +16,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @Getter
 @Slf4j
-public class SelectionCategory extends Category<String> {
+public class SelectionCategory extends StringCategory {
 
     private final List<String> selection = Collections.synchronizedList(new ArrayList<>());
     private int min;
@@ -59,11 +59,6 @@ public class SelectionCategory extends Category<String> {
             }
         } while (Arrays.stream(counter).min().isPresent() && Arrays.stream(counter).min().getAsInt() < min);
 
-    }
-
-    @Override
-    public String[] getStringResults() {
-        return results;
     }
 
     @Getter

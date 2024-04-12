@@ -6,7 +6,6 @@ import de.holube.fakestudy.study.category.NumberCategory;
 import de.holube.fakestudy.study.category.SelectionCategory;
 import de.holube.fakestudy.study.category.StaticCategory;
 import de.holube.fakestudy.study.util.Distribution;
-import de.holube.fakestudy.study.util.VariableNumber;
 import lombok.NonNull;
 
 import java.util.Map;
@@ -25,14 +24,6 @@ public abstract class StudyFactory {
     protected double distributionRight = distributionTypeFactor;
 
     public abstract Study create();
-
-    //######################################
-    // VariableNumber
-    //######################################
-
-    protected VariableNumber fromDiff(double base, double diff) {
-        return new VariableNumber(base, diff);
-    }
 
     //######################################
     // Distribution

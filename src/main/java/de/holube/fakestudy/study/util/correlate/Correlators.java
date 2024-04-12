@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 /**
  * This class provides instances for normal and inverted correlators.
  */
-@SuppressWarnings("SpellCheckingInspection")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class Correlators {
 
