@@ -4,7 +4,7 @@ import org.apache.commons.math3.random.RandomGenerator;
 import org.apache.commons.math3.random.SynchronizedRandomGenerator;
 import org.apache.commons.math3.random.Well19937c;
 
-final class NormalDistribution {
+public class NormalDistribution implements Distribution {
 
     private final org.apache.commons.math3.distribution.NormalDistribution distribution;
 
@@ -13,6 +13,27 @@ final class NormalDistribution {
         distribution = new org.apache.commons.math3.distribution.NormalDistribution(randomGenerator, mean, sd);
     }
 
+    @Override
+    public double getMean() {
+        return distribution.getMean();
+    }
+
+    @Override
+    public double getStandardDeviation() {
+        return distribution.getStandardDeviation();
+    }
+
+    @Override
+    public double getMin() {
+        return 0;
+    }
+
+    @Override
+    public double getMax() {
+        return 0;
+    }
+
+    @Override
     public double sample() {
         return distribution.sample();
     }

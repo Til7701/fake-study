@@ -2,7 +2,7 @@ package de.holube.fakestudy;
 
 import de.holube.fakestudy.study.Study;
 import de.holube.fakestudy.study.category.CorrelationCategory;
-import de.holube.fakestudy.study.category.NumberCategory;
+import de.holube.fakestudy.study.category.DistributionCategory;
 import de.holube.fakestudy.study.category.SelectionCategory;
 import de.holube.fakestudy.study.category.StaticCategory;
 import de.holube.fakestudy.study.util.Distribution;
@@ -45,7 +45,7 @@ public abstract class StudyFactory {
     }
 
     protected Distribution distribution(@NonNull String key, @NonNull Number min, @NonNull Number max, double type, @NonNull Number sd) {
-        Distribution distribution = new Distribution(min, max, type, sd);
+        Distribution distribution = new Distribution(min.doubleValue(), max.doubleValue(), type, sd.doubleValue());
         distributions.put(key, distribution);
         return distribution;
     }
@@ -63,8 +63,8 @@ public abstract class StudyFactory {
                 .study(study);
     }
 
-    protected NumberCategory.Builder numberCat(@NonNull String key, @NonNull String name) {
-        return NumberCategory.builder(key, name)
+    protected DistributionCategory.Builder numberCat(@NonNull String key, @NonNull String name) {
+        return DistributionCategory.builder(key, name)
                 .study(study);
     }
 

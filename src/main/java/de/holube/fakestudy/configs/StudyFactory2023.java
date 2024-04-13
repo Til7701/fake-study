@@ -2,7 +2,6 @@ package de.holube.fakestudy.configs;
 
 import de.holube.fakestudy.StudyFactory;
 import de.holube.fakestudy.study.Study;
-import de.holube.fakestudy.study.category.NumberCategory;
 import de.holube.fakestudy.study.util.correlate.Correlators;
 
 import static de.holube.fakestudy.study.util.VariableNumber.fromDiff;

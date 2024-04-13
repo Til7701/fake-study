@@ -1,73 +1,84 @@
 package de.holube.fakestudy.study.category;
 
-import de.holube.fakestudy.study.Study;
-import de.holube.fakestudy.study.util.Distribution;
+import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
-import lombok.experimental.Accessors;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
+/**
+ * This is the base class for all categories, which have a number as result.
+ */
+@Setter(AccessLevel.PROTECTED)
 @Getter
-public class NumberCategory extends NumCategory {
+public abstract class NumberCategory extends AbstractCategory<Double> {
 
-    protected Distribution distribution;
+    public static final Double DEFAULT_MISSING_VALUE = -1d;
+    public static final int DEFAULT_DECIMAL_PLACES = 2;
+    public static final RoundingMode DEFAULT_ROUNDING_MODE = RoundingMode.HALF_UP;
 
-    public NumberCategory(@NonNull String name) {
+    protected int decimalPlaces = DEFAULT_DECIMAL_PLACES;
+    protected RoundingMode roundingMode = DEFAULT_ROUNDING_MODE;
+
+    protected NumberCategory() {
+        super();
+        missingValue = DEFAULT_MISSING_VALUE;
+    }
+
+    protected NumberCategory(String name) {
         super(name);
+        missingValue = DEFAULT_MISSING_VALUE;
     }
 
-    public static Builder builder(@NonNull String key, @NonNull String name) {
-        return new Builder().key(key).name(name);
-    }
-
-    @Override
-    public void calculate(int amountSubjects) {
-        results = new Double[amountSubjects];
-
-        for (int i = 0; i < results.length; i++) {
-            results[i] = distribution.sample();
-            double tmp = results[i];
-            if (results[i] == null) {
-                LOG.error("result entry is null: {} tmp: {}", results[i], tmp);
-            }
-            results[i] = Math.round(tmp * Math.pow(10, decimalPlaces)) / Math.pow(10, decimalPlaces);
+    private DecimalFormat decimalFormat(int decimalPlaces) {
+        StringBuilder decimalString = new StringBuilder("#");
+        if (decimalPlaces > 0) {
+            decimalString.append(".");
+            decimalString.append("#".repeat(decimalPlaces));
         }
+        DecimalFormat df = new DecimalFormat(decimalString.toString());
+        df.setRoundingMode(roundingMode);
+
+        return df;
     }
 
     @Override
+    public String[] getStringResults() {
+        String[] ret = new String[results.length];
+        DecimalFormat df = decimalFormat(decimalPlaces);
+
+        for (int i = 0; i < ret.length; i++) {
+            ret[i] = df.format(results[i]);
+        }
+
+        return ret;
+    }
+
     public double getMin() {
-        return distribution.getMin().doubleValue();
-    }
+        if (results == null)
+            return Double.MIN_VALUE;
 
-    @Override
-    public double getMax() {
-        return distribution.getMax().doubleValue();
-    }
-
-    @Getter
-    @Setter
-    @Accessors(fluent = true)
-    public static class Builder {
-        private Study study;
-        private String key;
-        private String name;
-        private Double missingValue;
-        private double missingPercentage;
-        private int decimalPlaces;
-        private Distribution distribution;
-
-        public NumberCategory build() {
-            NumberCategory category = new NumberCategory(name);
-            category.setMissingValue(missingValue);
-            category.setMissingPercentage(missingPercentage);
-            category.setDecimalPlaces(decimalPlaces);
-            category.distribution = distribution;
-
-            study.add(key, category);
-            return category;
+        double min = Double.MAX_VALUE;
+        for (Double result : results) {
+            if (result < min) {
+                min = result;
+            }
         }
+        return min;
+    }
+
+    public double getMax() {
+        if (results == null)
+            return Double.MAX_VALUE;
+
+        double max = Double.MIN_VALUE;
+        for (Double result : results) {
+            if (result > max) {
+                max = result;
+            }
+        }
+        return max;
     }
 
 }

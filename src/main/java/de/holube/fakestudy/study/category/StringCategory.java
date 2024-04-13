@@ -1,12 +1,20 @@
 package de.holube.fakestudy.study.category;
 
-import lombok.NonNull;
+/**
+ * This is the base class for all categories, which have a string as result.
+ */
+public abstract class StringCategory extends AbstractCategory<String> {
 
-public abstract class StringCategory extends Category<String> {
+    public static final String DEFAULT_MISSING_VALUE = "missing";
 
+    protected StringCategory() {
+        super();
+        missingValue = DEFAULT_MISSING_VALUE;
+    }
 
-    protected StringCategory(@NonNull String name) {
+    protected StringCategory(String name) {
         super(name);
+        missingValue = DEFAULT_MISSING_VALUE;
     }
 
     @Override

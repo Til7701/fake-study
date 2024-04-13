@@ -2,7 +2,7 @@ package de.holube.fakestudy.io;
 
 import de.holube.fakestudy.study.Study;
 import de.holube.fakestudy.study.category.Category;
-import de.holube.fakestudy.study.category.NumCategory;
+import de.holube.fakestudy.study.category.NumberCategory;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,10 +15,10 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Getter
 @Setter
 @AllArgsConstructor
-@Slf4j
 public class StudyExcelSaver {
 
     private Study study;
@@ -49,8 +49,8 @@ public class StudyExcelSaver {
                 for (int j = 0; j < entryOrder.size(); j++) {
                     Cell cell = row.createCell(j);
                     Category<?> category = study.getCategories().get(entryOrder.get(j));
-                    if (category instanceof NumCategory numCategory) {
-                        cell.setCellValue(numCategory.getResults()[i - 1]);
+                    if (category instanceof NumberCategory numberCategory) {
+                        cell.setCellValue(numberCategory.getResults()[i - 1]);
                     } else {
                         cell.setCellValue(category.getStringResults()[i - 1]);
                     }

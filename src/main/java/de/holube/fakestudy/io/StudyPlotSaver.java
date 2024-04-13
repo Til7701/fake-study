@@ -3,7 +3,7 @@ package de.holube.fakestudy.io;
 import de.holube.fakestudy.study.Study;
 import de.holube.fakestudy.study.category.Category;
 import de.holube.fakestudy.study.category.CorrelationCategory;
-import de.holube.fakestudy.study.category.NumCategory;
+import de.holube.fakestudy.study.category.NumberCategory;
 import de.holube.fakestudy.study.category.SelectionCategory;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +39,7 @@ public class StudyPlotSaver {
     public void save() {
         try {
             for (Map.Entry<String, Category<?>> entry : study.getCategories().entrySet()) {
-                if (entry.getValue() instanceof NumCategory c) {
+                if (entry.getValue() instanceof NumberCategory c) {
                     CategoryChart chart = createPlot(c);
                     categoryCharts.add(chart);
                 }
@@ -91,7 +91,7 @@ public class StudyPlotSaver {
         return img;
     }
 
-    private CategoryChart createPlot(NumCategory cat) {
+    private CategoryChart createPlot(NumberCategory cat) {
         List<Double> data = new ArrayList<>(cat.getResults().length);
         Collections.addAll(data, cat.getResults());
 
@@ -109,7 +109,7 @@ public class StudyPlotSaver {
         return chart;
     }
 
-    private int getBins(NumCategory cat) {
+    private int getBins(NumberCategory cat) {
         return 5; //TODO
     }
 
@@ -148,7 +148,7 @@ public class StudyPlotSaver {
         chart.getStyler().setAvailableSpaceFill(1);
         chart.getStyler().setChartBackgroundColor(Color.WHITE);
 
-        List<String> values = new ArrayList<>(cat.getSelection());
+        List<String> values = new ArrayList<>(cat.getOptions());
         values.add(cat.getMissingValue());
         List<Integer> yData = new ArrayList<>();
         for (int i = 0; i < values.size(); i++) {

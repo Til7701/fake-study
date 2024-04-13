@@ -2,14 +2,21 @@ package de.holube.fakestudy.study.category;
 
 import de.holube.fakestudy.study.Study;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+/**
+ * This is the base class for all categories, which do not have any dependencies to other categories and do not need
+ * any additional parameters.
+ */
 @Getter
 public class StaticCategory extends StringCategory {
 
-    public StaticCategory(@NonNull String name) {
+    public StaticCategory() {
+        super();
+    }
+
+    public StaticCategory(String name) {
         super(name);
     }
 
@@ -37,11 +44,16 @@ public class StaticCategory extends StringCategory {
     public static class Builder {
         private Study study;
         private String key;
-        private String name;
+        // AbstractCategory
+        private String name = AbstractCategory.DEFAULT_NAME;
 
         public StaticCategory build() {
-            StaticCategory category = new StaticCategory(name);
-            study.add(key, category);
+            StaticCategory category = new StaticCategory();
+            // AbstractCategory
+            category.setName(name);
+
+            if (study != null)
+                study.add(key, category);
             return category;
         }
     }

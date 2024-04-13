@@ -1,5 +1,6 @@
 package de.holube.fakestudy.study.category;
 
+import de.holube.fakestudy.study.CalculationException;
 import de.holube.fakestudy.study.Study;
 import de.holube.fakestudy.study.util.Distribution;
 import de.holube.fakestudy.study.util.correlate.Correlator;
@@ -7,11 +8,15 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import lombok.extern.slf4j.Slf4j;
 
+import java.math.RoundingMode;
+
+/**
+ * This class represents a Category, where the subjects answer a question with a value from a distribution, which is
+ * correlated to another category.
+ */
 @Getter
-@Slf4j
-public class CorrelationCategory extends NumCategory {
+public class CorrelationCategory extends NumberCategory {
 
     private final NumberCategory origin;
     private double min;
@@ -19,39 +24,37 @@ public class CorrelationCategory extends NumCategory {
     private Distribution distribution;
     private Correlator correlator;
 
-    public CorrelationCategory(@NonNull String name, @NonNull NumberCategory origin) {
+    public CorrelationCategory(String name, @NonNull NumberCategory origin) {
         super(name);
         this.origin = origin;
     }
 
-    public static Builder builder(@NonNull String key, @NonNull String name) {
+    public static Builder builder(String key, String name) {
         return new Builder().key(key).name(name);
     }
 
     @Override
-    public void calculate(int amountSubjects) {
+    public void calculate(int amountSubjects) throws CalculationException {
         results = new Double[amountSubjects];
+        final double originMin = origin.getMin();
+        final double originMax = origin.getMax();
 
         for (int i = 0; i < results.length; i++) {
-            double value = correlator.correlate(
-                    origin.getDistribution().getMin().doubleValue(),
-                    origin.getDistribution().getMax().doubleValue(),
+            final double correlatedValue = correlator.correlate(
+                    originMin, originMax,
                     origin.getResults()[i],
-                    min,
-                    max
+                    min, max
             );
-            final double v = value;
+            double result;
             int counter = 0;
             do {
-                if (counter == 1000) {
-                    LOG.error("Counter exceeded 1000 tries");
-                }
-                value = v + distribution.sample();
+                result = correlatedValue + distribution.sample();
                 counter++;
-            } while (value < min || value > max);
+                if (counter == 1000)
+                    throw new CalculationException("Correlation criteria cannot be met!");
+            } while (result < min || result > max);
 
-            results[i] = value;
-            results[i] = Math.round(results[i] * Math.pow(10, decimalPlaces)) / Math.pow(10, decimalPlaces);
+            results[i] = Math.round(result * Math.pow(10, decimalPlaces)) / Math.pow(10, decimalPlaces);
         }
     }
 
@@ -61,32 +64,39 @@ public class CorrelationCategory extends NumCategory {
     public static class Builder {
         private Study study;
         private String key;
-        private String name;
-        private Double missingValue;
-        private double missingPercentage;
+        // AbstractCategory
+        private String name = AbstractCategory.DEFAULT_NAME;
+        private double missingPercentage = AbstractCategory.DEFAULT_MISSING_PERCENTAGE;
+        // NumberCategory
+        private Double missingValue = NumberCategory.DEFAULT_MISSING_VALUE;
+        private int decimalPlaces = NumberCategory.DEFAULT_DECIMAL_PLACES;
+        private RoundingMode roundingMode = NumberCategory.DEFAULT_ROUNDING_MODE;
+        // CorrelationCategory
         private String originKey;
+        private NumberCategory origin;
         private double min;
         private double max;
         private Distribution distribution;
         private Correlator correlator;
-        private int decimalPlaces;
 
         public CorrelationCategory build() {
-            Category<?> potentialOrigin = study.getCategories().get(originKey);
-            if (potentialOrigin == null)
-                throw new IllegalStateException("Origin category not found: " + originKey);
-            if (!(potentialOrigin instanceof NumberCategory origin))
-                throw new IllegalStateException("Origin category is not a NumberCategory: " + originKey);
+            if (originKey != null) {
+                origin = (NumberCategory) study.getCategories().get(originKey);
+                if (origin == null)
+                    throw new IllegalStateException("Origin category not found: " + originKey);
+            }
 
             CorrelationCategory category = new CorrelationCategory(name, origin);
             category.setMissingValue(missingValue);
             category.setMissingPercentage(missingPercentage);
+            category.setDecimalPlaces(decimalPlaces);
             category.min = min;
             category.max = max;
             category.distribution = distribution;
             category.correlator = correlator;
 
-            study.add(key, category);
+            if (study != null)
+                study.add(key, category);
             return category;
         }
     }

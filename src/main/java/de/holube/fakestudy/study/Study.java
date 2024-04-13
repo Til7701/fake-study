@@ -32,7 +32,7 @@ public class Study {
      * This method triggers the calculation of all categories in alphabetical order.
      * Repeated execution of this method may result in relations between the categories to break.
      */
-    public void calculate() {
+    public void calculate() throws CalculationException {
         List<String> keys = new ArrayList<>(categories.keySet());
         for (String key : keys) Objects.requireNonNull(key, "Key is null: " + key);
         keys.sort(String::compareTo);

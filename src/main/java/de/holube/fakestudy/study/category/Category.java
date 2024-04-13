@@ -1,35 +1,63 @@
 package de.holube.fakestudy.study.category;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import de.holube.fakestudy.study.CalculationException;
 
 /**
  * This is the base class for all categories.
- * A category represents one data point. E.g. one question the subjects were asked.
+ *
+ * @param <R> The type of the result of the category.
  */
-@Getter
-@RequiredArgsConstructor
-public abstract class Category<T> {
+public interface Category<R> {
 
-    private final String name;
+    /**
+     * This method calculates the results of the category.
+     *
+     * @param amountSubjects the amount of subjects in the study
+     * @throws CalculationException if the calculation fails
+     */
+    void calculate(int amountSubjects) throws CalculationException;
 
-    @Setter(AccessLevel.PROTECTED)
-    protected double missingPercentage;
-    @Setter(AccessLevel.PROTECTED)
-    protected T missingValue;
-    protected T[] results;
+    /**
+     * This method returns the results of the category as an array of strings. This is useful for exporting the results.
+     * The format of the strings is not specified.
+     *
+     * @return the results as an array of strings
+     */
+    String[] getStringResults();
 
-    public abstract void calculate(int amountSubjects);
+    /**
+     * This method returns the name of the category.
+     *
+     * @return the name of the category
+     */
+    String getName();
 
-    public abstract String[] getStringResults();
+    /**
+     * This method returns the results of the category.
+     *
+     * @return the results of the category
+     */
+    R[] getResults();
 
-    public void setMissing() {
-        for (int i = 0; i < results.length; i++) {
-            if (Math.random() < missingPercentage)
-                results[i] = missingValue;
-        }
-    }
+    /**
+     * This method returns the percentage of missing values in the category. The percentage is a value between 0 and 1.
+     * A value of 0 means that there are no missing values, a value of 1 means that all values are missing. The value
+     * is not calculated, but stored in the category.
+     *
+     * @return the percentage of missing values
+     */
+    double getMissingPercentage();
+
+    /**
+     * This method returns the value that is used to represent missing values in the category.
+     *
+     * @return the value that is used to represent missing values
+     */
+    R getMissingValue();
+
+    /**
+     * This method sets the missing values in the category.
+     */
+    void setMissing();
 
 }
