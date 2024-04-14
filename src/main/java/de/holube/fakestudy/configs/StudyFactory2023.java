@@ -1,10 +1,10 @@
 package de.holube.fakestudy.configs;
 
+import de.holube.fakestudy.Study;
 import de.holube.fakestudy.StudyFactory;
-import de.holube.fakestudy.study.Study;
-import de.holube.fakestudy.study.util.correlate.Correlators;
+import de.holube.fakestudy.util.Correlators;
 
-import static de.holube.fakestudy.study.util.VariableNumber.fromDiff;
+import static de.holube.fakestudy.util.VariableNumber.fromDiff;
 
 public class StudyFactory2023 extends StudyFactory {
 

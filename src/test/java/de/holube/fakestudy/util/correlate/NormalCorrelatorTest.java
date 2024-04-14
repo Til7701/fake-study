@@ -1,7 +1,7 @@
 package de.holube.fakestudy.util.correlate;
 
-import de.holube.fakestudy.study.util.correlate.Correlators;
-import de.holube.fakestudy.study.util.correlate.NormalCorrelator;
+import de.holube.fakestudy.util.Correlators;
+import de.holube.fakestudy.util.NormalCorrelator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;

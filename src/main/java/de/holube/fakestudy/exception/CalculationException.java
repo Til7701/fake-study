@@ -1,4 +1,4 @@
-package de.holube.fakestudy.study;
+package de.holube.fakestudy.exception;
 
 public class CalculationException extends Exception {
 

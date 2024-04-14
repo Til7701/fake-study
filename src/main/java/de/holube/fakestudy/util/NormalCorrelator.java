@@ -1,17 +1,18 @@
-package de.holube.fakestudy.study.util.correlate;
+package de.holube.fakestudy.util;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 /**
- * Provides inverted correlation of values.
+ * Provides normal correlation of values.
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class InvertedCorrelator implements Correlator {
+public class NormalCorrelator implements Correlator {
 
     /**
      * This method correlates the given value in the first space to a value in the second space and returns that value.
-     * The returned value is a perfect inverted correlation.
+     * The returned value is a perfect correlation.
+     * If firstMin == firstMax, the method returns Double.NaN.
      *
      * @param firstMin  lower bound of first space
      * @param firstMax  upper bound of first space
@@ -24,8 +25,6 @@ public class InvertedCorrelator implements Correlator {
     public double correlate(double firstMin, double firstMax, double value, double secondMin, double secondMax) {
         value -= firstMin;
         double firstPercent = value / (firstMax - firstMin);
-
-        firstPercent = 1 - firstPercent;
 
         value = firstPercent * (secondMax - secondMin);
         return value + secondMin;

@@ -1,6 +1,6 @@
-package de.holube.fakestudy.study.category;
+package de.holube.fakestudy.category;
 
-import de.holube.fakestudy.study.Study;
+import de.holube.fakestudy.Study;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;

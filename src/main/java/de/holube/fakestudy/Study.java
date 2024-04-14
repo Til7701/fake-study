@@ -1,6 +1,7 @@
-package de.holube.fakestudy.study;
+package de.holube.fakestudy;
 
-import de.holube.fakestudy.study.category.Category;
+import de.holube.fakestudy.category.Category;
+import de.holube.fakestudy.exception.CalculationException;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;

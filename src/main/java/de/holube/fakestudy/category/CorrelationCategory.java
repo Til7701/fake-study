@@ -1,9 +1,9 @@
-package de.holube.fakestudy.study.category;
+package de.holube.fakestudy.category;
 
-import de.holube.fakestudy.study.CalculationException;
-import de.holube.fakestudy.study.Study;
-import de.holube.fakestudy.study.util.Distribution;
-import de.holube.fakestudy.study.util.correlate.Correlator;
+import de.holube.fakestudy.Study;
+import de.holube.fakestudy.exception.CalculationException;
+import de.holube.fakestudy.util.Correlator;
+import de.holube.fakestudy.util.Distribution;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -70,8 +70,8 @@ public class CorrelationCategory extends NumberCategory {
         private Study study;
         private String key;
         // AbstractCategory
-        private String name = AbstractCategory.DEFAULT_NAME;
-        private double missingPercentage = AbstractCategory.DEFAULT_MISSING_PERCENTAGE;
+        private String name = DEFAULT_NAME;
+        private double missingPercentage = DEFAULT_MISSING_PERCENTAGE;
         // NumberCategory
         private Double missingValue = NumberCategory.DEFAULT_MISSING_VALUE;
         private int decimalPlaces = NumberCategory.DEFAULT_DECIMAL_PLACES;

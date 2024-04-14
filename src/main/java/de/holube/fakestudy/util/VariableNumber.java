@@ -1,4 +1,4 @@
-package de.holube.fakestudy.study.util;
+package de.holube.fakestudy.util;
 
 import java.util.concurrent.ThreadLocalRandom;
 

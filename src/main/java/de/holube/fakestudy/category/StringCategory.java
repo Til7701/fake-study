@@ -1,4 +1,4 @@
-package de.holube.fakestudy.study.category;
+package de.holube.fakestudy.category;
 
 /**
  * This is the base class for all categories, which have a string as result.

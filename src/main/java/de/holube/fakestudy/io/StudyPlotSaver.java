@@ -1,10 +1,10 @@
 package de.holube.fakestudy.io;
 
-import de.holube.fakestudy.study.Study;
-import de.holube.fakestudy.study.category.Category;
-import de.holube.fakestudy.study.category.CorrelationCategory;
-import de.holube.fakestudy.study.category.NumberCategory;
-import de.holube.fakestudy.study.category.SelectionCategory;
+import de.holube.fakestudy.Study;
+import de.holube.fakestudy.category.Category;
+import de.holube.fakestudy.category.CorrelationCategory;
+import de.holube.fakestudy.category.NumberCategory;
+import de.holube.fakestudy.category.SelectionCategory;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.knowm.xchart.*;

@@ -1,6 +1,6 @@
-package de.holube.fakestudy.study.category;
+package de.holube.fakestudy.category;
 
-import de.holube.fakestudy.study.CalculationException;
+import de.holube.fakestudy.exception.CalculationException;
 
 /**
  * This is the base class for all categories.

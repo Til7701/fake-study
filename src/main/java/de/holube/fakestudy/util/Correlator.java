@@ -1,4 +1,4 @@
-package de.holube.fakestudy.study.util.correlate;
+package de.holube.fakestudy.util;
 
 /**
  * This interface is the base for all Correlators.

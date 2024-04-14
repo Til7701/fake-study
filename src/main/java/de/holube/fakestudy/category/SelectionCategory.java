@@ -1,7 +1,7 @@
-package de.holube.fakestudy.study.category;
+package de.holube.fakestudy.category;
 
-import de.holube.fakestudy.study.CalculationException;
-import de.holube.fakestudy.study.Study;
+import de.holube.fakestudy.Study;
+import de.holube.fakestudy.exception.CalculationException;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -66,10 +66,10 @@ public class SelectionCategory extends StringCategory {
         private Study study;
         private String key;
         // AbstractCategory
-        private String name = AbstractCategory.DEFAULT_NAME;
-        private double missingPercentage = AbstractCategory.DEFAULT_MISSING_PERCENTAGE;
+        private String name = DEFAULT_NAME;
+        private double missingPercentage = DEFAULT_MISSING_PERCENTAGE;
         // StringCategory
-        private String missingValue = StringCategory.DEFAULT_MISSING_VALUE;
+        private String missingValue = DEFAULT_MISSING_VALUE;
         // SelectionCategory
         private String[] selection = new String[0];
         private int min;

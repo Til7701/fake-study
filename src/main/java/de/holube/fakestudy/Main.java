@@ -3,7 +3,6 @@ package de.holube.fakestudy;
 import de.holube.fakestudy.configs.StudyFactory2023;
 import de.holube.fakestudy.io.StudyExcelSaver;
 import de.holube.fakestudy.io.StudyPlotSaver;
-import de.holube.fakestudy.study.Study;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 

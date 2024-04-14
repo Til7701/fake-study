@@ -1,4 +1,4 @@
-package de.holube.fakestudy.study.category;
+package de.holube.fakestudy.category;
 
 import lombok.AccessLevel;
 import lombok.Getter;

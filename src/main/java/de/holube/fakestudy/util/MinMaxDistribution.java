@@ -1,4 +1,4 @@
-package de.holube.fakestudy.study.util;
+package de.holube.fakestudy.util;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

@@ -1,11 +1,10 @@
 package de.holube.fakestudy;
 
-import de.holube.fakestudy.study.Study;
-import de.holube.fakestudy.study.category.CorrelationCategory;
-import de.holube.fakestudy.study.category.DistributionCategory;
-import de.holube.fakestudy.study.category.SelectionCategory;
-import de.holube.fakestudy.study.category.StaticCategory;
-import de.holube.fakestudy.study.util.Distribution;
+import de.holube.fakestudy.category.CorrelationCategory;
+import de.holube.fakestudy.category.DistributionCategory;
+import de.holube.fakestudy.category.SelectionCategory;
+import de.holube.fakestudy.category.StaticCategory;
+import de.holube.fakestudy.util.Distribution;
 import lombok.NonNull;
 
 import java.util.Map;

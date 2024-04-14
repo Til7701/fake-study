@@ -1,4 +1,4 @@
-package de.holube.fakestudy.study.util;
+package de.holube.fakestudy.util;
 
 import org.apache.commons.math3.random.RandomGenerator;
 import org.apache.commons.math3.random.SynchronizedRandomGenerator;
