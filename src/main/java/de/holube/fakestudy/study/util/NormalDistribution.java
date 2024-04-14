@@ -25,12 +25,12 @@ public class NormalDistribution implements Distribution {
 
     @Override
     public double getMin() {
-        return 0;
+        return Double.MIN_VALUE;
     }
 
     @Override
     public double getMax() {
-        return 0;
+        return Double.MAX_VALUE;
     }
 
     @Override

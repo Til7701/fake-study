@@ -3,6 +3,7 @@ package de.holube.fakestudy.study.category;
 import de.holube.fakestudy.study.CalculationException;
 import de.holube.fakestudy.study.Study;
 import de.holube.fakestudy.study.util.Distribution;
+import de.holube.fakestudy.study.util.NormalDistribution;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -15,9 +16,13 @@ import java.math.RoundingMode;
 @Getter
 public class DistributionCategory extends NumberCategory {
 
-    public static final Distribution DEFAULT_DISTRIBUTION = Distribution.UNIFORM;
+    public static final Distribution DEFAULT_DISTRIBUTION = new NormalDistribution(0, 1);
 
-    protected Distribution distribution;
+    protected Distribution distribution = DEFAULT_DISTRIBUTION;
+
+    public DistributionCategory() {
+        super();
+    }
 
     public DistributionCategory(String name) {
         super(name);
@@ -62,14 +67,18 @@ public class DistributionCategory extends NumberCategory {
         private int decimalPlaces = NumberCategory.DEFAULT_DECIMAL_PLACES;
         private RoundingMode roundingMode = NumberCategory.DEFAULT_ROUNDING_MODE;
         // DistributionCategory
-        private Distribution distribution;
+        private Distribution distribution = DEFAULT_DISTRIBUTION;
 
         public DistributionCategory build() {
-            DistributionCategory category = new DistributionCategory(name);
-            category.setMissingValue(missingValue);
+            DistributionCategory category = new DistributionCategory();
+            // AbstractCategory
+            category.setName(name);
             category.setMissingPercentage(missingPercentage);
+            // NumberCategory
+            category.setMissingValue(missingValue);
             category.setDecimalPlaces(decimalPlaces);
             category.setRoundingMode(roundingMode);
+            // DistributionCategory
             category.distribution = distribution;
 
             if (study != null)

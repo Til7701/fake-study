@@ -70,7 +70,7 @@ public class SelectionCategory extends StringCategory {
         private double missingPercentage = AbstractCategory.DEFAULT_MISSING_PERCENTAGE;
         // StringCategory
         private String missingValue = StringCategory.DEFAULT_MISSING_VALUE;
-
+        // SelectionCategory
         private String[] selection = new String[0];
         private int min;
         private int max;
@@ -87,7 +87,7 @@ public class SelectionCategory extends StringCategory {
             category.setMissingPercentage(missingPercentage);
             // StringCategory
             category.setMissingValue(missingValue);
-
+            // SelectionCategory
             category.getOptions().addAll(Arrays.asList(selection));
             category.min = min;
             category.max = max;

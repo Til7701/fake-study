@@ -24,6 +24,11 @@ public class CorrelationCategory extends NumberCategory {
     private Distribution distribution;
     private Correlator correlator;
 
+    public CorrelationCategory(NumberCategory origin) {
+        super();
+        this.origin = origin;
+    }
+
     public CorrelationCategory(String name, @NonNull NumberCategory origin) {
         super(name);
         this.origin = origin;
@@ -86,10 +91,15 @@ public class CorrelationCategory extends NumberCategory {
                     throw new IllegalStateException("Origin category not found: " + originKey);
             }
 
-            CorrelationCategory category = new CorrelationCategory(name, origin);
-            category.setMissingValue(missingValue);
+            CorrelationCategory category = new CorrelationCategory(origin);
+            // AbstractCategory
+            category.setName(name);
             category.setMissingPercentage(missingPercentage);
+            // NumberCategory
+            category.setMissingValue(missingValue);
             category.setDecimalPlaces(decimalPlaces);
+            category.setRoundingMode(roundingMode);
+            // CorrelationCategory
             category.min = min;
             category.max = max;
             category.distribution = distribution;

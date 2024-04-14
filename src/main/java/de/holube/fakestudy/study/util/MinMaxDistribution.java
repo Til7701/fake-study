@@ -60,6 +60,7 @@ public class MinMaxDistribution extends NormalDistribution {
      *
      * @return a sample of the Distribution
      */
+    @Override
     public double sample() {
         double sample;
         int counter = 0;
