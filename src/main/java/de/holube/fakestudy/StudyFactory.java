@@ -5,6 +5,7 @@ import de.holube.fakestudy.category.DistributionCategory;
 import de.holube.fakestudy.category.SelectionCategory;
 import de.holube.fakestudy.category.StaticCategory;
 import de.holube.fakestudy.util.Distribution;
+import de.holube.fakestudy.util.MinMaxDistribution;
 import lombok.NonNull;
 
 import java.util.Map;
@@ -37,14 +38,18 @@ public abstract class StudyFactory {
     }
 
     protected double otherDistributionType(@NonNull String c) {
-        final double otherType = distributions.get(c).getType();
-        if (otherType == 0) return randomDistributionLeftRight();
-        else if (otherType < 0) return distributionRight;
-        else return distributionLeft;
+        if (distributions.get(c) instanceof MinMaxDistribution minMaxDistribution) {
+            final double otherType = minMaxDistribution.getType();
+            if (otherType == 0) return randomDistributionLeftRight();
+            else if (otherType < 0) return distributionRight;
+            else return distributionLeft;
+        } else {
+            throw new IllegalArgumentException("Distribution is not a MinMaxDistribution!");
+        }
     }
 
     protected Distribution distribution(@NonNull String key, @NonNull Number min, @NonNull Number max, double type, @NonNull Number sd) {
-        Distribution distribution = new Distribution(min.doubleValue(), max.doubleValue(), type, sd.doubleValue());
+        Distribution distribution = new MinMaxDistribution(min.doubleValue(), max.doubleValue(), type, sd.doubleValue());
         distributions.put(key, distribution);
         return distribution;
     }
