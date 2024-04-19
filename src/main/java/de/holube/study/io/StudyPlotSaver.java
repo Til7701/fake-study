@@ -5,8 +5,8 @@ import de.holube.study.category.Category;
 import de.holube.study.category.CorrelationCategory;
 import de.holube.study.category.NumberCategory;
 import de.holube.study.category.SelectionCategory;
+import de.holube.study.exception.PlottingException;
 import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
 import org.knowm.xchart.*;
 
 import javax.imageio.ImageIO;
@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.*;
 
-@Slf4j
 public class StudyPlotSaver {
 
     private static final int PLOT_WIDTH = 400;
@@ -36,7 +35,7 @@ public class StudyPlotSaver {
         this.studyNumber = studyNumber;
     }
 
-    public void save() {
+    public void save() throws PlottingException {
         try {
             for (Map.Entry<String, Category<?>> entry : study.getCategories().entrySet()) {
                 if (entry.getValue() instanceof NumberCategory c) {
@@ -53,7 +52,7 @@ public class StudyPlotSaver {
                 }
             }
         } catch (Exception e) {
-            LOG.error("Could not create Plot!", e);
+            throw new PlottingException("could not create plot", e);
         }
 
         final List<BufferedImage> images = new ArrayList<>();

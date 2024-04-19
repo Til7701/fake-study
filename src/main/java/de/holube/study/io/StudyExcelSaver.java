@@ -3,10 +3,10 @@ package de.holube.study.io;
 import de.holube.study.Study;
 import de.holube.study.category.Category;
 import de.holube.study.category.NumberCategory;
+import de.holube.study.exception.ExcelSaveException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -15,7 +15,6 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-@Slf4j
 @Getter
 @Setter
 @AllArgsConstructor
@@ -25,7 +24,7 @@ public class StudyExcelSaver {
     private String folderName;
     private String fileName;
 
-    public void save() {
+    public void save() throws ExcelSaveException {
         try (Workbook workbook = new XSSFWorkbook()) {
             CellStyle style = workbook.createCellStyle();
 
@@ -63,7 +62,7 @@ public class StudyExcelSaver {
             outputStream = new FileOutputStream(file.getPath());
             workbook.write(outputStream);
         } catch (Exception e) {
-            LOG.error("Error while saving Study to Excel File.", e);
+            throw new ExcelSaveException("could not save excel sheet", e);
         }
     }
 

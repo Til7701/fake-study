@@ -4,7 +4,6 @@ import de.holube.study.category.Category;
 import de.holube.study.exception.CalculationException;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +16,6 @@ import java.util.concurrent.ConcurrentHashMap;
  * It holds all Categories and triggers the calculation of the fake data.
  * This class is not thread-safe.
  */
-@Slf4j
 @Getter
 public class Study {
 
@@ -39,7 +37,6 @@ public class Study {
         keys.sort(String::compareTo);
 
         for (String key : keys) {
-            LOG.debug("calculating {}", categories.get(key).getName());
             categories.get(key).calculate(amountSubjects);
         }
     }

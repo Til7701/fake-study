@@ -1,7 +1,7 @@
 package de.holube.study.util;
 
+import de.holube.study.exception.SampleException;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * This class represents a Distribution.
@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
  * This is defined via the min and mix attributes.
  * This class can be made thread-safe by using the SynchronizedRandomGenerator. See constructor.
  */
-@Slf4j
 @Getter
 public class MinMaxDistribution extends NormalDistribution {
 
@@ -62,16 +61,38 @@ public class MinMaxDistribution extends NormalDistribution {
      */
     @Override
     public double sample() {
+        try {
+            return attemptToGetSample();
+        } catch (IllegalStateException e) {
+            return min + (Math.random() * (max - min));
+        }
+    }
+
+    /**
+     * This method returns a sample of the Distribution.
+     * The sample is guaranteed to be between min and max (both inclusive).
+     *
+     * @return a sample of the Distribution
+     * @throws SampleException if the sample could not be created
+     */
+    @Override
+    public double sampleChecked() throws SampleException {
+        try {
+            return attemptToGetSample();
+        } catch (IllegalStateException e) {
+            throw new SampleException("failed to create sample", e);
+        }
+    }
+
+    private double attemptToGetSample() {
         double sample;
         int counter = 0;
 
         do {
             sample = super.sample();
             counter++;
-            if (counter > MAX_SAMPLE_TRIES) {
-                LOG.error("sample counter exceeded {}. Min: {}, Max: {}, SD: {}, Mean: {}", MAX_SAMPLE_TRIES, min, max, getStandardDeviation(), getMean());
-                return min + (Math.random() * (max - min));
-            }
+            if (counter > MAX_SAMPLE_TRIES)
+                throw new IllegalStateException("Too many samples");
         } while (sample < min || sample > max);
 
         return sample;

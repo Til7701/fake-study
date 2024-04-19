@@ -19,17 +19,17 @@ public class Main {
     private static final String EXPORT_FOLDER = "./study-export/";
 
     public static void main(String[] args) throws InterruptedException {
-        LOG.info("Creating export folder...");
+        log.info("Creating export folder...");
         File file = new File(EXPORT_FOLDER);
-        LOG.debug(String.valueOf(file.mkdir()));
+        log.debug(String.valueOf(file.mkdir()));
 
         final StudyFactoryFactory studyFactoryFactory = StudyFactory2023::new;
 
-        LOG.info("Creating Tasks");
+        log.info("Creating Tasks");
         final List<Callable<Void>> tasks = createTasks(studyFactoryFactory);
 
         final AtomicInteger atomicInteger = new AtomicInteger(0);
-        LOG.info("Starting Tasks");
+        log.info("Starting Tasks");
         try (ExecutorService executor = Executors.newThreadPerTaskExecutor(r -> Thread.ofPlatform()
                 .name(String.valueOf(atomicInteger.getAndIncrement()))
                 .unstarted(r))) {
@@ -38,12 +38,12 @@ public class Main {
                 try {
                     f.get();
                 } catch (ExecutionException e) {
-                    LOG.error("Error while execution: ", e);
+                    log.error("Error while execution: ", e);
                 }
             }
         }
 
-        LOG.info("done");
+        log.info("done");
     }
 
     private static List<Callable<Void>> createTasks(@NonNull StudyFactoryFactory studyFactoryFactory) {
@@ -51,19 +51,19 @@ public class Main {
         for (int i = 0; i < AMOUNT; i++) {
             final int finalI = i;
             tasks.add(() -> {
-                LOG.debug("Creating Study");
+                log.debug("Creating Study");
                 Study study = studyFactoryFactory.create().create();
-                LOG.debug("calculating results");
+                log.debug("calculating results");
                 study.calculate();
                 study.setMissing();
 
-                LOG.debug("Saving Study");
+                log.debug("Saving Study");
                 StudyExcelSaver excelSaver = new StudyExcelSaver(study, EXPORT_FOLDER, "study" + finalI);
                 excelSaver.save();
-                LOG.debug("Creating plots");
+                log.debug("Creating plots");
                 StudyPlotSaver plotSaver = new StudyPlotSaver(study, EXPORT_FOLDER, finalI);
                 plotSaver.save();
-                LOG.debug("Study Created");
+                log.debug("Study Created");
                 return null;
             });
         }
