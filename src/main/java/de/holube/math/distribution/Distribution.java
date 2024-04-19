@@ -1,6 +1,6 @@
 package de.holube.math.distribution;
 
-import de.holube.math.exception.SampleException;
+import de.holube.math.distribution.exception.SampleException;
 
 public interface Distribution {
 

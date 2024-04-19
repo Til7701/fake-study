@@ -1,26 +1,31 @@
 package de.holube.math.distribution;
 
-import org.apache.commons.math3.random.RandomGenerator;
-import org.apache.commons.math3.random.SynchronizedRandomGenerator;
-import org.apache.commons.math3.random.Well19937c;
+import java.util.Random;
 
 public class NormalDistribution implements Distribution {
 
-    private final org.apache.commons.math3.distribution.NormalDistribution distribution;
+    private final double mean;
+    private final double sd;
+    private final Random random;
 
     public NormalDistribution(double mean, double sd) {
-        RandomGenerator randomGenerator = new SynchronizedRandomGenerator(new Well19937c());
-        distribution = new org.apache.commons.math3.distribution.NormalDistribution(randomGenerator, mean, sd);
+        this(mean, sd, new Random());
+    }
+
+    public NormalDistribution(double mean, double sd, Random random) {
+        this.mean = mean;
+        this.sd = sd;
+        this.random = random;
     }
 
     @Override
     public double getMean() {
-        return distribution.getMean();
+        return mean;
     }
 
     @Override
     public double getStandardDeviation() {
-        return distribution.getStandardDeviation();
+        return sd;
     }
 
     @Override
@@ -35,7 +40,7 @@ public class NormalDistribution implements Distribution {
 
     @Override
     public double sample() {
-        return distribution.sample();
+        return random.nextGaussian() * sd + mean;
     }
 
 }

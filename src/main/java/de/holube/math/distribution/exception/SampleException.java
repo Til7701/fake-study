@@ -1,4 +1,4 @@
-package de.holube.math.exception;
+package de.holube.math.distribution.exception;
 
 public class SampleException extends Exception {
 
