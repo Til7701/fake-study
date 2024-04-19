@@ -1,20 +1,32 @@
 package de.holube.math.study.util;
 
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * A helper class to create a Number with a random value in a given intervall.
+ */
 public class VariableNumber extends Number {
 
     private final double value;
 
     public VariableNumber(double base, double maxDiff) {
-        if (ThreadLocalRandom.current().nextDouble() < 0.5)
-            value = base + (ThreadLocalRandom.current().nextDouble() * maxDiff);
+        this(base, maxDiff, ThreadLocalRandom.current());
+    }
+
+    public VariableNumber(double base, double maxDiff, Random random) {
+        if (random.nextBoolean())
+            value = base + (random.nextDouble() * maxDiff);
         else
-            value = base - (ThreadLocalRandom.current().nextDouble() * maxDiff);
+            value = base - (random.nextDouble() * maxDiff);
     }
 
     public static VariableNumber fromDiff(double base, double diff) {
         return new VariableNumber(base, diff);
+    }
+
+    public static VariableNumber fromDiff(double base, double diff, Random random) {
+        return new VariableNumber(base, diff, random);
     }
 
     @Override

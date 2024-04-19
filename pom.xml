@@ -18,9 +18,9 @@
         <log4j.version>2.22.1</log4j.version>
 
         <!-- build -->
-        <maven.compiler.source>22</maven.compiler.source>
-        <maven.compiler.target>22</maven.compiler.target>
-        <maven.compiler.release>22</maven.compiler.release>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.release>21</maven.compiler.release>
 
         <compiler.maven.plugin.version>3.12.1</compiler.maven.plugin.version>
         <assembly.maven.plugin.version>3.6.0</assembly.maven.plugin.version>

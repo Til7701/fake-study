@@ -30,6 +30,8 @@ public class Study {
     /**
      * This method triggers the calculation of all categories in alphabetical order.
      * Repeated execution of this method may result in relations between the categories to break.
+     *
+     * @throws CalculationException if the calculation failed
      */
     public void calculate() throws CalculationException {
         List<String> keys = new ArrayList<>(categories.keySet());
