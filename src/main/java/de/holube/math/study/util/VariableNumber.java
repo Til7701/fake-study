@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * A helper class to create a Number with a random value in a given intervall.
+ * A helper class to create a Number with a random value in a given interval.
  */
 public class VariableNumber extends Number {
 

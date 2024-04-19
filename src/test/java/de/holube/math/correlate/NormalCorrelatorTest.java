@@ -1,7 +1,5 @@
-package de.holube.math.study.util;
+package de.holube.math.correlate;
 
-import de.holube.math.correlate.Correlators;
-import de.holube.math.correlate.NormalCorrelator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
