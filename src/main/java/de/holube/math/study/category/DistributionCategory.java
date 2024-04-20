@@ -45,12 +45,12 @@ public class DistributionCategory extends NumberCategory {
 
     @Override
     public double getMin() {
-        return distribution.getMin();
+        return distribution.getLowerBound();
     }
 
     @Override
     public double getMax() {
-        return distribution.getMax();
+        return distribution.getUpperBound();
     }
 
     @Getter

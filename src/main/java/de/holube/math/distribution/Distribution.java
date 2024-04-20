@@ -2,18 +2,58 @@ package de.holube.math.distribution;
 
 import de.holube.math.distribution.exception.SampleException;
 
+/**
+ * This interface represents a distribution. A distribution can be sampled to get a value. The distribution can be
+ * described by its mean and standard deviation. Additionally, the distribution can have a lower and upper bound.
+ * The {@link #sample()} method returns a value that is within the bounds of the distribution. If the sample could not be created,
+ * a random value between the bounds is returned. If the sample could not be created and this is not acceptable, the
+ * {@link  #sampleChecked()} method can be used. This method throws a {@link SampleException} if the sample could not be created.
+ */
 public interface Distribution {
 
+    /**
+     * Returns the mean of the distribution.
+     *
+     * @return the mean of the distribution
+     */
     double getMean();
 
+    /**
+     * Returns the standard deviation of the distribution.
+     *
+     * @return the standard deviation of the distribution
+     */
     double getStandardDeviation();
 
-    double getMin();
+    /**
+     * Returns the lower bound of the distribution. Usually inclusive.
+     *
+     * @return the lower bound of the distribution
+     */
+    double getLowerBound();
 
-    double getMax();
+    /**
+     * Returns the upper bound of the distribution. Usually inclusive.
+     *
+     * @return the upper bound of the distribution
+     */
+    double getUpperBound();
 
+    /**
+     * Returns a sample of the distribution. The sample is guaranteed to be between the lower and upper bound.
+     * If the sample could not be created, a random value between the bounds is returned.
+     *
+     * @return a sample of the distribution
+     */
     double sample();
 
+    /**
+     * Returns a sample of the distribution. The sample is guaranteed to be between the lower and upper bound.
+     * If the sample could not be created, a SampleException is thrown.
+     *
+     * @return a sample of the distribution
+     * @throws SampleException if the sample could not be created
+     */
     default double sampleChecked() throws SampleException {
         return sample();
     }

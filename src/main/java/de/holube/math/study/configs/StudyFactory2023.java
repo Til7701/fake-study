@@ -30,10 +30,9 @@ public class StudyFactory2023 extends StudyFactory {
         numberCat("C", "Alter")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .missingValue(-1d)
-                .distribution(distribution("C",
+                .distribution(randomSkewDistribution("C",
                         fromDiff(23, 5),
                         fromDiff(70, 7),
-                        randomDistributionType(),
                         fromDiff(20, 5)
                 ))
                 .decimalPlaces(0)
@@ -42,10 +41,10 @@ public class StudyFactory2023 extends StudyFactory {
         numberCat("D", "Fitness")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .missingValue(-1d)
-                .distribution(distribution("D",
+                .distribution(otherSkewDistribution("D",
                         fromDiff(100, 40),
                         fromDiff(3000, 600),
-                        otherDistributionType("C"),
+                        "C",
                         fromDiff(1000, 200)
                 ))
                 .decimalPlaces(1)
@@ -93,10 +92,9 @@ public class StudyFactory2023 extends StudyFactory {
         numberCat("I", "Wasserkonsum in Rom")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .missingValue(-1d)
-                .distribution(distribution("I",
+                .distribution(randomSkewDistribution("I",
                         fromDiff(0, 0),
                         fromDiff(2, 0),
-                        randomDistributionType(),
                         fromDiff(0.5, 0.2)
                 ))
                 .decimalPlaces(2)
@@ -105,10 +103,9 @@ public class StudyFactory2023 extends StudyFactory {
         numberCat("J", "Wasserkonsum in Berlin")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .missingValue(-1d)
-                .distribution(distribution("J",
+                .distribution(randomSkewDistribution("J",
                         fromDiff(0, 0),
                         fromDiff(2, 0),
-                        randomDistributionType(),
                         fromDiff(0.5, 0.2)
                 ))
                 .decimalPlaces(2)
@@ -117,10 +114,9 @@ public class StudyFactory2023 extends StudyFactory {
         numberCat("K", "Wasserkonsum in Paris")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .missingValue(-1d)
-                .distribution(distribution("K",
+                .distribution(randomSkewDistribution("K",
                         fromDiff(0, 0),
                         fromDiff(2, 0),
-                        randomDistributionType(),
                         fromDiff(0.5, 0.2)
                 ))
                 .decimalPlaces(2)
@@ -129,10 +125,10 @@ public class StudyFactory2023 extends StudyFactory {
         numberCat("L", "Punktzahl bei Wissenstest für Rom")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .missingValue(-1d)
-                .distribution(distribution("L",
+                .distribution(otherSkewDistribution("L",
                         fromDiff(5, 5),
                         fromDiff(49, 1),
-                        otherDistributionType("I"),
+                        "I",
                         fromDiff(12, 5)
                 ))
                 .decimalPlaces(0)
@@ -141,10 +137,10 @@ public class StudyFactory2023 extends StudyFactory {
         numberCat("M", "Punktzahl bei Wissenstest für Berlin")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .missingValue(-1d)
-                .distribution(distribution("M",
+                .distribution(otherSkewDistribution("M",
                         fromDiff(5, 5),
                         fromDiff(49, 1),
-                        otherDistributionType("J"),
+                        "J",
                         fromDiff(12, 5)
                 ))
                 .decimalPlaces(0)
@@ -153,10 +149,10 @@ public class StudyFactory2023 extends StudyFactory {
         numberCat("N", "Punktzahl bei Wissenstest für Paris")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .missingValue(-1d)
-                .distribution(distribution("N",
+                .distribution(otherSkewDistribution("N",
                         fromDiff(5, 5),
                         fromDiff(49, 1),
-                        otherDistributionType("K"),
+                        "K",
                         fromDiff(12, 5)
                 ))
                 .decimalPlaces(0)
@@ -165,10 +161,9 @@ public class StudyFactory2023 extends StudyFactory {
         numberCat("O", "Bewertung Ausreichen der Zeit bei den Stationen in Rom")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .missingValue(-1d)
-                .distribution(distribution("O",
+                .distribution(randomSkewDistribution("O",
                         fromDiff(1, 0),
                         fromDiff(5, 0),
-                        randomDistributionType(),
                         fromDiff(2, 0.5)
                 ))
                 .decimalPlaces(0)
@@ -177,10 +172,9 @@ public class StudyFactory2023 extends StudyFactory {
         numberCat("P", "Bewertung Ausreichen der Zeit bei den Stationen in Berlin")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .missingValue(-1d)
-                .distribution(distribution("P",
+                .distribution(randomSkewDistribution("P",
                         fromDiff(1, 0),
                         fromDiff(5, 0),
-                        randomDistributionType(),
                         fromDiff(2, 0.5)
                 ))
                 .decimalPlaces(0)
@@ -189,10 +183,9 @@ public class StudyFactory2023 extends StudyFactory {
         numberCat("Q", "Bewertung Ausreichen der Zeit bei den Stationen in Paris")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .missingValue(-1d)
-                .distribution(distribution("Q",
+                .distribution(randomSkewDistribution("Q",
                         fromDiff(1, 0),
                         fromDiff(5, 0),
-                        randomDistributionType(),
                         fromDiff(2, 0.5)
                 ))
                 .decimalPlaces(0)
@@ -201,10 +194,10 @@ public class StudyFactory2023 extends StudyFactory {
         numberCat("R", "Bewertung des Essens in Rom")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .missingValue(-1d)
-                .distribution(distribution("R",
+                .distribution(otherSkewDistribution("R",
                         fromDiff(1, 0),
                         fromDiff(5, 0),
-                        otherDistributionType("O"),
+                        "O",
                         fromDiff(2, 0.5)
                 ))
                 .decimalPlaces(0)
@@ -213,10 +206,10 @@ public class StudyFactory2023 extends StudyFactory {
         numberCat("S", "Bewertung des Essens in Berlin")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .missingValue(-1d)
-                .distribution(distribution("S",
+                .distribution(otherSkewDistribution("S",
                         fromDiff(1, 0),
                         fromDiff(5, 0),
-                        otherDistributionType("P"),
+                        "P",
                         fromDiff(2, 0.5)
                 ))
                 .decimalPlaces(0)
@@ -225,10 +218,10 @@ public class StudyFactory2023 extends StudyFactory {
         numberCat("T", "Bewertung des Essens in Paris")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .missingValue(-1d)
-                .distribution(distribution("T",
+                .distribution(otherSkewDistribution("T",
                         fromDiff(1, 0),
                         fromDiff(5, 0),
-                        otherDistributionType("Q"),
+                        "Q",
                         fromDiff(2, 0.5)
                 ))
                 .decimalPlaces(0)

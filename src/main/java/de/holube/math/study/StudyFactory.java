@@ -1,7 +1,8 @@
 package de.holube.math.study;
 
 import de.holube.math.distribution.Distribution;
-import de.holube.math.distribution.MinMaxDistribution;
+import de.holube.math.distribution.Distributions;
+import de.holube.math.distribution.LeanedDistribution;
 import de.holube.math.study.category.CorrelationCategory;
 import de.holube.math.study.category.DistributionCategory;
 import de.holube.math.study.category.SelectionCategory;
@@ -10,18 +11,12 @@ import lombok.NonNull;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class StudyFactory {
 
     private final Map<String, Distribution> distributions = new ConcurrentHashMap<>();
 
     protected Study study;
-    // TODO move to distribution implementation
-    protected double distributionTypeFactor = 3;
-    protected double distributionLeft = -distributionTypeFactor;
-    protected double distributionCenter = 0;
-    protected double distributionRight = distributionTypeFactor;
 
     public abstract Study create();
 
@@ -29,33 +24,33 @@ public abstract class StudyFactory {
     // Distribution
     //######################################
 
-    protected double randomDistributionType() {
-        return ThreadLocalRandom.current().nextInt(3) * distributionTypeFactor;
-    }
-
-    protected double randomDistributionLeftRight() {
-        return ThreadLocalRandom.current().nextBoolean() ? distributionLeft : distributionRight;
-    }
-
-    protected double otherDistributionType(@NonNull String c) {
-        if (distributions.get(c) instanceof MinMaxDistribution minMaxDistribution) {
-            final double otherType = minMaxDistribution.getType();
-            if (otherType == 0) return randomDistributionLeftRight();
-            else if (otherType < 0) return distributionRight;
-            else return distributionLeft;
-        } else {
-            throw new IllegalArgumentException("Distribution is not a MinMaxDistribution!");
-        }
-    }
-
-    protected Distribution distribution(@NonNull String key, @NonNull Number min, @NonNull Number max, double type, @NonNull Number sd) {
-        Distribution distribution = new MinMaxDistribution(min.doubleValue(), max.doubleValue(), type, sd.doubleValue());
+    protected Distribution distribution(@NonNull String key, @NonNull Number min, @NonNull Number max, double pseudoSkew, @NonNull Number sd) {
+        Distribution distribution = new LeanedDistribution(min.doubleValue(), max.doubleValue(), pseudoSkew, sd.doubleValue());
         distributions.put(key, distribution);
         return distribution;
     }
 
-    protected Distribution getDistribution(@NonNull String key) {
-        return distributions.get(key);
+    protected Distribution randomSkewDistribution(@NonNull String key, @NonNull Number min, @NonNull Number max, @NonNull Number sd) {
+        Distribution distribution = Distributions.leanedRandomly(min.doubleValue(), max.doubleValue(), sd.doubleValue());
+        distributions.put(key, distribution);
+        return distribution;
+    }
+
+    protected Distribution otherSkewDistribution(@NonNull String key, @NonNull Number min, @NonNull Number max, String other, @NonNull Number sd) {
+        Distribution distribution;
+        if (distributions.get(other) instanceof LeanedDistribution leanedDistribution) {
+            final double otherSkew = leanedDistribution.getPseudoSkew();
+            if (otherSkew == 0)
+                distribution = Distributions.leanedRandomlyLeftRight(min.doubleValue(), max.doubleValue(), sd.doubleValue());
+            else if (otherSkew < 0)
+                distribution = Distributions.leanedRight(min.doubleValue(), max.doubleValue(), sd.doubleValue());
+            else
+                distribution = Distributions.leanedLeft(min.doubleValue(), max.doubleValue(), sd.doubleValue());
+        } else {
+            throw new IllegalArgumentException("Distribution is not a SkewedDistribution!");
+        }
+        distributions.put(key, distribution);
+        return distribution;
     }
 
     //######################################
