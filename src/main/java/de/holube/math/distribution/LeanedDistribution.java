@@ -19,9 +19,9 @@ public class LeanedDistribution extends BoundDistribution {
      * @param lowerBound lower bound for results
      * @param upperBound upper bound for results
      * @param pseudoSkew defines the mean relative to lowerBound and upperBound.
-     *                   1 -> first quarter
+     *                   0.5 -> first quarter
      *                   0 -> in the middle
-     *                   -1 -> third quarter
+     *                   -0.5 -> third quarter
      * @param sd         the standard deviation
      */
     public LeanedDistribution(double lowerBound, double upperBound, double pseudoSkew, double sd) {
@@ -34,9 +34,9 @@ public class LeanedDistribution extends BoundDistribution {
      * @param lowerBound lower bound for results
      * @param upperBound upper bound for results
      * @param pseudoSkew defines the mean relative to lowerBound and upperBound.
-     *                   1 -> first quarter
+     *                   0.5 -> first quarter
      *                   0 -> in the middle
-     *                   -1 -> third quarter
+     *                   -0.5 -> third quarter
      * @param sd         the standard deviation
      * @param random     the random object to use
      */
@@ -45,18 +45,18 @@ public class LeanedDistribution extends BoundDistribution {
         this.pseudoSkew = pseudoSkew;
     }
 
-    private static double createMeanFromPseudoSkew(double lowerBound, double upperBound, double type) {
+    private static double createMeanFromPseudoSkew(double lowerBound, double upperBound, double pseudoSkew) {
         double range = upperBound - lowerBound;
         double halfRange = range / 2.0;
         double middle = lowerBound + halfRange;
-        if (type == 0) {
+        if (pseudoSkew == 0) {
             return middle;
-        } else if (type > 0) {
-            double distanceToUpperBound = halfRange / (type - 1);
-            return lowerBound + distanceToUpperBound;
+        } else if (pseudoSkew > 0) {
+            double distanceToMiddle = halfRange * pseudoSkew;
+            return middle - distanceToMiddle;
         } else {
-            double distanceToUpperBound = halfRange / (type + 1);
-            return upperBound - distanceToUpperBound;
+            double distanceToMiddle = halfRange * -pseudoSkew;
+            return middle + distanceToMiddle;
         }
     }
 

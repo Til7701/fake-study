@@ -1,5 +1,6 @@
 package de.holube.math.distribution;
 
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -30,6 +31,7 @@ public class NormalDistribution implements Distribution {
      * @param random the random object to use
      */
     public NormalDistribution(double mean, double sd, Random random) {
+        Objects.requireNonNull(random, "random must not be null");
         this.mean = mean;
         this.sd = sd;
         this.random = random;
