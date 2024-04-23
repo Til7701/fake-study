@@ -6,10 +6,9 @@ import lombok.Getter;
 import lombok.NonNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class represents a Study.
@@ -20,11 +19,12 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Study {
 
     private final int amountSubjects;
-    private final Map<String, Category<?>> categories;
+    private final Map<String, Category<?>> categories = new HashMap<>();
 
     public Study(int amountSubjects) {
+        if (amountSubjects <= 0)
+            throw new IllegalArgumentException("amount of subjects must be greater than 0");
         this.amountSubjects = amountSubjects;
-        categories = new ConcurrentHashMap<>();
     }
 
     /**
@@ -35,7 +35,6 @@ public class Study {
      */
     public void calculate() throws CalculationException {
         List<String> keys = new ArrayList<>(categories.keySet());
-        for (String key : keys) Objects.requireNonNull(key, "Key is null: " + key);
         keys.sort(String::compareTo);
 
         for (String key : keys) {
@@ -63,4 +62,12 @@ public class Study {
         categories.put(key, category);
     }
 
+    /**
+     * Returns an unmodifiable copy of the categories in the study.
+     *
+     * @return the categories
+     */
+    public Map<String, Category<?>> getCategories() {
+        return Map.copyOf(categories);
+    }
 }
