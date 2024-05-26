@@ -1,15 +1,14 @@
 package de.holube.math.correlate;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-
 /**
- * This class provides instances for normal and inverted correlators.
+ * This class provides instances for positive and negative correlators.
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class Correlators {
 
-    public static final Correlator NORMAL_CORRELATOR = new NormalCorrelator();
-    public static final Correlator INVERTED_CORRELATOR = new InvertedCorrelator();
+    public static final PositiveCorrelator POSITIVE_CORRELATOR = new PositiveCorrelator();
+    public static final NegativeCorrelator NEGATIVE_CORRELATOR = new NegativeCorrelator();
+
+    private Correlators() {
+    }
 
 }

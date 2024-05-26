@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class InvertedCorrelatorTest {
+class NegativeCorrelatorTest {
 
-    InvertedCorrelator correlator = (InvertedCorrelator) Correlators.INVERTED_CORRELATOR;
+    NegativeCorrelator correlator = Correlators.NEGATIVE_CORRELATOR;
 
     @Test
     void correlateNonInvertedTest() {

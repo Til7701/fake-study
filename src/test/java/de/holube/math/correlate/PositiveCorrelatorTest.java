@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class NormalCorrelatorTest {
+class PositiveCorrelatorTest {
 
-    NormalCorrelator correlator = (NormalCorrelator) Correlators.NORMAL_CORRELATOR;
+    PositiveCorrelator correlator = Correlators.POSITIVE_CORRELATOR;
 
     @Test
     void correlateNonNormalTest() {

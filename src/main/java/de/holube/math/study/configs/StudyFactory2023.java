@@ -53,7 +53,7 @@ public class StudyFactory2023 extends StudyFactory {
         correlationCat("E", "Lesegeschwindigkeit", "D")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .missingValue(-1d)
-                .correlator(Correlators.NORMAL_CORRELATOR)
+                .correlator(Correlators.POSITIVE_CORRELATOR)
                 .min(10)
                 .max(1000)
                 .distribution(distribution("E",

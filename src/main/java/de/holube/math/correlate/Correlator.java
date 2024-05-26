@@ -10,9 +10,9 @@ public interface Correlator {
     /**
      * Behaviour should be defined by implementations.
      *
-     * @see NormalCorrelator
-     * @see InvertedCorrelator
+     * @see PositiveCorrelator#correlate
+     * @see NegativeCorrelator#correlate
      */
-    double correlate(double firstMin, double firstMax, double value, double secondMin, double secondMax);
+    double correlate(double sourceMin, double sourceMax, double value, double targetMin, double targetMax);
 
 }
