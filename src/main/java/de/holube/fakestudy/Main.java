@@ -1,6 +1,6 @@
 package de.holube.fakestudy;
 
-import de.holube.fakestudy.configs.StudyFactory2023;
+import de.holube.fakestudy.configs.StudyFactory2024;
 import de.holube.fakestudy.io.StudyExcelSaver;
 import de.holube.fakestudy.io.StudyPlotSaver;
 import de.holube.fakestudy.study.Study;
@@ -24,7 +24,7 @@ public class Main {
         File file = new File(EXPORT_FOLDER);
         LOG.debug(String.valueOf(file.mkdir()));
 
-        final StudyFactoryFactory studyFactoryFactory = StudyFactory2023::new;
+        final StudyFactoryFactory studyFactoryFactory = StudyFactory2024::new;
 
         LOG.info("Creating Tasks");
         final List<Callable<Void>> tasks = createTasks(studyFactoryFactory);
