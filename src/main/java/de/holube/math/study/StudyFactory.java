@@ -42,10 +42,8 @@ public abstract class StudyFactory {
             final double otherSkew = leanedDistribution.getPseudoSkew();
             if (otherSkew == 0)
                 distribution = Distributions.leanedRandomlyLeftRight(min.doubleValue(), max.doubleValue(), sd.doubleValue());
-            else if (otherSkew < 0)
-                distribution = Distributions.leanedRight(min.doubleValue(), max.doubleValue(), sd.doubleValue());
             else
-                distribution = Distributions.leanedLeft(min.doubleValue(), max.doubleValue(), sd.doubleValue());
+                distribution = new LeanedDistribution(min.doubleValue(), max.doubleValue(), 0, sd.doubleValue());
         } else {
             throw new IllegalArgumentException("Distribution is not a SkewedDistribution!");
         }
