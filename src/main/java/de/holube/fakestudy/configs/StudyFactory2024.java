@@ -21,8 +21,8 @@ public class StudyFactory2024 extends StudyFactory {
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .missingValue("u")
                 .selection("m", "w")
-                .min(40)
-                .max(60)
+                .min(115)
+                .max(135)
                 .build();
 
         numberCat("C", "Alter")
@@ -64,28 +64,28 @@ public class StudyFactory2024 extends StudyFactory {
                 .decimalPlaces(0)
                 .build();
 
-        selectionCat("F", "Farbe des Bildschirmhintergrundes")
+        selectionCat("F", "Bildungsabschluss")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .missingValue("u")
-                .selection("w", "s", "b", "r", "g")
-                .min(5)
-                .max(40)
+                .selection("K", "O", "B", "G", "S")
+                .min(10)
+                .max(100)
                 .build();
 
         selectionCat("G", "Muttersprache")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .missingValue("u")
                 .selection("D", "F", "E", "T", "S", "A")
-                .min(5)
-                .max(40)
+                .min(10)
+                .max(100)
                 .build();
 
         selectionCat("H", "Kopfhörer")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .missingValue("u")
                 .selection("S", "J", "O", "A")
-                .min(5)
-                .max(40)
+                .min(10)
+                .max(100)
                 .build();
 
         numberCat("I", "VRT bei ISTS")
