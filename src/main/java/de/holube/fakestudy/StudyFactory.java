@@ -39,7 +39,7 @@ public abstract class StudyFactory {
     //######################################
 
     protected double randomDistributionType() {
-        return ThreadLocalRandom.current().nextInt(3) * distributionTypeFactor;
+        return (ThreadLocalRandom.current().nextInt(3) - 1) * distributionTypeFactor;
     }
 
     protected double randomDistributionLeftRight() {
@@ -49,8 +49,7 @@ public abstract class StudyFactory {
     protected double otherDistributionType(@NonNull String c) {
         final double otherType = distributions.get(c).getType();
         if (otherType == 0) return randomDistributionLeftRight();
-        else if (otherType < 0) return distributionRight;
-        else return distributionLeft;
+        else return 0;
     }
 
     protected Distribution distribution(@NonNull String key, @NonNull Number min, @NonNull Number max, double type, @NonNull Number sd) {

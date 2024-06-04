@@ -32,7 +32,7 @@ public class StudyFactory2024 extends StudyFactory {
                         fromDiff(23, 5),
                         fromDiff(70, 7),
                         randomDistributionType(),
-                        fromDiff(20, 5)
+                        fromDiff(15, 2)
                 ))
                 .decimalPlaces(0)
                 .build();
@@ -44,12 +44,12 @@ public class StudyFactory2024 extends StudyFactory {
                         fromDiff(100, 40),
                         fromDiff(900, 100),
                         otherDistributionType("C"),
-                        fromDiff(300, 100)
+                        fromDiff(220, 50)
                 ))
                 .decimalPlaces(1)
                 .build();
 
-        correlationCat("E", "Hörverlust als PTA4 (in dB HL)", "D")
+        correlationCat("E", "Hörverlust als PTA4", "C")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .missingValue(-999d)
                 .correlator(Correlators.NORMAL_CORRELATOR)
@@ -100,7 +100,7 @@ public class StudyFactory2024 extends StudyFactory {
                 .decimalPlaces(0)
                 .build();
 
-        numberCat("J", "VRT bei ICRA5")
+        numberCat("J", "VRT bei ICRA")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .missingValue(-1d)
                 .distribution(distribution("J",
@@ -112,7 +112,7 @@ public class StudyFactory2024 extends StudyFactory {
                 .decimalPlaces(0)
                 .build();
 
-        numberCat("K", "VRT bei ICRA5")
+        numberCat("K", "VRT bei MAND")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
                 .missingValue(-1d)
                 .distribution(distribution("K",
