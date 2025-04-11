@@ -88,38 +88,38 @@ public class StudyFactory2025 extends StudyFactory {
                 .max(100)
                 .build();
 
-        numberCat("I", "Preis einer Eiskugel bei BAR (Einheit Euro)")
+        numberCat("I", "Temperatur des Eises bei BAR (Einheit °C)")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
-                .missingValue(-1d)
+                .missingValue(999d)
                 .distribution(distribution("I",
-                        fromDiff(1, 0.9),
-                        fromDiff(4, 1),
+                        fromDiff(-16, 2),
+                        fromDiff(-8, 2),
                         randomDistributionType(),
-                        fromDiff(1, 0.5)
+                        fromDiff(2, 0.5)
                 ))
                 .decimalPlaces(1)
                 .build();
 
-        numberCat("J", "Preis einer Eiskugel bei MANU (Einheit Euro)")
+        numberCat("J", "Temperatur des Eises bei MANU (Einheit °C)")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
-                .missingValue(-1d)
+                .missingValue(999d)
                 .distribution(distribution("J",
-                        fromDiff(1, 0.9),
-                        fromDiff(4, 1),
+                        fromDiff(-16, 2),
+                        fromDiff(-8, 2),
                         randomDistributionType(),
-                        fromDiff(1, 0.5)
+                        fromDiff(2, 0.5)
                 ))
                 .decimalPlaces(1)
                 .build();
 
-        numberCat("K", "Preis einer Eiskugel bei CAFE (Einheit Euro)")
+        numberCat("K", "Temperatur des Eises bei CAFE (Einheit °C)")
                 .missingPercentage(fromDiff(defaultMissingBase, defaultMissingDiff).doubleValue())
-                .missingValue(-1d)
+                .missingValue(999d)
                 .distribution(distribution("K",
-                        fromDiff(1, 0.9),
-                        fromDiff(4, 1),
+                        fromDiff(-16, 2),
+                        fromDiff(-8, 2),
                         randomDistributionType(),
-                        fromDiff(1, 0.5)
+                        fromDiff(2, 0.5)
                 ))
                 .decimalPlaces(1)
                 .build();
