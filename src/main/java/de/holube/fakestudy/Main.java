@@ -1,6 +1,6 @@
 package de.holube.fakestudy;
 
-import de.holube.fakestudy.configs.StudyFactory2023;
+import de.holube.fakestudy.configs.StudyFactory2025;
 import de.holube.fakestudy.io.StudyExcelSaver;
 import de.holube.fakestudy.io.StudyPlotSaver;
 import de.holube.fakestudy.study.Study;
@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 public class Main {
 
-    private static final int AMOUNT = 30;
+    private static final int AMOUNT = 15;
     private static final String EXPORT_FOLDER = "./study-export/";
 
     public static void main(String[] args) throws InterruptedException {
@@ -24,7 +24,7 @@ public class Main {
         File file = new File(EXPORT_FOLDER);
         LOG.debug(String.valueOf(file.mkdir()));
 
-        final StudyFactoryFactory studyFactoryFactory = StudyFactory2023::new;
+        final StudyFactoryFactory studyFactoryFactory = StudyFactory2025::new;
 
         LOG.info("Creating Tasks");
         final List<Callable<Void>> tasks = createTasks(studyFactoryFactory);
