@@ -15,7 +15,7 @@
         <lombok.version>1.18.38</lombok.version>
         <junit.version>5.10.1</junit.version>
         <mockito.version>5.10.0</mockito.version>
-        <log4j.version>2.22.1</log4j.version>
+        <log4j.version>2.25.3</log4j.version>
 
         <!-- build -->
         <maven.compiler.source>24</maven.compiler.source>
@@ -31,7 +31,7 @@
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>5.2.5</version>
+            <version>5.5.1</version>
         </dependency>
         <dependency>
             <groupId>org.knowm.xchart</groupId>
