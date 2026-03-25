@@ -20,7 +20,7 @@
         <!-- build -->
         <maven.compiler.release>25</maven.compiler.release>
 
-        <compiler.maven.plugin.version>3.12.1</compiler.maven.plugin.version>
+        <compiler.maven.plugin.version>3.15.0</compiler.maven.plugin.version>
     </properties>
 
     <dependencies>
